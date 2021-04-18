@@ -11,13 +11,13 @@ export default class Footer extends Component {
         <div className="row justify-content-between align-items-center">
           <div className="col-lg-8">
             <div className="footer_menu">
-              <div className="footer_logo">
+            {/*  <div className="footer_logo">
                 <a href="index.html"><img src="img/logo.png" alt="#" /></a>
-              </div>
+              </div> */}
               <div className="footer_menu_item">
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
-                <a href="product_list.html">Products</a>
+                <a href="product_list.html">Services</a>
                 <a href="#">Pages</a>
                 <a href="blog.html">Blog</a>
                 <a href="contact.html">Contact</a>
@@ -41,7 +41,7 @@ export default class Footer extends Component {
           <div className="col-lg-12">
             <div className="copyright_text">
               <p>{/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                Copyright © All rights reserved | This template is made with <i className="ti-heart" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank">Colorlib</a>.Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
+                Copyright © All rights reserved 
                 {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}</p>
               <div className="copyright_link">
                 <a href="#">Turms &amp; Conditions</a>
