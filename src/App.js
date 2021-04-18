@@ -16,6 +16,8 @@ import Navbar from './components/navbar/Navbar';
 
 import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
+import Profile from './components/Profile';
+import LoginForm from './components/LoginForm';
 
 const App = () => {
 	const [currentId, setCurrentId] = useState(null);
@@ -42,6 +44,8 @@ const App = () => {
 				<Route path='/LoginForm'>
 					<Login />
 				</Route>
+				<Route path='/profile' exact component={Profile} />
+				<Route path='/login' exact component={LoginForm} />
 			</Switch>
 			<Footer />
 		</Router>
