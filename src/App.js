@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 
-
-import Footer from './components/Footer';
+import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
 
 export default function App() {
