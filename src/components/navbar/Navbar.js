@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { IconContext } from 'react-icons';
+import './nav.css';
 import { FaRegNewspaper } from 'react-icons/fa';
+import Badge from '@material-ui/core/Badge';
 import {
 	HiOutlineHome,
 	HiOutlineNewspaper,
@@ -19,7 +21,38 @@ import { ImProfile } from 'react-icons/im';
 import { FaHome } from 'react-icons/fa';
 import { IoNewspaperSharp } from 'react-icons/io5';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { IoPersonCircle, IoMail, IoSettings, IoLogOut } from 'react-icons/io5';
+import Divider from '@material-ui/core/Divider';
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		display: 'flex',
+		'& > *': {
+			margin: theme.spacing(1),
+		},
+	},
+	orange: {
+		color: theme.palette.getContrastText(deepOrange[500]),
+		backgroundColor: deepOrange[500],
+	},
+	purple: {
+		color: theme.palette.getContrastText(deepPurple[500]),
+		backgroundColor: deepPurple[500],
+	},
+	small: {
+		width: theme.spacing(4),
+		height: theme.spacing(4),
+	},
+}));
+
 export default function Navbar() {
+	const classes = useStyles();
+
+	const [invisible, setInvisible] = React.useState(false);
+
 	return (
 		<div>
 			<header className='main_menu home_menu'>
@@ -165,9 +198,69 @@ export default function Navbar() {
 										<a id='search_1' href='javascript:void(0)'>
 											<i className='ti-search' />
 										</a>
-										<a href='cart.html'>
-											<i className='flaticon-shopping-cart-black-shape' />
-										</a>
+										<div className='navbar-nav'>
+											<div className='nav-item dropdown'>
+												<NavLink
+													className='nav-link '
+													to='/profile'
+													id='navbarDropdown_2'
+													role='button'
+													data-toggle='dropdown'
+													aria-haspopup='true'
+													aria-expanded='false'
+													activeStyle={{
+														color: '#795376 ',
+														borderBottom: '3px solid #795376',
+													}}
+												>
+													<Badge
+														color='secondary'
+														variant='dot'
+														invisible={invisible}
+													>
+														<Avatar
+															className={(classes.purple, classes.small)}
+														></Avatar>
+													</Badge>
+												</NavLink>
+												<div
+													className='dropdown-menu'
+													aria-labelledby='navbarDropdown_2'
+												>
+													<NavLink
+														className='dropdown-item'
+														exact
+														to='/profile'
+													>
+														{' '}
+														<IoPersonCircle /> Profile
+													</NavLink>
+													<Divider />
+													<NavLink className='dropdown-item' to='/message'>
+														<Badge
+															color='secondary'
+															anchorOrigin={{
+																vertical: 'top',
+																horizontal: 'left',
+															}}
+															badgeContent={7}
+															max={99}
+														>
+															<IoMail />
+														</Badge>{' '}
+														Messages
+													</NavLink>
+													<Divider />
+													<NavLink className='dropdown-item' to='/settings'>
+														<IoSettings /> Settings
+													</NavLink>
+													<Divider />
+													<NavLink className='dropdown-item red' to='/LogOut'>
+														<IoLogOut /> Log Out
+													</NavLink>
+												</div>
+											</div>
+										</div>
 									</div>
 								</nav>
 							</div>
