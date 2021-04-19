@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect} from 'react';
 import { IconContext } from 'react-icons';
 import './nav.css';
 import { FaRegNewspaper } from 'react-icons/fa';
 import Badge from '@material-ui/core/Badge';
+import decode from 'jwt-decode';
 import {
 	HiOutlineHome,
 	HiOutlineNewspaper,
 	HiOutlineSpeakerphone,
 	HiOutlinePhone,
+	HiOutlineLogin,
 } from 'react-icons/hi';
 import { IoMegaphoneOutline } from 'react-icons/io5';
 import {
@@ -16,6 +18,8 @@ import {
 	Route,
 	Link,
 	NavLink,
+	useHistory,
+	useLocation,
 } from 'react-router-dom';
 import { ImProfile } from 'react-icons/im';
 import { FaHome } from 'react-icons/fa';
@@ -24,8 +28,10 @@ import { IoNewspaperSharp } from 'react-icons/io5';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import { IoPersonCircle, IoMail, IoSettings, IoLogOut } from 'react-icons/io5';
+import { IoPersonCircle, IoMail, IoSettings, IoLogOut , IoLogInOutline } from 'react-icons/io5';
 import Divider from '@material-ui/core/Divider';
+import { useDispatch } from 'react-redux';
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -50,8 +56,33 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
 	const classes = useStyles();
-
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	const [invisible, setInvisible] = React.useState(false);
+	const dispatch = useDispatch();
+	const history=useHistory();
+	const location= useLocation();
+
+	useEffect(()=>
+	{
+		const token=user?.token;
+		if (token)
+		{
+			const decodedToken = decode(token); 
+			if(decodedToken.exp * 1000  < new Date().getTime())
+			{
+				logout();
+			}
+		}
+		setUser(JSON.parse(localStorage.getItem('profile')));
+	},[location]);
+
+	
+	const logout=()=>
+	{
+		dispatch({type:'LOGOUT'});
+		history.push("/"); 
+		setUser(null);
+	};
 
 	return (
 		<div>
@@ -198,7 +229,8 @@ export default function Navbar() {
 										<a id='search_1' href='javascript:void(0)'>
 											<i className='ti-search' />
 										</a>
-										<div className='navbar-nav'>
+										{user ?(
+											<div className='navbar-nav'>
 											<div className='nav-item dropdown'>
 												<NavLink
 													className='nav-link '
@@ -255,12 +287,25 @@ export default function Navbar() {
 														<IoSettings /> Settings
 													</NavLink>
 													<Divider />
-													<NavLink className='dropdown-item red' to='/LogOut'>
+													<NavLink className='dropdown-item red' to='/loginForm' onClick={logout}>
 														<IoLogOut /> Log Out
 													</NavLink>
 												</div>
 											</div>
 										</div>
+										) : (
+											<NavLink
+												className='nav-link'
+												to='/loginform'
+												exact
+												activeStyle={{
+													color: '#795376 ',
+													borderBottom: '3px solid #795376',
+												}}
+												>
+												<HiOutlineLogin/> logIn
+											</NavLink>
+										) }
 									</div>
 								</nav>
 							</div>

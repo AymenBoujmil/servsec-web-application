@@ -2,14 +2,19 @@ import React, { useState , useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser, updateUser } from '../../actions/users';
 import { useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const UserForm =({ currentId , setCurrentId}) => {
 
+  const history=useHistory();
+
   const [userData, setUserData] = useState({
     firstname:'',
-    name:'',
+    lastname:'',
+    password:'',
     phone:'',
     email:'',
+    confirmPassword:'',
   })
   const user = useSelector(state => currentId? state.users.find((p)=> p._id===currentId) : null);
   const dispatch = useDispatch();
@@ -27,7 +32,8 @@ const UserForm =({ currentId , setCurrentId}) => {
         dispatch(updateUser(currentId,userData));
       }else
       {
-        dispatch(createUser(userData));
+        dispatch(createUser(userData,history));
+        history.push('/users2');
       }
       clear();
   }
@@ -36,9 +42,11 @@ const UserForm =({ currentId , setCurrentId}) => {
       setCurrentId(null);
       setUserData({
         firstname:'',
-        name:'',
+        lastname:'',
+        password:'',
         phone:'',
         email:'',
+        confirmPassword:'',
       });
   }
         return (
@@ -65,11 +73,11 @@ const UserForm =({ currentId , setCurrentId}) => {
               <h3>Welcome  ! <br />  Please { currentId ? 'Edit' :'Sign Up' }  now</h3>
               <form className="row contact_form" onSubmit={handlesubmit} noValidate="novalidate">
                 <div style={{display:'flex',flexDirection:'row'}}>        
-                    <div className="col-md-12 form-group p_star">
+                    <div className="col-md-6 form-group p_star">
                      <input type="text" className="form-control" id="firstname"   placeholder="First name" value={userData.firstname} onChange={(e)=>setUserData({...userData,firstname:e.target.value})} />
                     </div>
-                    <div className="col-md-10 form-group p_star">
-                     <input type="text" className="form-control" id="name"   placeholder="name" value={userData.name} onChange={(e)=>setUserData({...userData,name:e.target.value})}/>
+                    <div className="col-md-6 form-group p_star">
+                     <input type="text" className="form-control" id="name"   placeholder="lastname" value={userData.lastname} onChange={(e)=>setUserData({...userData,lastname:e.target.value})}/>
                     </div>
                 </div>
                 <div className="col-md-12 form-group p_star">
@@ -77,6 +85,12 @@ const UserForm =({ currentId , setCurrentId}) => {
                 </div>
                 <div className="col-md-12 form-group p_star">
                   <input type="number" className="form-control" id="phone" placeholder="phone number" value={userData.phone} onChange={(e)=>setUserData({...userData,phone:e.target.value})} />
+                </div>
+                <div className="col-md-12 form-group p_star">
+                <input type="password" className="form-control" id="password" placeholder="password" value={userData.password} onChange={(e)=>setUserData({...userData,password:e.target.value})} />
+                </div>
+                <div className="col-md-12 form-group p_star">
+                <input type="password" className="form-control" id="confirmPassword" placeholder="confirm Password" value={userData.confirmPassword} onChange={(e)=>setUserData({...userData,confirmPassword:e.target.value})} />
                 </div>
                 <div className="col-md-12 form-group">
                   <button type="submit" value="submit" className="btn_3">
