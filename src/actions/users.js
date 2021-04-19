@@ -1,5 +1,5 @@
 import * as api from '../api/index.js';
-import {CREATE , UPDATE , FETCH_ALL , DELETE} from '../_constants/actionTypes';
+import {CREATE , UPDATE , FETCH_ALL , DELETE, AUTH} from '../_constants/actionTypes';
 
 export const getUsers=() => async (dispatch) =>
 {
@@ -12,11 +12,13 @@ export const getUsers=() => async (dispatch) =>
 
 }
 
-export const createUser = (user) => async (dispatch) =>
+export const createUser = (formData,history) => async (dispatch) =>
 {
     try {
-        const { data } = await api.createUser(user);
+        const { data } = await api.createUser(formData);
+        dispatch({ type : AUTH,data});
         dispatch({ type : CREATE , payload : data});
+        history.push('/');
     } catch (error) {
         console.log(error);
     }
