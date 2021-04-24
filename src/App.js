@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Footer from './components/Footer';
-import Main from './components/Main';
 import AboutUs from './pages/AboutUs';
 import Login from './components/Forms/Login';
 import { useDispatch } from 'react-redux';
@@ -18,6 +16,8 @@ import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
 import Profile from './components/Profile';
 import LoginForm from './components/LoginForm';
+import ServiceList from './components/ServiceList';
+import { getServices } from './actions/services';
 
 const App = () => {
 	const [currentId, setCurrentId] = useState(null);
@@ -46,6 +46,7 @@ const App = () => {
 				</Route>
 				<Route path='/profile' exact component={Profile} />
 				<Route path='/login' exact component={LoginForm} />
+				<Route path='/ServiceList' exact component={ServiceList} />
 			</Switch>
 			<Footer />
 		</Router>

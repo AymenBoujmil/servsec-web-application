@@ -1,3 +1,4 @@
 import { combineReducers } from 'redux';
 import users from './users'
-export default combineReducers({ users });
+import services from './services'
+export default combineReducers({ users,services });

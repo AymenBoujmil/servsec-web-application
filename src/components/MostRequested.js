@@ -1,6 +1,8 @@
+import { Grid } from "@material-ui/core";
 import React,{useState} from "react";
 import {Carousel} from "react-bootstrap";
 import '../assets/styleCarousel.css'
+import ServiceItem from './ServiceItem'
 
 function MostRequested() {
   const [index, setIndex] = useState(0);
@@ -12,7 +14,7 @@ function MostRequested() {
   return (  
     <> 
     <div className="row title" style={{marginBottom: "20px"}} >      
-    <div class="col-sm-12 btn btn-info">      
+    <div class="col-sm-12 btn ">      
       <h1>Check out these services!</h1>
     </div>      
     </div>
@@ -55,6 +57,7 @@ function MostRequested() {
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+
     </>
   );
 }
