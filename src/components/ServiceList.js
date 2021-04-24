@@ -6,9 +6,8 @@ import {useSelector,useDispatch} from 'react-redux';
 import { getServices } from "../actions/services";
 
 function ServiceList() {
-    const dispatch = useDispatch()
     const services = useSelector(state => state.services);
-    dispatch(getServices());
+    console.log(services);
   return (
     <div>
       <MostRequested />

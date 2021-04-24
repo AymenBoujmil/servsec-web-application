@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AboutUs from './pages/AboutUs';
-import Login from './components/authentification/Login';
 import { useDispatch } from 'react-redux';
 import { getUsers } from './actions/users';
 import Users from './components/Users/Users';
@@ -12,7 +11,7 @@ import Navbar from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
 import Profile from './components/Profile';
-import LoginForm from './components/LoginForm';
+import Login from './components/authentification/Login';
 import ServiceList from './components/ServiceList';
 import { getServices } from './actions/services';
 
@@ -21,6 +20,7 @@ const App = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getUsers());
+		dispatch(getServices());
 	}, [dispatch]);
 
 	return (
@@ -42,7 +42,7 @@ const App = () => {
 					<Login />
 				</Route>
 				<Route path='/profile' exact component={Profile} />
-				<Route path='/login' exact component={LoginForm} />
+				<Route path='/login' exact component={Login} />
 				<Route path='/ServiceList' exact component={ServiceList} />
 			</Switch>
 			<Footer />

@@ -44,13 +44,13 @@ const ServiceItem = (props) => {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.sector}
+                  {props.service.sector}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   Full Stack Developer
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  {props.description}
+                  {props.service.description}
                 </Typography>
               </Grid>
               <Grid item>
@@ -60,7 +60,7 @@ const ServiceItem = (props) => {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">{props.price}</Typography>
+              <Typography variant="subtitle1">{props.service.price} DT</Typography>
             </Grid>
           </Grid>
         </Grid>
