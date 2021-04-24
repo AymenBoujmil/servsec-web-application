@@ -87,7 +87,7 @@ function descendingComparator(a, b, orderBy) {
   
   const headCells = [
      // { id: 'id', numeric: true, disablePadding: false, label: 'Id' },
-      { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
+      { id: 'lastname', numeric: false, disablePadding: false, label: 'Name' },
       { id: 'firstname', numeric: false, disablePadding: false, label: 'First Name' },
       { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
       { id: 'phone', numeric: true, disablePadding: false, label: 'Phone N°' },
@@ -361,7 +361,7 @@ function descendingComparator(a, b, orderBy) {
     //const isSelected = (name) => selected.indexOf(name) !== -1;
   
     // for mono select
-    const isSelected = (id) => selected == id;
+    const isSelected = (id) => selected === id;
   
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   
@@ -413,7 +413,7 @@ function descendingComparator(a, b, orderBy) {
                           />
                         </TableCell>
                         <TableCell component="th" id={labelId} scope="row" align="center" >
-                          {row.name}
+                          {row.lastname}
                         </TableCell>
                         <TableCell align="center">{row.firstname}</TableCell>
                         <TableCell align="center">{row.email}</TableCell>

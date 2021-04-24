@@ -1,6 +1,8 @@
 import React from "react";
 
 function Profile() {
+  const user=JSON.parse(localStorage.getItem('profile'));
+  console.log(user?.result?.email);
   return (
     <>
       <link
