@@ -94,7 +94,8 @@ function descendingComparator(a, b, orderBy) {
     ];
   
   function EnhancedTableHead(props) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+   // const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props; //use for mutli
+   const { classes, order, orderBy, onRequestSort } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };

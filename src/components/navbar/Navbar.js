@@ -99,7 +99,7 @@ export default function Navbar() {
 								<nav className='navbar navbar-expand-lg navbar-light'>
 									<NavLink className='navbar-brand' to='/' exact>
 										{' '}
-										<img src='img/logo.png' alt='logo' />{' '}
+										{/*<img src='img/logo.png' alt='logo' />{' '}*/}
 									</NavLink>
 									<button
 										className='navbar-toggler'
@@ -135,7 +135,7 @@ export default function Navbar() {
 											<li className='nav-item'>
 												<NavLink
 													className='nav-link'
-													to='/about'
+													to='/AboutUs'
 													exact
 													activeStyle={{
 														color: '#795376 ',
@@ -287,7 +287,7 @@ export default function Navbar() {
 														<IoSettings /> Settings
 													</NavLink>
 													<Divider />
-													<NavLink className='dropdown-item red' to='/loginForm' onClick={logout}>
+													<NavLink className='dropdown-item red' to='/login' onClick={logout}>
 														<IoLogOut /> Log Out
 													</NavLink>
 												</div>
@@ -296,7 +296,7 @@ export default function Navbar() {
 										) : (
 											<NavLink
 												className='nav-link'
-												to='/loginform'
+												to='/login'
 												exact
 												activeStyle={{
 													color: '#795376 ',

@@ -3,11 +3,10 @@ import AboutUs from './pages/AboutUs';
 import Login from './components/authentification/Login';
 import { useDispatch } from 'react-redux';
 import { getUsers } from './actions/users';
-import Users from './components/Users/Users';
 import Users2 from './components/Users/Users2';
 import UserForm from './components/Forms/UserForm';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
@@ -17,6 +16,7 @@ import LoginForm from './components/LoginForm';
 const App = () => {
 	const [currentId, setCurrentId] = useState(null);
 	const dispatch = useDispatch();
+	const user=JSON.parse(localStorage.getItem('profile'));
 	useEffect(() => {
 		dispatch(getUsers());
 	}, [dispatch]);
@@ -29,18 +29,19 @@ const App = () => {
 				<Route path='/Aboutus'>
 					<AboutUs />
 				</Route>
-				<Route path='/Users2'>
-					<Users2 setCurrentId={setCurrentId} />
-					<UserForm currentId={currentId} setCurrentId={setCurrentId} />
-				</Route>
-				<Route path='/UserForm'>
-					<UserForm currentId={currentId} setCurrentId={setCurrentId} />
-				</Route>
-				<Route path='/LoginForm'>
-					<Login />
+				<Route path='/Admin'>
+					{user ? (
+						<div>
+							<Users2 setCurrentId={setCurrentId} />
+							<UserForm currentId={currentId} setCurrentId={setCurrentId} />
+						</div>
+					) : (
+						<Login/>
+					) }	
+					
 				</Route>
 				<Route path='/profile' exact component={Profile} />
-				<Route path='/login' exact component={LoginForm} />
+				<Route path='/login' exact component={Login} />
 			</Switch>
 			<Footer />
 		</Router>

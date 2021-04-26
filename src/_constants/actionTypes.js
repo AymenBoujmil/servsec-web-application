@@ -7,3 +7,5 @@ export const FETCH_ALL='FETCH_ALL';
 //Authentification 
 export const LOGOUT='LOGOUT';
 export const AUTH='AUTH';
+
+//Messages 

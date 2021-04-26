@@ -78,20 +78,20 @@ export const Footer = () => {
 									<h6>Contact</h6>
 									<ul>
 										<li>
-											<div className='row'>
+											<div style={{display:'flex',flexDirection:'row'}}>
 												{/* <i class={MdEmail} style={contactStyle}></i>{' '} */}
 												<MdPinDrop></MdPinDrop>
 												<p>676 INSAT Centre Urbain Nord BP، Tunis Cedex 1080</p>
 											</div>
 										</li>
 										<li>
-											<div className='row'>
+											<div style={{display:'flex',flexDirection:'row'}}>
 												<MdPhone></MdPhone>
 												<p>99-999-999</p>
 											</div>
 										</li>
 										<li>
-											<div className='row'>
+											<div style={{display:'flex',flexDirection:'row'}}>
 												<MdEmail></MdEmail>
 
 												<p>hello@youremail.com</p>
