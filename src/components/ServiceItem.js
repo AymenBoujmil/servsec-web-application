@@ -7,7 +7,9 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    width:"95%",
     flexGrow: 1,
+    boxShadow:"0 4px 8px 0 rgba(0,0,0,0.2)"
   },
   paper: {
     padding: theme.spacing(2),
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ServiceItem() {
+const ServiceItem = (props) => {
   const classes = useStyles();
 
   return (
@@ -42,13 +44,13 @@ export default function ServiceItem() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  John Doe
+                  {props.service.sector}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   Full Stack Developer
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  5 years Experience
+                  {props.service.description}
                 </Typography>
               </Grid>
               <Grid item>
@@ -58,7 +60,7 @@ export default function ServiceItem() {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">$19.00</Typography>
+              <Typography variant="subtitle1">{props.service.price} DT</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -66,3 +68,4 @@ export default function ServiceItem() {
     </div>
   );
 }
+export default ServiceItem;

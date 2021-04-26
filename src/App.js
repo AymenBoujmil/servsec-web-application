@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AboutUs from './pages/AboutUs';
-import Login from './components/authentification/Login';
 import { useDispatch } from 'react-redux';
 import { getUsers } from './actions/users';
 import Users2 from './components/Users/Users2';
@@ -11,7 +10,9 @@ import Navbar from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
 import Profile from './components/Profile';
-import LoginForm from './components/LoginForm';
+import Login from './components/authentification/Login';
+import ServiceList from './components/ServiceList';
+import { getServices } from './actions/services';
 
 const App = () => {
 	const [currentId, setCurrentId] = useState(null);
@@ -19,6 +20,7 @@ const App = () => {
 	const user=JSON.parse(localStorage.getItem('profile'));
 	useEffect(() => {
 		dispatch(getUsers());
+		dispatch(getServices());
 	}, [dispatch]);
 
 	return (
@@ -42,6 +44,7 @@ const App = () => {
 				</Route>
 				<Route path='/profile' exact component={Profile} />
 				<Route path='/login' exact component={Login} />
+				<Route path='/ServiceList' exact component={ServiceList} />
 			</Switch>
 			<Footer />
 		</Router>
