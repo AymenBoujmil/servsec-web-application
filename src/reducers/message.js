@@ -1,10 +1,11 @@
+import { DELETEMESSAGE, ERROR } from "../_constants/actionTypes";
 
 const messagesReducer= (message=null, action)=>{
     
     switch (action.type) {
-        case "ERROR":
+        case ERROR:
             return {type:"ERROR",message:action.payload};
-        case "DELETEMESSAGE":
+        case DELETEMESSAGE:
             return null;
         default:
             return message;

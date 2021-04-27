@@ -168,7 +168,7 @@ export default function Navbar() {
 												>
 													<NavLink
 														className='dropdown-item'
-														to='/Services/Listes'
+														to='/Servicelist'
 													>
 														{' '}
 														Services List

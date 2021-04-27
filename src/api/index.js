@@ -17,4 +17,4 @@ export const deleteUser = (id) => API.delete(`/users/${id}`);
 export const createUser = (newUser) =>API.post('/users',newUser);
 export const signin =(formData)=> API.post('/users/signin',formData);
 
-export const fetchServices = ()=> API.get('/ServiceList');
+export const fetchServices = ()=> API.get('/Services');

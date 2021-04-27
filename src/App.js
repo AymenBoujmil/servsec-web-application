@@ -5,7 +5,7 @@ import { getUsers } from './actions/users';
 import Users2 from './components/Users/Users2';
 import UserForm from './components/Forms/UserForm';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useLocation} from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
@@ -17,11 +17,14 @@ import { getServices } from './actions/services';
 const App = () => {
 	const [currentId, setCurrentId] = useState(null);
 	const dispatch = useDispatch();
+
 	const user=JSON.parse(localStorage.getItem('profile'));
+
 	useEffect(() => {
 		dispatch(getUsers());
 		dispatch(getServices());
 	}, [dispatch]);
+
 
 	return (
 		<Router>
@@ -44,7 +47,7 @@ const App = () => {
 				</Route>
 				<Route path='/profile' exact component={Profile} />
 				<Route path='/login' exact component={Login} />
-				<Route path='/ServiceList' exact component={ServiceList} />
+				<Route path='/ServiceList'  exact component={ServiceList} />
 			</Switch>
 			<Footer />
 		</Router>

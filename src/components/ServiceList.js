@@ -10,7 +10,7 @@ function ServiceList() {
     console.log(services);
   return (
     <div>
-      <MostRequested />
+      {/*<MostRequested />*/}
       <Grid container justify="center" spacing={Number(12)}>
         {services.map((value) => (
           <Grid key={value} item>

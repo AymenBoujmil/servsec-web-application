@@ -27,10 +27,10 @@ function Profile() {
                         width="150"
                       />
                       <div class="mt-3">
-                        <h4>John Doe</h4>
-                        <p class="text-secondary mb-1">Profession</p>
+                        <h4>{user?.result?.firstname}_{user?.result?.lastname}</h4>
+                        <p class="text-secondary mb-1">{user?.result?.phone}</p>
                         <p class="text-muted font-size-sm">
-                          Bay Area, San Francisco, CA
+                          {user?.result?.email}
                         </p>
                         <button class="btn btn-primary">Edit Profile</button>
                         <button class="btn btn-outline-primary">Message</button>

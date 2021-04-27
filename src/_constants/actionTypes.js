@@ -12,3 +12,5 @@ export const LOGOUT='LOGOUT';
 export const AUTH='AUTH';
 
 //Messages 
+export const ERROR='ERROR';
+export const DELETEMESSAGE='DELETEMESSAGE';
