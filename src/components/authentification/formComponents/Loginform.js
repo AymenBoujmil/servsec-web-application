@@ -3,6 +3,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { IconButton, InputAdornment, Input } from '@material-ui/core';
 import { GoogleLogin} from 'react-google-login';
+import {NavLink} from 'react-router-dom'
 function Loginform({googleSuccess,googleFailure,formData,handlechange,showPassword,handleShowPassword,clear}) {
     return (
         <>
@@ -28,7 +29,7 @@ function Loginform({googleSuccess,googleFailure,formData,handlechange,showPasswo
                     clear
                 </button>
                 <GoogleLogin
-                        clientId="884346847471-8ie7bl2n2ji9grmugc7daivcb7s1hv2b.apps.googleusercontent.com"
+                        clientId="543908818301-5bvljobs122vclkbiqnn8el4l47v6lte.apps.googleusercontent.com"
                         render={(renderProps)=>(
                           <button  className="btn_3"  onClick={renderProps.onClick} disabled={renderProps.disabled} >
                           Google log in 
@@ -37,7 +38,17 @@ function Loginform({googleSuccess,googleFailure,formData,handlechange,showPasswo
                         onFailure={googleFailure}
                         cookiePolicy="single_host_origin"
                         />  
-                <a className="lost_pass" href="#">forget password?</a>
+                        <NavLink
+                        className='nav-link'
+                        to='/forgotPassword'
+                        exact
+                        activeStyle={{
+                            color: '#795376 ',
+                            borderBottom: '3px solid #795376',
+                        }}
+                         >
+                         forget password?
+                    </NavLink>               
             </div>
         </>
     )
