@@ -12,46 +12,48 @@ import Main from './components/Main';
 import Profile from './components/Profile';
 import Login from './components/authentification/Login';
 import ServiceList from './components/ServiceList';
+import Update from './components/Update';
 import { getServices } from './actions/services';
 
 const App = () => {
-	const [currentId, setCurrentId] = useState(null);
-	const dispatch = useDispatch();
+    const [currentId, setCurrentId] = useState(null);
+    const dispatch = useDispatch();
 
-	const user=JSON.parse(localStorage.getItem('profile'));
+    const user=JSON.parse(localStorage.getItem('profile'));
 
-	useEffect(() => {
-		dispatch(getUsers());
-		dispatch(getServices());
-	}, [dispatch]);
+    useEffect(() => {
+        dispatch(getUsers());
+        dispatch(getServices());
+    }, [dispatch]);
 
 
-	return (
-		<Router>
-			<Navbar />
-			<Switch>
-				<Route path='/' exact component={Main} />
-				<Route path='/Aboutus'>
-					<AboutUs />
-				</Route>
-				<Route path='/Admin'>
-					{user ? (
-						<div>
-							<Users2 setCurrentId={setCurrentId} />
-							<UserForm currentId={currentId} setCurrentId={setCurrentId} />
-						</div>
-					) : (
-						<Login/>
-					) }	
-					
-				</Route>
-				<Route path='/profile' exact component={Profile} />
-				<Route path='/login' exact component={Login} />
-				<Route path='/ServiceList'  exact component={ServiceList} />
-			</Switch>
-			<Footer />
-		</Router>
-	);
+    return (
+        <Router>
+            <Navbar />
+            <Switch>
+                <Route path='/' exact component={Main} />
+                <Route path='/Aboutus'>
+                    <AboutUs />
+                </Route>
+                <Route path='/Admin'>
+                    {user ? (
+                        <div>
+                            <Users2 setCurrentId={setCurrentId} />
+                            <UserForm currentId={currentId} setCurrentId={setCurrentId} />
+                        </div>
+                    ) : (
+                        <Login/>
+                    ) }
+
+                </Route>
+                <Route path='/profile' exact component={Profile} />
+                <Route path='/login' exact component={Login} />
+                <Route path='/ServiceList'  exact component={ServiceList} />
+                <Route path='/Update'  exact component={Update} />
+            </Switch>
+            <Footer />
+        </Router>
+    );
 };
 
 export default App;

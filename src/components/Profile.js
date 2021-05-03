@@ -1,4 +1,7 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import {Route} from 'react-router-dom'
+import Update from './Update'
 
 function Profile() {
   const user=JSON.parse(localStorage.getItem('profile'));
@@ -32,7 +35,11 @@ function Profile() {
                         <p class="text-muted font-size-sm">
                           {user?.result?.email}
                         </p>
-                        <button class="btn btn-primary">Edit Profile</button>
+                        <Link to="/Update">
+                        <button class="btn btn-primary">Edit Profile</button></Link>
+                        <Route path="/Update"
+                        component={Update}
+                        ></Route>
                         <button class="btn btn-outline-primary">Message</button>
                       </div>
                     </div>
@@ -111,22 +118,7 @@ function Profile() {
                           aria-labelledby="bio-tab"
                         >
                           <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Morbi sollicitudin sit amet erat a volutpat.
-                            Curabitur ipsum mi, finibus sed turpis id,
-                            ullamcorper cursus tellus. Etiam ac nunc felis.
-                            Etiam sit amet ultrices diam. Sed eros leo,
-                            fringilla vestibulum consectetur at, mollis nec
-                            nibh. Nulla ullamcorper, orci ut scelerisque
-                            imperdiet, orci sem egestas sapien, vel blandit
-                            lectus ante in sem. Nam dui lacus, ullamcorper id
-                            ante non, feugiat rutrum quam. Aenean sed ligula vel
-                            massa imperdiet sagittis. Vivamus nec volutpat
-                            lectus, quis congue erat. Vestibulum ante ipsum
-                            primis in faucibus orci luctus et ultrices posuere
-                            cubilia curae; Nullam convallis, nibh in finibus
-                            fermentum, ligula lacus ornare elit, non venenatis
-                            nisl risus sed nisi.
+                            {user?.result?.bio}
                           </p>
                         </div>
                         <div

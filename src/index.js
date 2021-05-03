@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import App from './App';
 import MostRequested from './components/MostRequested';
+import ServiceSearch from './components/ServiceSearch';
 
 const store = createStore(reducers,compose(applyMiddleware(thunk)))
 

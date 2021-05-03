@@ -5,7 +5,6 @@ export const getServices=() => async (dispatch) =>
 {
     try {   
         const { data } = await api.fetchServices(); 
-        console.log(data);
         dispatch({type : FETCH_ALL_SERVICES ,payload : data});
     } catch (error) {
          console.log(error);
