@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import ServiceModal from "../ServiceModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ServiceItem = (props) => {
   const classes = useStyles();
+  console.log(props);
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -101,15 +103,8 @@ const ServiceItem = (props) => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body2" style={{ cursor: "pointer" }}>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#exampleModalLong"
-                  >
-                    Learn More
-                  </button>
+                <Typography variant="body2">
+                  <ServiceModal service={props.service} />
                 </Typography>
 
               </Grid>

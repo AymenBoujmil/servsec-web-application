@@ -3,8 +3,8 @@ import MostRequested from "./MostRequested";
 import ServiceItem from "./ServiceItem";
 import Grid from '@material-ui/core/Grid';
 import {useSelector,useDispatch} from 'react-redux';
-import { getServices } from '../actions/services';
-import {useLocation} from 'react-router-dom';
+import { getServices } from "../actions/services";
+import ServiceSearch from "./ServiceSearch";
 
 function ServiceList() {
     const location=useLocation();
@@ -19,15 +19,13 @@ function ServiceList() {
   return (
     <div>
       {/*<MostRequested />*/}
-      <div className="container card border-0 shadow my-5 card-body p-5" > 
-        <Grid container justify="center" spacing={Number(10)}>
-          {services.map((value) => (
-            <Grid key={value._id} item>
-              <ServiceItem service={value}/>
-            </Grid>
-          ))}
-        </Grid>
-      </div>
+      <Grid container justify="center" spacing={Number(12)}>
+        {services.map((value) => (
+          <Grid key={value._id} item>
+            <ServiceItem service={value}/>
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }

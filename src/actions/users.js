@@ -29,10 +29,12 @@ export const createUser = (formData,history) => async (dispatch) =>
     }
 }
 
-export const updateUser = (id, user) => async (dispatch) => {
+export const updateUser = (id, user,history) => async (dispatch) => {
     try {
       const { data } = await api.updateUser(id, user);
-      dispatch({ type: UPDATE, payload: data });
+      dispatch({ type : AUTH,data});
+      dispatch({ type : CREATE , payload : data});
+      history.push('/Profile');
     } catch (error) {
       if (error.response && error.response.data) {
         dispatch({type:"ERROR",payload:error.response.data.message});
