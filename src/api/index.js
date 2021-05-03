@@ -10,11 +10,17 @@ API.interceptors.request.use((req)=>{
     return req;
 })
 
+//users
 export const fetchUsers = ()=>API.get('/users');
 export const updateUser = (id,updatedUser) => API.patch(`/users/${id}`,updatedUser);
 export const deleteUser = (id) => API.delete(`/users/${id}`);
-
 export const createUser = (newUser) =>API.post('/users',newUser);
-export const signin =(formData)=> API.post('/users/signin',formData);
 
+//auth
+export const signin =(formData)=> API.post('/users/signin',formData);
+export const forgotPassword=(email)=>API.post('/users/forgotPassword',email); 
+export const resetPassword=(formData,token)=>API.post('/users/resetPassword',formData,{headers:{Authorization:token}});
+
+
+//services
 export const fetchServices = ()=> API.get('/Services');

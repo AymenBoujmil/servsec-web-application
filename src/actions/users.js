@@ -1,5 +1,5 @@
 import * as api from '../api/index.js';
-import {CREATE , UPDATE , FETCH_ALL , DELETE, AUTH} from '../_constants/actionTypes';
+import {CREATE , UPDATE , FETCH_ALL , DELETE, AUTH , SUCCESS} from '../_constants/actionTypes';
 
 export const getUsers=() => async (dispatch) =>
 {
@@ -18,9 +18,10 @@ export const createUser = (formData,history) => async (dispatch) =>
 {
     try {
         const { data } = await api.createUser(formData);
-        dispatch({ type : AUTH,data});
+       // dispatch({ type : AUTH,data});
         dispatch({ type : CREATE , payload : data});
-        history.push('/');
+        dispatch({ type : SUCCESS , payload : "Please Confirm Your Email !! "});
+        history.push('/login');
     } catch (error) {
       if (error.response && error.response.data) {
         dispatch({type:"ERROR",payload:error.response.data.message});
@@ -54,3 +55,4 @@ export const deleteUser = (id) => async (dispatch) => {
       }
     }
   };
+

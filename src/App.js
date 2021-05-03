@@ -12,7 +12,9 @@ import Main from './components/Main';
 import Profile from './components/Profile';
 import Login from './components/authentification/Login';
 import ServiceList from './components/ServiceList';
-import { getServices } from './actions/services';
+import ForgotPassword from './components/authentification/ForgotPassword';
+import ResetPassword from './components/authentification/ResetPassword';
+
 
 const App = () => {
 	const [currentId, setCurrentId] = useState(null);
@@ -22,7 +24,6 @@ const App = () => {
 
 	useEffect(() => {
 		dispatch(getUsers());
-		dispatch(getServices());
 	}, [dispatch]);
 
 
@@ -48,6 +49,8 @@ const App = () => {
 				<Route path='/profile' exact component={Profile} />
 				<Route path='/login' exact component={Login} />
 				<Route path='/ServiceList'  exact component={ServiceList} />
+				<Route path='/forgotPassword'  exact component={ForgotPassword} />
+				<Route path='/resetPassword/:token'  exact component={ResetPassword} />
 			</Switch>
 			<Footer />
 		</Router>

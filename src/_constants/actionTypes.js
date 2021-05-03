@@ -14,3 +14,4 @@ export const AUTH='AUTH';
 //Messages 
 export const ERROR='ERROR';
 export const DELETEMESSAGE='DELETEMESSAGE';
+export const SUCCESS="SUCCESS";

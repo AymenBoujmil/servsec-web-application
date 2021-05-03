@@ -6,7 +6,7 @@ import { useDispatch , useSelector } from 'react-redux';
 import { createUser } from '../../actions/users';
 import { signin } from '../../actions/auth';
 import { useHistory } from 'react-router-dom';
-import { AUTH } from '../../_constants/actionTypes';
+import { AUTH, DELETEMESSAGE } from '../../_constants/actionTypes';
 import Banner from './formComponents/Banner';
 import Loginform from './formComponents/Loginform';
 import Signupform from './formComponents/Signupform';
@@ -38,7 +38,7 @@ function Login() {
       if(serverMessage !== null)
       {
         setMessage(serverMessage);
-        dispatch({type:"DELETEMESSAGE"});
+        dispatch({type:DELETEMESSAGE});
       }
   }, [serverMessage])
 
@@ -53,7 +53,6 @@ function Login() {
       {
         dispatch(signin(formData,history));
       }
-  
   }
 
   const handlechange=(e)=>
@@ -122,9 +121,16 @@ function Login() {
                     </Avatar>
                     { !isSignup ? "Please Sign in now " :  "Please Sign up now " }</h3>
                     {message ?(
-                      <div class="alert alert-warning alert-dismissible fade show container" role="alert">
-                      <strong>Error</strong> {message.message}
-                      </div>     
+                       message.type === "SUCCESS" ?  (
+                        <div class="alert alert-success alert-dismissible fade show container" role="alert">
+                        <strong>Success! </strong> {message.message}
+                        </div>  
+                       ): 
+                       (
+                         <div class="alert alert-warning alert-dismissible fade show container" role="alert">
+                       <strong>Error! </strong> {message.message}
+                       </div>  
+                        )
                     ):null}
                   </div>
                   <form className="row contact_form" onSubmit={handlesubmit} >
