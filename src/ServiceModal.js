@@ -71,6 +71,10 @@ const ServiceModal = (props)=> {
         <div class="table-responsive">
         <table class="table table-sm table-borderless mb-0">
           <tbody>
+          <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Owner</strong></th>
+              <td>{props.user? `${props.user.firstname} ${props.user.lastname}` : "not owned yet." }</td>
+            </tr>
             <tr>
               <th class="pl-0 w-25" scope="row"><strong>Sector</strong></th>
               <td>{props.service.sector}</td>
