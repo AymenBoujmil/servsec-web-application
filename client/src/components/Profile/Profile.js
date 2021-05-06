@@ -1,11 +1,10 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {Route} from 'react-router-dom'
+import {Link,Route} from "react-router-dom";
+import ServicesTable from "../../_utils/ServicesTable";
 import Update from './Update'
 
 function Profile() {
   const user=JSON.parse(localStorage.getItem('profile'));
-  console.log(user?.result?.email);
   return (
     <>
       <link
@@ -15,7 +14,7 @@ function Profile() {
       />
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <div className="container card border-0 shadow my-5 card-body p-5">
+      <div className="container card border-0 shadow my-5 card-body p-5" >
         <div class="container" style={{ marginTop: "15px" }}>
           <div class="main-body">
             <div class="row gutters-sm">
@@ -334,19 +333,7 @@ function Profile() {
                           aria-labelledby="services-tab"
                         >
                           <div class="row">
-                            <div class="col">
-                              <div class="list-group list-group-flush">
-                                <a href="#" class="list-group-item">
-                                  Plomberie
-                                </a>
-                                <a href="#" class="list-group-item">
-                                  Electiricien
-                                </a>
-                                <a href="#" class="list-group-item">
-                                  Maçon
-                                </a>
-                              </div>
-                            </div>
+                              <ServicesTable id={user?.result?.services} />
                           </div>
                         </div>
                       </div>

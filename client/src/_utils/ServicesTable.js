@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -22,34 +22,26 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateIcon from '@material-ui/icons/Update';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useSelector} from 'react-redux';
-import { CircularProgress  } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import {deleteUser} from '../../actions/users'
+import {deleteService, getServices} from '../actions/services';
+import {useLocation,useHistory} from 'react-router-dom';
+import {Link,Route} from "react-router-dom";
+import AddServiceForm from '../components/Services/Forms/AddServiceForm';
 
-function Users2({ setCurrentId }) {
-    const dispatch = useDispatch();
-    const rows = useSelector((state) => state.users);
+function ServicesTable(props) {
+  const history=useHistory();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  useEffect(() => {
+      dispatch(getServices());
+  }, [location])
 
-    /*function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
-*/
+  const services = useSelector(state => state.services);
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const aux = [];
+  aux.unshift(services.filter(s => s.owner === user.result._id));
+  const rows=aux[0];
+  //const rows = services.filter(s => props.id.includes(s._id));
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -76,25 +68,14 @@ function descendingComparator(a, b, orderBy) {
     });
     return stabilizedThis.map((el) => el[0]);
   }
-  
-  /*const headCells = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-    { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-    { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-    { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-    { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
-  ];*/
-  
+
   const headCells = [
-     // { id: 'id', numeric: true, disablePadding: false, label: 'Id' },
-      { id: 'lastname', numeric: false, disablePadding: false, label: 'Name' },
-      { id: 'firstname', numeric: false, disablePadding: false, label: 'First Name' },
-      { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
-      { id: 'phone', numeric: true, disablePadding: false, label: 'Phone N°' },
+      { id: 'sector', numeric: false, disablePadding: false, label: 'Sector' },
+      { id: 'description', numeric: false, disablePadding: false, label: 'Description' },
+      { id: 'price', numeric: false, disablePadding: false, label: 'Price(DT)' },
     ];
   
   function EnhancedTableHead(props) {
-   // const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props; //use for mutli
    const { classes, order, orderBy, onRequestSort } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
@@ -104,17 +85,11 @@ function descendingComparator(a, b, orderBy) {
       <TableHead>
         <TableRow>
           <TableCell padding="checkbox">
-           {/* <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={rowCount > 0 && numSelected === rowCount}
-              onChange={onSelectAllClick}
-              inputProps={{ 'aria-label': 'select all desserts' }}
-           />*/}
+     
           </TableCell>
           {headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
-              //align={'headCell.numeric ? 'right' : 'left''}
               align={'center'}
               padding={headCell.disablePadding ? 'none' : 'default'}
               sortDirection={orderBy === headCell.id ? order : false}
@@ -142,7 +117,6 @@ function descendingComparator(a, b, orderBy) {
     classes: PropTypes.object.isRequired,
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
-    //onSelectAllClick: PropTypes.func.isRequired, for multi 
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
@@ -168,45 +142,7 @@ function descendingComparator(a, b, orderBy) {
     },
   }));
   
-  //for multi select
-  /*const EnhancedTableToolbar = (props) => {
-    const classes = useToolbarStyles();
-    const { numSelected } = props;
   
-    return (
-      <Toolbar
-        className={clsx(classes.root, {
-          [classes.highlight]: numSelected > 0,
-        })}
-      >
-        {numSelected > 0 ? (
-          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-            {numSelected} selected
-          </Typography>
-        ) : (
-          <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-            Nutrition
-          </Typography>
-        )}
-  
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </Toolbar>
-    );
-  }; */
-  
-  //for mono select
   const EnhancedTableToolbar = (props) => {
       const classes = useToolbarStyles();
       const { numSelected } = props;
@@ -214,13 +150,13 @@ function descendingComparator(a, b, orderBy) {
       const handleDelete=(e)=>
       {
         e.preventDefault();
-        dispatch(deleteUser(numSelected));
+        dispatch(deleteService(numSelected));
         
       }
       const handleupdate=(e)=>
       {
         e.preventDefault();
-        setCurrentId(numSelected);
+        history.push(`updateService/${numSelected}`);
       }
       return (
         <Toolbar
@@ -230,11 +166,11 @@ function descendingComparator(a, b, orderBy) {
         >
           {numSelectedInt > -1 ? (
             <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-              User selected
+              Service selected
             </Typography>
           ) : (
             <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-              Users
+              Services
             </Typography>
           )}
             
@@ -263,7 +199,6 @@ function descendingComparator(a, b, orderBy) {
     };
   
   EnhancedTableToolbar.propTypes = {
-    //numSelected: PropTypes.number.isRequired,
     numSelected: PropTypes.string.isRequired,
    };
   
@@ -295,8 +230,7 @@ function descendingComparator(a, b, orderBy) {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
-    //const [selected, setSelected] = React.useState([]);     // For multi select
-    const [selected, setSelected] = React.useState(-1);         // For mono select
+    const [selected, setSelected] = React.useState(-1);       
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -316,28 +250,6 @@ function descendingComparator(a, b, orderBy) {
       setSelected([]);
     };
   
-    //Multi Select
-    /*const handleClick = (event, name) => {
-      const selectedIndex = selected.indexOf(name);
-      let newSelected = [];
-  
-      if (selectedIndex === -1) {
-        newSelected = newSelected.concat(selected, name);
-      } else if (selectedIndex === 0) {
-        newSelected = newSelected.concat(selected.slice(1));
-      } else if (selectedIndex === selected.length - 1) {
-        newSelected = newSelected.concat(selected.slice(0, -1));
-      } else if (selectedIndex > 0) {
-        newSelected = newSelected.concat(
-          selected.slice(0, selectedIndex),
-          selected.slice(selectedIndex + 1),
-        );
-      } 
-  
-      setSelected(newSelected);
-    };*/
-  
-    //mono select
   const handleClick = (event, id) => {
       if(selected === id)
           setSelected("-1");
@@ -358,21 +270,14 @@ function descendingComparator(a, b, orderBy) {
       setDense(event.target.checked);
     };
   
-    //for multi select
-    //const isSelected = (name) => selected.indexOf(name) !== -1;
-  
-    // for mono select
     const isSelected = (id) => selected === id;
   
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   
     return (
         <div>
-      <div className={classes.root} style={{paddingTop:"50px"}}>
-       <div className="container card border-0 shadow my-5 card-body p-5" > 
         <Paper className={classes.paper}>
-          {/*<EnhancedTableToolbar numSelected={selected.length} /> */ /* for multi  */}
-          <EnhancedTableToolbar numSelected={selected} />  {/* for multi  */}
+          <EnhancedTableToolbar numSelected={selected}/> 
           <TableContainer>
             <Table
               className={classes.table}
@@ -382,11 +287,9 @@ function descendingComparator(a, b, orderBy) {
             >
               <EnhancedTableHead
                 classes={classes}
-                //numSelected={selected.length}    // for multi 
                 numSelected={selected}
                 order={order}
                 orderBy={orderBy}
-                //onSelectAllClick={handleSelectAllClick} // for multi 
                 onRequestSort={handleRequestSort}
                 rowCount={rows.length}
               />
@@ -414,11 +317,10 @@ function descendingComparator(a, b, orderBy) {
                           />
                         </TableCell>
                         <TableCell component="th" id={labelId} scope="row" align="center" >
-                          {row.lastname}
+                          {row.sector}
                         </TableCell>
-                        <TableCell align="center">{row.firstname}</TableCell>
-                        <TableCell align="center">{row.email}</TableCell>
-                        <TableCell align="center">{row.phone}</TableCell>
+                        <TableCell align="center">{row.description}</TableCell>
+                        <TableCell align="center">{row.price}</TableCell>
                       </TableRow>
                     );
                   })}
@@ -444,36 +346,41 @@ function descendingComparator(a, b, orderBy) {
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Dense padding"
         />
-        </div>
-      </div>
       </div>
     );
   }  
     return (
         <div>
-              <section className="breadcrumb_part" style={{paddingTop:"50px"}}>
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="breadcrumb_iner">
-                      <h2>Users List</h2>
-                    </div>
+          {!rows.length ? (<div style={{paddingTop:'50px'}}>
+          
+            
+                  <div class="alert alert-info" role="alert" style={{display:'flex',justifyContent:"space-between"}}>
+                  You currently have no services ! 
+                  <Link to="/addService">
+                        <button type="button" class="btn btn-outline-primary">Lets Add more</button></Link>
+                        <Route path="/addService"
+                        component={AddServiceForm}
+                        ></Route>
                   </div>
-                </div>
-              </div>
-            </section>
-            {!rows.length ? (<div style={{paddingTop:'50px'}}>
-            <div className="container card border-0 shadow my-5 card-body p-5" > 
-              <div style={{display:'flex',justifyContent:'center'}}>
-                  <CircularProgress/> 
-                </div>
-            </div>
+               
+         
          </div>):
-          ( <EnhancedTable/>)}
-           
+          ( 
+            <div>
+            <EnhancedTable/>
+            <div>
+            <Link to="/addService">
+            <button type="button" class="btn btn-outline-primary">Lets Add more</button></Link>
+            <Route path="/addService"
+            component={AddServiceForm}
+            ></Route>
+            </div>
+            </div>
+  
+            )}      
         </div>
     )
 }
 
-export default Users2
+export default ServicesTable;
 

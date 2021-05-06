@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import React,{useState} from "react";
 import {Carousel} from "react-bootstrap";
-import '../assets/styleCarousel.css'
+import '../../assets/styleCarousel.css'
 import ServiceItem from './ServiceItem'
 
 function MostRequested() {

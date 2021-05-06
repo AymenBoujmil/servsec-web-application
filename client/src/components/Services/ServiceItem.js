@@ -4,8 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import ServiceModal from "../ServiceModal";
-
+import ServiceModal from "./ServiceModal";
+import {useSelector} from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "95%",
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ServiceItem = (props) => {
   const classes = useStyles();
-  console.log(props);
+  const user = useSelector(state => state.users.find((u)=>u.services[0]===props.service._id));
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -96,10 +96,7 @@ const ServiceItem = (props) => {
                   {props.service.sector}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Full Stack Developer
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {props.service.description}
+                  { user ? `${user.firstname} ${user.lastname}` : "Fullstack Developer" }
                 </Typography>
               </Grid>
               <Grid item>

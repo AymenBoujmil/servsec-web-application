@@ -3,9 +3,9 @@ import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { AiOutlineForm } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../actions/users";
+import { updateUser } from "../../actions/users";
 import { useHistory, useLocation } from "react-router-dom";
-import UpdateForm from "./UpdateForm";
+import UpdateForm from "./Forms/UpdateForm";
 
 function Update() {
   const location=useLocation();
