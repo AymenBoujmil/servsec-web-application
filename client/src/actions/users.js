@@ -33,7 +33,7 @@ export const updateUser = (id, user,history) => async (dispatch) => {
     try {
       const { data } = await api.updateUser(id, user);
       dispatch({ type : AUTH,data});
-      dispatch({ type : CREATE , payload : data});
+      dispatch({ type : UPDATE , payload : data});
       history.push('/Profile');
     } catch (error) {
       if (error.response && error.response.data) {

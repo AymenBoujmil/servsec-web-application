@@ -24,6 +24,6 @@ export const resetPassword=(formData,token)=>API.post('/users/resetPassword',for
 
 //services
 export const fetchServices = ()=> API.get('/Services');
-export const updateService = (id,updatedService) => API.patch(`/profile/services/${id}`,updatedService);
+export const createService = (newService)=>API.post('/profile/services',newService);
+export const updateService = (id,updatedService)=>API.patch(`/profile/services/${id}`,updatedService);
 export const deleteService = (id) => API.delete(`/profile/services/${id}`);
-export const createService = (newService) =>API.post('/profile/services',newService);

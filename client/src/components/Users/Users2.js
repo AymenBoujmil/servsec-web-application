@@ -30,6 +30,7 @@ function Users2({ setCurrentId }) {
     const dispatch = useDispatch();
     const rows = useSelector((state) => state.users);
 
+
     /*function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }

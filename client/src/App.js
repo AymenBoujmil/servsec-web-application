@@ -9,14 +9,15 @@ import { BrowserRouter as Router, Switch, Route, useLocation} from 'react-router
 import Navbar from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import Main from './components/Main';
-import Profile from './components/Profile';
+import Profile from './components/Profile/Profile';
 import Login from './components/authentification/Login';
-import ServiceList from './components/ServiceList';
-import Update from './components/Update';
-import { getServices } from './actions/services';
-import ForgotPassword from './components/authentification/ForgotPassword';
-import ResetPassword from './components/authentification/ResetPassword';
+import ServiceList from './components/Services/ServiceList';
+import Update from './components/Profile/Update';
 
+import { getServices } from './actions/services';
+import AddServiceForm from './components/Services/Forms/AddServiceForm';
+import UpdateServiceForm from './components/Services/Forms/UpdateServiceForm';
+import ScrollToTop from './_utils/ScrollToTop';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -24,40 +25,42 @@ const App = () => {
 
     const user=JSON.parse(localStorage.getItem('profile'));
 
-	useEffect(() => {
-		dispatch(getUsers());
-	}, [dispatch]);
+    useEffect(() => {
+        dispatch(getUsers());
+        dispatch(getServices());
+    }, [dispatch]);
 
 
-	return (
-		<Router>
-			<Navbar />
-			<Switch>
-				<Route path='/' exact component={Main} />
-				<Route path='/Aboutus'>
-					<AboutUs />
-				</Route>
-				<Route path='/Admin'>
-					{user ? (
-						<div>
-							<Users2 setCurrentId={setCurrentId} />
-							<UserForm currentId={currentId} setCurrentId={setCurrentId} />
-						</div>
-					) : (
-						<Login/>
-					) }	
-					
-				</Route>
-				<Route path='/profile' exact component={Profile} />
-				<Route path='/login' exact component={Login} />
-				<Route path='/ServiceList'  exact component={ServiceList} />
-				<Route path='/forgotPassword'  exact component={ForgotPassword} />
-				<Route path='/resetPassword/:token'  exact component={ResetPassword} />
+    return (
+        <Router>
+            <Navbar />
+            <ScrollToTop />
+            <Switch>
+                <Route path='/' exact component={Main} />
+                <Route path='/Aboutus'>
+                    <AboutUs />
+                </Route>
+                <Route path='/Admin'>
+                    {user ? (
+                        <div>
+                            <Users2 setCurrentId={setCurrentId} />
+                            <UserForm currentId={currentId} setCurrentId={setCurrentId} />
+                        </div>
+                    ) : (
+                        <Login/>
+                    ) }
+
+                </Route>
+                <Route path='/profile' exact component={Profile} />
+                <Route path='/login' exact component={Login} />
+                <Route path='/ServiceList'  exact component={ServiceList} />
                 <Route path='/Update'  exact component={Update} />
-			</Switch>
-			<Footer />
-		</Router>
-	);
+                <Route path='/addService'  exact component={AddServiceForm} />
+                <Route path='/updateService/:id'  exact component={UpdateServiceForm} />
+            </Switch>
+            <Footer />
+        </Router>
+    );
 };
 
 export default App;
