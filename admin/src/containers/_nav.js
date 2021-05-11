@@ -19,7 +19,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "Categories",
-    to: "/theme/colors",
+    to: "/categories",
     icon: "cil-drop",
   },
   {
