@@ -32,6 +32,7 @@ function ServicesTable(props) {
   const history=useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
+  
   useEffect(() => {
       dispatch(getServices());
   }, [location])
@@ -185,7 +186,7 @@ function descendingComparator(a, b, orderBy) {
                   <IconButton aria-label="update">
                       <UpdateIcon  onClick={handleupdate}  />
                   </IconButton> 
-              </Tooltip>
+                  </Tooltip>
               </div> 
           ) : (
             <Tooltip title="Filter list">

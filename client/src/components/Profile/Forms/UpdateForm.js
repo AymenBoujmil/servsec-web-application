@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 
 
 
-const UpdateForm=({formData,change,clear})=> {
+const UpdateForm=({formData,change,clear,identity})=> {
   return (
 <div>
       <Grid container spacing={3}>
