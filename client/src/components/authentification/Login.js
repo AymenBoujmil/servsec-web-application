@@ -3,22 +3,32 @@ import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { AiOutlineForm } from 'react-icons/ai';
 import { useDispatch , useSelector } from 'react-redux';
-import { createUser } from '../../actions/users';
-import { signin } from '../../actions/auth';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { AUTH, DELETEMESSAGE } from '../../_constants/actionTypes';
 import Banner from './formComponents/Banner';
 import Loginform from './formComponents/Loginform';
 import Signupform from './formComponents/Signupform';
-
+import {createUser} from '../../actions/users';
+import {signin} from '../../actions/auth';
 
 const initState={
+  name:'',
   firstname:'',
   lastname:'',
   phone:'',
   email:'',
   password:'',
   confirmPassword:'',
+  date:'',
+  role:'Client',
+  fax:'',
+  matricule:'',
+  address:{
+    governorate:'Tunis',
+    city:'Tunis',
+    street:''
+  },
+  sector:''
 }
 function Login() {
 
@@ -29,12 +39,18 @@ function Login() {
   const [message, setMessage] = useState(null);
 
   const history=useHistory();
+  const location=useLocation();
   const dispatch = useDispatch();
 
   const serverMessage = useSelector(state => state.message? state.message : null);
 
   useEffect(() => {
-      
+    clear();
+    setIsSignup(false);
+  } , [location])
+
+  useEffect(() => {
+    
       if(serverMessage !== null)
       {
         setMessage(serverMessage);
@@ -55,17 +71,59 @@ function Login() {
       }
   }
 
-  const handlechange=(e)=>
-  {
-      setformData({...formData,[e.target.name]:e.target.value});
-      setMessage(null);
-
-  }
-  
   const clear=()=>
   {
       setformData(initState);
   }
+
+  const handlechange=(e)=>
+  {
+    if(e.target.name === "role")
+    {
+      setformData({
+        name:'',
+        firstname:'',
+        lastname:'',
+        phone:'',
+        email:'',
+        password:'',
+        confirmPassword:'',
+        date:'',
+        role:e.target.value,
+        fax:'',
+        matricule:'',
+        address:{
+          governorate:'Tunis',
+          city:'Tunis',
+          street:''
+        },
+        sector:''
+      })
+    }
+    else if (formData.role==="Client")
+    {
+      if(e.target.name !== "fax" && e.target.name !== "matricule" && e.target.name !== "name" && e.target.name !== "sector" )
+      {
+          if(e.target.name === "governorate" || e.target.name === "city" || e.target.name === "street" )
+            setformData({...formData,address:{...formData.address,[e.target.name]:e.target.value}});               
+          else
+          setformData({...formData,[e.target.name]:e.target.value});
+        }
+        
+    }
+    else
+    {
+      if (e.target.name !== "firstname" && e.target.name !== "lastname")
+      {
+        if(e.target.name === "governorate" || e.target.name === "city" || e.target.name === "street" )
+            setformData({...formData,address:{...formData.address,[e.target.name]:e.target.value}});               
+          else
+          setformData({...formData,[e.target.name]:e.target.value});
+      }       
+    }
+    setMessage(null);
+  }
+  
 
   const switchmode=()=>
   {
@@ -105,13 +163,11 @@ function Login() {
   </section>
   {/* breadcrumb part end*/}
   {/*================login_part Area =================*/}
-  <section className="login_part section_padding ">
+  <div className="container card border-0 shadow my-5 card-body p-5" >
+  <section className="login_part ">
     <div className="container">
       <div className="row align-items-center">
-        <div className="col-lg-5 col-md-6">
           <Banner switchmode={switchmode} isSignup={isSignup} />
-        </div>
-        <div className="col-lg-7 col-md-6">
           <div className="login_part_form">
                 <div className="login_part_form_iner">
                   <div>
@@ -135,17 +191,17 @@ function Login() {
                   </div>
                   <form className="row contact_form" onSubmit={handlesubmit} >
                       { !isSignup ? (
-                        <Loginform googleSuccess={googleSuccess} clear={clear} handlechange={handlechange} showPassword={showPassword} formData={formData} handleShowPassword={handleShowPassword} />
+                        <Loginform googleSuccess={googleSuccess} googleFailure={googleFailure}  clear={clear} handlechange={handlechange} showPassword={showPassword} formData={formData} handleShowPassword={handleShowPassword} />
                       ): (
-                        <Signupform googleFailure={googleFailure} clear={clear} handleShowPassword={handleShowPassword} showPassword={showPassword} formData={formData} handlechange={handlechange} />
+                        <Signupform googleSuccess={googleSuccess} googleFailure={googleFailure} clear={clear} handleShowPassword={handleShowPassword} showPassword={showPassword} formData={formData} handlechange={handlechange} isUpdate={false} />
                       )}
                     </form>
                 </div>
           </div>
-        </div>
       </div>
     </div>
   </section>
+  </div>
   {/*================login_part end =================*/}
 </div>
   )

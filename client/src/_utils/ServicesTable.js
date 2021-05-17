@@ -34,6 +34,7 @@ function ServicesTable(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
+  
   useEffect(() => {
     dispatch(getServices());
     dispatch(getRqData());

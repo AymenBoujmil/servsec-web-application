@@ -1,56 +1,70 @@
-import React from 'react'
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { IconButton, InputAdornment, Input } from '@material-ui/core';
+import React , { useState , useEffect} from 'react'
+import { Select , InputLabel} from '@material-ui/core';
 import { GoogleLogin} from 'react-google-login';
 import './Style.css';
+import ClientForm from './ClientForm';
+import EntrepriseForm from './EntrepriseForm';
+import cities from '../../../_utils/Cities.json';
 
-function Signupform({googleSuccess,googleFailure,formData,showPassword,handleShowPassword,handlechange,clear}) {
+function Signupform({googleSuccess,googleFailure,formData,showPassword,handleShowPassword,handlechange,clear,isUpdate}) {
+    
+    const [governorate, setGovernorate] = useState([]);
+
+    useEffect(() => {
+        var arr = [];
+          Object.keys(cities).forEach(function(key) {
+            arr.push(cities[key]);
+          });
+        setGovernorate(arr[0]);
+      }, []);
+
     return (
         <div>
-            <div style={{display:'flex',flexDirection:'row'}}>        
-                <div className="col-md-6 form-group p_star">
-                <input type="text" className="form-control" name="firstname" id="firstname"  value={formData.firstname} required placeholder="First name"  onChange={handlechange}  />
-                </div>
-                <div className="col-md-6 form-group p_star">
-                <input type="text" className="form-control" name="lastname" id="lastname" value={formData.lastname}  required placeholder="name"  onChange={handlechange} />
-                </div>
+            {isUpdate ? (
+              null
+            ) : (
+              <div className="col-md-6 form-group p_star" >
+                <InputLabel htmlFor="role">Select your identity</InputLabel>
+                <Select
+                native
+                required
+                value={formData.role}
+                className="form-control"
+                onChange={handlechange}
+                inputProps={{
+                    name: 'role',
+                    id: 'role',
+                }}
+                >
+                <option value="Client">Client</option>
+                <option value="Entreprise">Entreprise</option>
+                </Select>
             </div>
-            <div className="col-md-12 form-group p_star">
-            <input type="email" className="form-control" name="email" id="email" value={formData.email} required placeholder="Email"  onChange={handlechange}  />
-            </div>
-            <div className="col-md-12 form-group p_star">
-            <input type="number" className="form-control" name="phone" id="phone" value={formData.phone} required placeholder="phone number"  onChange={handlechange}  />
-            </div>
-            <div className="col-md-12 form-group p_star" style={{display:'flex',flexDirection:'row'}}>
-            <Input type={showPassword ? 'text' : 'password'} className="form-control" value={formData.password} id="password" name="password"  placeholder="password"  onChange={handlechange} 
-            endAdornment={
-            <InputAdornment position="end">
-                <IconButton onClick={handleShowPassword}>
-                {showPassword ? ( <VisibilityOff /> ) : ( <Visibility />) }
-                </IconButton>
-            </InputAdornment>
-            }   
-            />
-            </div>
-            <div className="col-md-12 form-group p_star" >
-                <Input type={showPassword ? 'text' : 'password'} required className="form-control"  value={formData.confirmPassword} id="confirmPassword" name="confirmPassword"  placeholder="confirm password" onChange={handlechange} />
-            </div>
-                <div className="col-md-12 form-group">
-                
+            )}
+            
+            { formData.role === "Client" ? (
+                <ClientForm handlechange={handlechange} handleShowPassword={handleShowPassword} showPassword={showPassword} formData={formData} governorate={governorate} isUpdate={isUpdate}/>
+            ) : (
+                <EntrepriseForm handlechange={handlechange} handleShowPassword={handleShowPassword} showPassword={showPassword} formData={formData} governorate={governorate} isUpdate={isUpdate} />
+            )}
+            
+
+            <div className="col-md-12 form-group">
+              { /* 
                 <div className="creat_account d-flex align-items-center">
                         <input type="checkbox" id="f-option" name="selector" />
                         <label htmlFor="f-option">Remember me</label>
-                </div>
-                
+                </div>*/
+              } 
                 <button type="submit"  className="btn_3">
-                    Sign Up
+                    {isUpdate ? "Update Info ": "Sign Up"}
                 </button>
 
                 <button  onClick={clear} type='button' className="btn_3">
                         clear
                 </button>
-                <GoogleLogin
+                {isUpdate ? null :(
+                  <GoogleLogin
                         clientId="543908818301-5bvljobs122vclkbiqnn8el4l47v6lte.apps.googleusercontent.com"
                         render={(renderProps)=>(
                           <button  className="btn_3"  onClick={renderProps.onClick} disabled={renderProps.disabled} >
@@ -59,7 +73,9 @@ function Signupform({googleSuccess,googleFailure,formData,showPassword,handleSho
                         onSuccess={googleSuccess}
                         onFailure={googleFailure}
                         cookiePolicy="single_host_origin"
-                        />       
+                        />      
+                )}
+                 
             </div>
       </div>
     )
