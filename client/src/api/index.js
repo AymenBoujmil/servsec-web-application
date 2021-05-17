@@ -27,3 +27,9 @@ export const fetchServices = ()=> API.get('/Services');
 export const createService = (newService)=>API.post('/profile/services',newService);
 export const updateService = (id,updatedService)=>API.patch(`/profile/services/${id}`,updatedService);
 export const deleteService = (id) => API.delete(`/profile/services/${id}`);
+
+//requests data
+export const fetchRqData = ()=> API.get('/service/RequestForm');
+export const createRqData = (newRqData)=>API.post('/service/RequestForm',newRqData);
+export const updateRqData = (id,updatedRqData)=>API.patch(`/service/RequestForm/${id}`,updatedRqData);
+export const deleteRqData = (id) => API.delete(`/service/RequestForm/${id}`);
