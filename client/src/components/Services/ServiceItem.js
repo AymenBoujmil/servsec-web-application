@@ -5,13 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
-<<<<<<< HEAD:client/src/components/ServiceItem.js
 import ServiceModal from "../ServiceModal";
 
-=======
-import ServiceModal from "./ServiceModal";
-import {useSelector} from "react-redux";
->>>>>>> dev:client/src/components/Services/ServiceItem.js
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "95%",
@@ -42,10 +37,6 @@ const ServiceItem = (props) => {
   const user = useSelector(state => state.users.find((u)=>u._id===props.service.owner));
   console.log(user);
   const classes = useStyles();
-<<<<<<< HEAD:client/src/components/ServiceItem.js
-=======
-  const user = useSelector(state => state.users.find((u)=>u.services[0]===props.service._id));
->>>>>>> dev:client/src/components/Services/ServiceItem.js
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -107,7 +98,6 @@ const ServiceItem = (props) => {
                 <Typography gutterBottom variant="subtitle1">
                   {props.service.sector}
                 </Typography>
-<<<<<<< HEAD:client/src/components/ServiceItem.js
                 
                 <Typography variant="body1" gutterBottom>
 
@@ -116,20 +106,12 @@ const ServiceItem = (props) => {
                 <Typography variant="body1" gutterBottom>
 
                 { user? `${user.lastname}` : ""}
-=======
-                <Typography variant="body2" gutterBottom>
-                  { user ? `${user.firstname} ${user.lastname}` : "Fullstack Developer" }
->>>>>>> dev:client/src/components/Services/ServiceItem.js
                 </Typography>
 
               </Grid>
               <Grid item>
                 <Typography variant="body2">
-<<<<<<< HEAD:client/src/components/ServiceItem.js
                   <ServiceModal service={props.service} user={user}/>
-=======
-                  <ServiceModal service={props.service} />
->>>>>>> dev:client/src/components/Services/ServiceItem.js
                 </Typography>
 
               </Grid>

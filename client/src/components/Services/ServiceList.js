@@ -3,16 +3,10 @@ import MostRequested from "./MostRequested";
 import ServiceItem from "./ServiceItem";
 import Grid from '@material-ui/core/Grid';
 import {useSelector,useDispatch} from 'react-redux';
-<<<<<<< HEAD:client/src/components/ServiceList.js
 import ServiceSearch from "./ServiceSearch";
 import { getServices } from '../actions/services';
 import {useLocation} from 'react-router-dom';
 
-=======
-import { getServices } from "../../actions/services";
-import ServiceSearch from "./ServiceSearch";
-import {useLocation} from 'react-router-dom';
->>>>>>> dev:client/src/components/Services/ServiceList.js
 function ServiceList() {
     const location=useLocation();
     const dispatch = useDispatch();
