@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { AiOutlineForm } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import {DELETEMESSAGE} from '../../../_constants/actionTypes';

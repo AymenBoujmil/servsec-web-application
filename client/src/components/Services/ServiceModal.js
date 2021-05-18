@@ -73,7 +73,7 @@ const ServiceModal = (props)=> {
           <tbody>
           <tr>
               <th class="pl-0 w-25" scope="row"><strong>Owner</strong></th>
-              <td>{props.user? `${props.user.firstname} ${props.user.lastname}` : "not owned yet." }</td>
+              <td>{props.user? `${props.user.name}` : "not owned yet." }</td>
             </tr>
             <tr>
               <th class="pl-0 w-25" scope="row"><strong>Sector</strong></th>

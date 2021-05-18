@@ -30,7 +30,7 @@ import { Link, Route } from "react-router-dom";
 import AddServiceForm from "../components/Services/Forms/AddServiceForm";
 import { getRqData } from "../actions/requestsData";
 
-function ServicesTable(props) {
+function ServicesTable() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
