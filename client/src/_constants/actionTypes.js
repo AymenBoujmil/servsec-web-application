@@ -23,3 +23,9 @@ export const DELETEMESSAGE='DELETEMESSAGE';
 export const SUCCESS="SUCCESS";
 //categories 
 export const FETCH_ALL_CATEGORIES='FETCH_ALL_CATEGORIES';
+
+// Request actions
+export const CREATE_REQUEST='CREATE_REQUEST';
+export const UPDATE_REQUEST='UPDATE_REQUEST';
+export const DELETE_REQUEST='DELETE_REQUEST';
+export const FETCH_ALL_REQUESTS='FETCH_ALL_REQUESTS';

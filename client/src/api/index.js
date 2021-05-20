@@ -35,3 +35,8 @@ export const deleteRqData = (id) => API.delete(`/service/RequestForm/${id}`);
 
 //Categories
 export const fetchCategories = ()=> API.get('/CategorieList');
+//requests
+export const fetchRequests = ()=> API.get('/profile/request');
+export const createRequest = (newRequest)=>API.post('/profile/request',newRequest);
+export const updateRequest = (id,updatedRequest)=>API.patch(`/profile/request/${id}`,updatedRequest);
+export const deleteRequest = (id) => API.delete(`/profile/request/${id}`);
