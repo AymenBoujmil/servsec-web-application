@@ -21,8 +21,11 @@ function UpdateServiceForm() {
   useEffect(()=>{
     setUser(JSON.parse(localStorage.getItem("profile")))
   },[location])
+
+  const categories = useSelector(state => state.categories);
   
   const initState = {
+    category: service.category,
     owner: user.result._id,
     sector: service.sector,
     description:service.description,
@@ -65,7 +68,7 @@ function UpdateServiceForm() {
           </div>  
         ): null}
       <form onSubmit={handlesubmit}>
-        <Form formData={formData} change={handlechange} clear={clear} type="Update Service" />
+        <Form formData={formData} change={handlechange} clear={clear} type="Update Service" categories={categories} />
       </form>
       {/*================login_part end =================*/}
     </div>

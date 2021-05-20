@@ -20,6 +20,7 @@ import AddServiceForm from './components/Services/Forms/AddServiceForm';
 import UpdateServiceForm from './components/Services/Forms/UpdateServiceForm';
 import ScrollToTop from './_utils/ScrollToTop';
 import { getRqData } from './actions/requestsData';
+import { getCategories} from './actions/categories';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -30,6 +31,7 @@ const App = () => {
     useEffect(() => {
         dispatch(getUsers());
         dispatch(getServices());
+        dispatch(getCategories());
     }, [dispatch]);
 
 

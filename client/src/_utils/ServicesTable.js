@@ -75,13 +75,10 @@ function ServicesTable() {
 
   const headCells = [
     { id: "sector", numeric: false, disablePadding: false, label: "Sector" },
-    {
-      id: "description",
-      numeric: false,
-      disablePadding: false,
-      label: "Description",
-    },
+    {id: "description",numeric: false,disablePadding: false,label: "Description",},
+    //{ id: "category", numeric: false, disablePadding: false, label: "Category" },
     { id: "price", numeric: false, disablePadding: false, label: "Price(DT)" },
+    
   ];
 
   function EnhancedTableHead(props) {
@@ -352,6 +349,7 @@ function ServicesTable() {
                           {row.sector}
                         </TableCell>
                         <TableCell align="center">{row.description}</TableCell>
+                        {/* <TableCell align="center">{row.category}</TableCell> */}
                         <TableCell align="center">{row.price}</TableCell>
                       </TableRow>
                     );
