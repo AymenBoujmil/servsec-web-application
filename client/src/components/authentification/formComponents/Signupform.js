@@ -38,6 +38,7 @@ function Signupform({googleSuccess,googleFailure,formData,showPassword,handleSho
                 >
                 <option value="Client">Client</option>
                 <option value="Entreprise">Entreprise</option>
+
                 </Select>
             </div>
             )}

@@ -16,7 +16,7 @@ function ServiceList() {
     }, [location]);
 
     const services = useSelector(state => state.services);
-console.log(services)
+
   return (
     <div>
       {/*<MostRequested />*/}

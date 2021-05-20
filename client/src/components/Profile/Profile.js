@@ -5,6 +5,8 @@ import Update from './Update'
 
 function Profile() {
   const user=JSON.parse(localStorage.getItem('profile'));
+  const nom = user.result.role === "Client" ? user.result.lastname+'_'+user.result.firstname : user.result.name;
+
   return (
     <>
       <link
@@ -29,7 +31,7 @@ function Profile() {
                         width="150"
                       />
                       <div class="mt-3">
-                        <h4>{user?.result?.firstname}_{user?.result?.lastname}</h4>
+                        <h4>{nom}</h4>
                         <p class="text-secondary mb-1">{user?.result?.phone}</p>
                         <p class="text-muted font-size-sm">
                           {user?.result?.email}
@@ -333,7 +335,23 @@ function Profile() {
                           aria-labelledby="services-tab"
                         >
                           <div class="row">
-                              <ServicesTable id={user?.result?.services} />
+                              {user.result.role==="Entreprise" ? (
+                                <ServicesTable  />
+                              ): (
+                                <div style={{ paddingTop: "50px" }}>
+                                    <div
+                                      class="alert alert-info"
+                                      role="alert"
+                                      style={{ display: "flex", justifyContent: "space-between" }}
+                                    >
+                                      You have never tried to enlist in a service
+                                        <button type="button" class="btn btn-outline-primary">
+                                          Lets Try it
+                                        </button>
+                                    </div>
+                                  </div>
+                              )}
+                      
                           </div>
                         </div>
                       </div>
