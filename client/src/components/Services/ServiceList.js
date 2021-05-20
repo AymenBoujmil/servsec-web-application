@@ -4,7 +4,7 @@ import ServiceItem from "./ServiceItem";
 import Grid from '@material-ui/core/Grid';
 import {useSelector,useDispatch} from 'react-redux';
 import ServiceSearch from "./ServiceSearch";
-import { getServices } from '../actions/services';
+import { getServices } from '../../actions/services';
 import {useLocation} from 'react-router-dom';
 
 function ServiceList() {

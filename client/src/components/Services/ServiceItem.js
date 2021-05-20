@@ -5,8 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import ServiceModal from "../ServiceModal";
-
+import ServiceModal from "./ServiceModal";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "95%",
@@ -33,10 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ServiceItem = (props) => {
-  console.log(props.service);
+  const users=useSelector(state=>state.users);
+  console.log(users);
   const user = useSelector(state => state.users.find((u)=>u._id===props.service.owner));
-  console.log(user);
+
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -98,20 +99,14 @@ const ServiceItem = (props) => {
                 <Typography gutterBottom variant="subtitle1">
                   {props.service.sector}
                 </Typography>
-                
-                <Typography variant="body1" gutterBottom>
-
-                  { user? `${user.firstname} ` : "Fullstack Developer"}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-
-                { user? `${user.lastname}` : ""}
+                <Typography variant="body2" gutterBottom>
+                  { user ? `${user.name}` : null }
                 </Typography>
 
               </Grid>
               <Grid item>
                 <Typography variant="body2">
-                  <ServiceModal service={props.service} user={user}/>
+                  <ServiceModal service={props.service} user={user} />
                 </Typography>
 
               </Grid>
