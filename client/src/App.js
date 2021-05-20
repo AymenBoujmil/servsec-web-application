@@ -14,6 +14,7 @@ import Login from './components/authentification/Login';
 import ServiceList from './components/Services/ServiceList';
 import Update from './components/Profile/Update';
 import RequestForm from './components/RequestForm';
+import ServiceRequestForm from './components/ServiceRequestForm';
 
 import { getServices } from './actions/services';
 import AddServiceForm from './components/Services/Forms/AddServiceForm';
@@ -30,6 +31,7 @@ const App = () => {
     useEffect(() => {
         dispatch(getUsers());
         dispatch(getServices());
+        dispatch(getRqData());
     }, [dispatch]);
 
 
@@ -60,6 +62,7 @@ const App = () => {
                 <Route path='/addService'  exact component={AddServiceForm} />
                 <Route path='/updateService/:id'  exact component={UpdateServiceForm} />
                 <Route path='/service/RequestForm/:id' exact component={RequestForm} />
+                <Route path='/service/Form/:id' exact component={ServiceRequestForm} />
             </Switch>
             <Footer />
         </Router>

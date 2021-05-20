@@ -4,6 +4,7 @@ import services from './services';
 import auth  from './auth';
 import message from './message';
 import rqdatas from './rqdatas';
+import requests from './requests'
 
-export default combineReducers({ users,auth,services,message,rqdatas});
+export default combineReducers({ users,auth,services,message,rqdatas,requests});
 
