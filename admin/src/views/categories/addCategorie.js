@@ -11,6 +11,7 @@ import {
   CFormText,
   CButton,
   CTextarea,
+  CIcon,
 } from "@coreui/react";
 export default function AddCategorie() {
   const [label, setLabel] = useState("");
@@ -36,7 +37,7 @@ export default function AddCategorie() {
                 />
               </CFormGroup>
               <CFormGroup row>
-                <CLabel htmlFor="textarea-input">Textarea</CLabel>
+                <CLabel htmlFor="textarea-input">Content</CLabel>
                 <CTextarea
                   name="textarea-input"
                   id="textarea-input"

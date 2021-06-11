@@ -1,13 +1,14 @@
 import * as React from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
-import { CButton } from "@coreui/react";
+import { CButton, CIcon } from "@coreui/react";
 import { useHistory, useLocation } from "react-router-dom";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
   { field: "firstName", headerName: "Label", width: 130 },
-  { field: "lastName", headerName: "Definition", width: 130 },
+  { field: "lastName", headerName: "Definition", width: 200 },
+  { field: "update", headerName: "update", sortable: false },
 
   // {
   //   field: "fullName",
