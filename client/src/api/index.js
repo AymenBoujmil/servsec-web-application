@@ -21,9 +21,22 @@ export const signin =(formData)=> API.post('/users/signin',formData);
 export const forgotPassword=(email)=>API.post('/users/forgotPassword',email); 
 export const resetPassword=(formData,token)=>API.post('/users/resetPassword',formData,{headers:{Authorization:token}});
 
-
 //services
 export const fetchServices = ()=> API.get('/Services');
 export const createService = (newService)=>API.post('/profile/services',newService);
 export const updateService = (id,updatedService)=>API.patch(`/profile/services/${id}`,updatedService);
 export const deleteService = (id) => API.delete(`/profile/services/${id}`);
+
+//requests data
+export const fetchRqData = ()=> API.get('/service/RequestForm');
+export const createRqData = (newRqData)=>API.post('/service/RequestForm',newRqData);
+export const updateRqData = (id,updatedRqData)=>API.patch(`/service/RequestForm/${id}`,updatedRqData);
+export const deleteRqData = (id) => API.delete(`/service/RequestForm/${id}`);
+
+//Categories
+export const fetchCategories = ()=> API.get('/CategorieList');
+//requests
+export const fetchRequests = ()=> API.get('/profile/request');
+export const createRequest = (newRequest)=>API.post('/profile/request',newRequest);
+export const updateRequest = (id,updatedRequest)=>API.patch(`/profile/request/${id}`,updatedRequest);
+export const deleteRequest = (id) => API.delete(`/profile/request/${id}`);

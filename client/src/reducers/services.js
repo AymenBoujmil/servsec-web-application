@@ -1,4 +1,3 @@
-
 import {CREATE_SERVICE, DELETE_SERVICE, FETCH_ALL_SERVICES, UPDATE_SERVICE} from '../_constants/actionTypes';
 
 export default (services=[],action)=>{

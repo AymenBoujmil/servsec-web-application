@@ -13,11 +13,15 @@ import Profile from './components/Profile/Profile';
 import Login from './components/authentification/Login';
 import ServiceList from './components/Services/ServiceList';
 import Update from './components/Profile/Update';
+import RequestForm from './components/RequestForm';
+import ServiceRequestForm from './components/ServiceRequestForm';
 
 import { getServices } from './actions/services';
 import AddServiceForm from './components/Services/Forms/AddServiceForm';
 import UpdateServiceForm from './components/Services/Forms/UpdateServiceForm';
 import ScrollToTop from './_utils/ScrollToTop';
+import { getRqData } from './actions/requestsData';
+import { getCategories} from './actions/categories';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -28,6 +32,8 @@ const App = () => {
     useEffect(() => {
         dispatch(getUsers());
         dispatch(getServices());
+        dispatch(getCategories());
+        dispatch(getRqData());
     }, [dispatch]);
 
 
@@ -57,6 +63,8 @@ const App = () => {
                 <Route path='/Update'  exact component={Update} />
                 <Route path='/addService'  exact component={AddServiceForm} />
                 <Route path='/updateService/:id'  exact component={UpdateServiceForm} />
+                <Route path='/service/RequestForm/:id' exact component={RequestForm} />
+                <Route path='/service/Form/:id' exact component={ServiceRequestForm} />
             </Switch>
             <Footer />
         </Router>

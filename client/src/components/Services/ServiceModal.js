@@ -8,6 +8,9 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router';
+
+
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -49,6 +52,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 const ServiceModal = (props)=> {
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -56,6 +60,10 @@ const ServiceModal = (props)=> {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleRequestForm = (e) =>{
+    e.preventDefault();
+    history.push(`service/Form/${props.service._id}`);
   };
 
   return (
@@ -71,6 +79,10 @@ const ServiceModal = (props)=> {
         <div class="table-responsive">
         <table class="table table-sm table-borderless mb-0">
           <tbody>
+          <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Owner</strong></th>
+              <td>{props.user? `${props.user.name}` : "not owned yet." }</td>
+            </tr>
             <tr>
               <th class="pl-0 w-25" scope="row"><strong>Sector</strong></th>
               <td>{props.service.sector}</td>
@@ -88,7 +100,7 @@ const ServiceModal = (props)=> {
       </div>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+          <Button autoFocus onClick={handleRequestForm} color="primary">
             Contact Service
           </Button>
         </DialogActions>

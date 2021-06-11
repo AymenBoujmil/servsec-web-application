@@ -21,7 +21,7 @@ export const createUser = (formData,history) => async (dispatch) =>
        // dispatch({ type : AUTH,data});
         dispatch({ type : CREATE , payload : data});
         dispatch({ type : SUCCESS , payload : "Please Confirm Your Email !! "});
-        history.push('/login');
+        history.push('/');
     } catch (error) {
       if (error.response && error.response.data) {
         dispatch({type:"ERROR",payload:error.response.data.message});

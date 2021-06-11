@@ -4,17 +4,34 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
 
+const Form=({formData,change,clear,type,categories})=> {
 
-
-const Form=({formData,change,clear,type})=> {
-  return (
+return (
 <div>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} >
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="category"
+              name="category"
+              select
+              fullwidth
+              label="category"
+              value={formData.category}
+              onChange={change}
+              helperText="Please select your category"
+            >
+              {categories.map((option) => (
+                <MenuItem key={option._id} value={option._id}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+        </Grid>  
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            variant="outlined"
             id="sector"
             name="sector"
             label="Sector"
@@ -22,24 +39,23 @@ const Form=({formData,change,clear,type})=> {
             fullWidth
             autoComplete="sector"
             onChange={change}
+            helperText="Please define a specific sector in the category"
           />
-        </Grid>
+        </Grid>  
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="price"
-            label="Price"
-            variant="outlined"
-            type="number"
-            required
-            name="price"
-            value={formData.price}
-            fullWidth
-            onChange={change}
-          />
-        </Grid>
+        <TextField
+          id="price"
+          label="Price"
+          type="number"
+          required
+          name="price"
+          value={formData.price}
+          fullWidth
+          onChange={change}
+        />
+      </Grid>
         <Grid item xs={12}>
           <TextField
-            variant="outlined"
             required
             id="description"
             name="description"

@@ -7,6 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import {DELETEMESSAGE} from '../../../_constants/actionTypes';
 import Form from './Form';
 import {createService} from '../../../actions/services';
+import { getCategories } from "../../../actions/categories";
 
 
 function AddServiceForm() {
@@ -18,12 +19,17 @@ function AddServiceForm() {
   const serverMessage = useSelector(state => state.message? state.message : null);
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  
+
+
+  const categories = useSelector(state => state.categories);
+
+  console.log(categories);
   useEffect(()=>{
     setUser(JSON.parse(localStorage.getItem("profile")))
   },[location])
   
   const initState = {
+    category:"",
     owner: user.result._id,
     sector: "",
     description:"",
@@ -66,7 +72,7 @@ function AddServiceForm() {
           </div>  
         ): null}
       <form onSubmit={handlesubmit}>
-        <Form formData={formData} change={handlechange} clear={clear} type="Add Service" />
+        <Form formData={formData} change={handlechange} clear={clear} type="Add Service" categories={categories} />
       </form>
       {/*================login_part end =================*/}
     </div>

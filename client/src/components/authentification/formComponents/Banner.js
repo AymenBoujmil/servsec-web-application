@@ -2,8 +2,8 @@ import React from 'react'
 
 function Banner({isSignup,switchmode}) {
     return (
-        <div className="login_part_text text-center">
-            <div className="login_part_text_iner" style={{width:"10%",height:"400px"}}>
+        <div className="login_part_text text-center" style={{height:"200px"}}>
+            <div className="login_part_text_iner">
             { isSignup ? (
               <div>
                 <h2>Already Have an account ? </h2>
