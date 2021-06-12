@@ -55,7 +55,7 @@ const ServiceSearch = (props) => {
   
   const handleSearch = (e) => {
     searchValue ===""?props.setResult(null):
-    props.setResult(props.services.filter(s=>s.sector.includes(searchValue)))
+    props.setResult(props.services.filter(s=>s.sector.toLowerCase().includes(searchValue.toLowerCase())))
     console.log(searchValue)
   };
 
