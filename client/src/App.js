@@ -24,6 +24,7 @@ import { getRqData } from './actions/requestsData';
 import ServiceInfo from './components/Services/ServiceInfo';
 import ContactForm from './components/Main/ContactForm'
 import { getRequests } from './actions/requests';
+import { getCategories} from './actions/categories';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -34,6 +35,7 @@ const App = () => {
     useEffect(() => {
         dispatch(getUsers());
         dispatch(getServices());
+        dispatch(getCategories());
         dispatch(getRqData());
         dispatch(getRequests());
     },[dispatch]);

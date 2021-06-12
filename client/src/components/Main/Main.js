@@ -1,20 +1,24 @@
-import React, { Component } from 'react'
+import  React, { Component,useState } from 'react'
 import  Banner from '../Banner';
 import  Productlist from '../Productlist';
 import  Clientreview from '../Clientreview';
 import  Featurepart from '../Featurepart';
 import  Subscribe from '../Subscribe';
 import  Trendingitem from '../Trendingitem';
-import Category from '../category/Category';
+import  Category from '../category/Category';
+import  FileUpload from '../Profile/Forms/FileUpload';
 
 const Main = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
+   
     return (
         <div>
-
-                {/* <Banner/> */}
+                <Banner/> 
                 {user? (
-                    <Category/>
+                    <div>
+                        <Productlist/>
+                        <Category/>
+                    </div>
                 ) : (
                     <div className="container card border-0 shadow my-5 card-body p-5" > 
                         <div class="alert alert-info" role="alert">
@@ -26,11 +30,11 @@ const Main = () => {
                     </div>
                 )}
                 {/*<Productlist/>*/}
-                {/*<Trendingitem/>**/}
+                {/*<Trendingitem/> */}
                 {/*<Clientreview/>*/}
                 {/*<Featurepart/>*/}
                 {/* <Subscribe/> */}
         </div>
- )}
+    )}
 
  export default Main;

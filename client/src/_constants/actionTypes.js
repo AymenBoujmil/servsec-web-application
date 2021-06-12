@@ -22,6 +22,8 @@ export const UPDATE_REQUEST_DATA='UPDATE_REQUEST_DATA';
 export const ERROR='ERROR';
 export const DELETEMESSAGE='DELETEMESSAGE';
 export const SUCCESS="SUCCESS";
+//categories 
+export const FETCH_ALL_CATEGORIES='FETCH_ALL_CATEGORIES';
 
 // Request actions
 export const CREATE_REQUEST='CREATE_REQUEST';

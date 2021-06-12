@@ -5,8 +5,9 @@ import './Style.css';
 import ClientForm from './ClientForm';
 import EntrepriseForm from './EntrepriseForm';
 import cities from '../../../_utils/Cities.json';
+import FileUpload from '../../Profile/Forms/FileUpload';
 
-function Signupform({googleSuccess,googleFailure,formData,showPassword,handleShowPassword,handlechange,clear,isUpdate}) {
+function Signupform({setformData,googleSuccess,googleFailure,formData,showPassword,handleShowPassword,handlechange,clear,isUpdate}) {
     
     const [governorate, setGovernorate] = useState([]);
 
@@ -17,24 +18,23 @@ function Signupform({googleSuccess,googleFailure,formData,showPassword,handleSho
           });
         setGovernorate(arr[0]);
       }, []);
-
     return (
         <div>
             {isUpdate ? (
               null
             ) : (
-              <div className="col-md-6 form-group p_star" >
+              <div className="col-md-6 form-group p_star" style={{width:"200px"}} >
                 <InputLabel htmlFor="role">Select your identity</InputLabel>
                 <Select
-                native
-                required
-                value={formData.role}
-                className="form-control"
-                onChange={handlechange}
-                inputProps={{
-                    name: 'role',
-                    id: 'role',
-                }}
+                  fullWidth
+                  variant="outlined"
+                  required
+                  value={formData.role}
+                  onChange={handlechange}
+                  inputProps={{
+                      name: 'role',
+                      id: 'role',
+                  }}
                 >
                 <option value="Client">Client</option>
                 <option value="Entreprise">Entreprise</option>
@@ -49,6 +49,15 @@ function Signupform({googleSuccess,googleFailure,formData,showPassword,handleSho
                 <EntrepriseForm handlechange={handlechange} handleShowPassword={handleShowPassword} showPassword={showPassword} formData={formData} governorate={governorate} isUpdate={isUpdate} />
             )}
             
+            <br/>
+            {isUpdate ? (
+                // <div className="col-md-6 form-group p_star">     
+                //   <input type="file" className="form-control" name="image" id="image" onChange={handlechange} />          
+                // </div>
+                <FileUpload setformData={setformData} formData={formData} />
+            ) : ( null )}
+            <br/>
+            <br/>
 
             <div className="col-md-12 form-group">
               { /* 

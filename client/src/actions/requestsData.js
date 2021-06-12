@@ -6,7 +6,6 @@ export const getRqData= () => async (dispatch) =>
     try {   
         const { data } = await api.fetchRqData(); 
         dispatch({type : FETCH_ALL_REQUEST_DATA ,payload : data});
-        console.log(data);
     } catch (error) {
          console.log(error);
     }

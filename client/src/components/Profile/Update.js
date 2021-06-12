@@ -8,10 +8,12 @@ import { useHistory, useLocation } from "react-router-dom";
 import UpdateForm from "./Forms/UpdateForm";
 import { DELETEMESSAGE } from '../../_constants/actionTypes';
 import Signupform from "../authentification/formComponents/Signupform";
+import { storage } from "../../_services/Firebase";
 
 function Update() {
   const location=useLocation();
   const thisUser = JSON.parse(localStorage.getItem("profile"));
+  const [url, setUrl] = useState("");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -39,7 +41,8 @@ function Update() {
       city:user.result.address.city,
       street:user.result.address.street
     },
-    sector:user.result.sector
+    sector:user.result.sector,
+    url:user.result.url,
   };
  
   const [formData, setformData] = useState(initState);
@@ -51,9 +54,9 @@ function Update() {
   const serverMessage = useSelector((state) =>
     state.message ? state.message : null
   );
-
   const handlesubmit = (e) => {
     e.preventDefault();
+  
     console.log(formData);
     dispatch(updateUser(thisUser.result._id, formData, history));
   };
@@ -98,7 +101,6 @@ function Update() {
   const clear = () => {
     setformData(initState);
   };
-
   return (
     <div className="container card border-0 shadow my-5 card-body p-5" style={{paddingTop:"25px"}} >
       {/* breadcrumb part start*/}
@@ -116,7 +118,7 @@ function Update() {
       ):null}
       <form onSubmit={handlesubmit}>
           {/*<UpdateForm formData={formData} change={handlechange} clear={clear} /> */}
-          <Signupform  clear={clear} handleShowPassword={handleShowPassword} showPassword={showPassword} formData={formData} handlechange={handlechange} isUpdate={true} />
+          <Signupform  clear={clear} handleShowPassword={handleShowPassword} showPassword={showPassword} formData={formData} handlechange={handlechange} isUpdate={true} setformData={setformData}/>
       </form>
       {/*================login_part end =================*/}
     </div>

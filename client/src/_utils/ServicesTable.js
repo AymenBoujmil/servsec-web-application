@@ -42,10 +42,7 @@ function ServicesTable() {
 
   const services = useSelector((state) => state.services);
   const user = JSON.parse(localStorage.getItem("profile"));
-  const aux = [];
-  aux.unshift(services.filter((s) => s.owner === user.result._id));
-  const rows = aux[0];
-  //const rows = services.filter(s => props.id.includes(s._id));
+  const rows=services.filter((s) => s.owner === user.result._id);
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -75,13 +72,10 @@ function ServicesTable() {
 
   const headCells = [
     { id: "sector", numeric: false, disablePadding: false, label: "Sector" },
-    {
-      id: "description",
-      numeric: false,
-      disablePadding: false,
-      label: "Description",
-    },
+    {id: "description",numeric: false,disablePadding: false,label: "Description",},
+    //{ id: "category", numeric: false, disablePadding: false, label: "Category" },
     { id: "price", numeric: false, disablePadding: false, label: "Price(DT)" },
+    
   ];
 
   function EnhancedTableHead(props) {
@@ -354,6 +348,7 @@ function ServicesTable() {
                           </Link>
                         </TableCell>
                         <TableCell align="center">{row.description}</TableCell>
+                        {/* <TableCell align="center">{row.category}</TableCell> */}
                         <TableCell align="center">{row.price}</TableCell>
                       </TableRow>
                     );

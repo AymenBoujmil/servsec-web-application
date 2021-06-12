@@ -250,9 +250,16 @@ export default function Navbar() {
 														variant='dot'
 														invisible={invisible}
 													>
-														<Avatar
+												
+															<img
+															src= {user.result.url ||"https://davidwilsondmd.com/wp-content/uploads/2015/11/user.png" }
+															alt="User"
+															class="rounded-circle"
+															width="60"
+															/>
+														{/*	<Avatar
 															className={(classes.purple, classes.small)}
-														></Avatar>
+														></Avatar> */	}																		
 													</Badge>
 												</NavLink>
 												<div
