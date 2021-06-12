@@ -9,6 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router';
+import { useSelector,useDispatch } from "react-redux";
+import { getRequests } from '../../actions/requests';
+
 
 
 const styles = (theme) => ({
@@ -23,6 +26,7 @@ const styles = (theme) => ({
     color: theme.palette.grey[500],
   },
 });
+
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
@@ -53,8 +57,12 @@ const DialogActions = withStyles((theme) => ({
 
 const ServiceModal = (props)=> {
   const history = useHistory();
+  const dispatch = useDispatch();
+  dispatch(getRequests);
   const [open, setOpen] = React.useState(false);
-
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const requests = useSelector(state => state.requests);
+  const request = requests.find(r=>r.clientId === user.result._id && r.serviceId === props.service._id);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -100,9 +108,16 @@ const ServiceModal = (props)=> {
       </div>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleRequestForm} color="primary">
-            Contact Service
-          </Button>
+        {!request ? (
+                    <Button autoFocus onClick={handleRequestForm} color="primary">
+                    Contact Service
+                  </Button>
+        ):
+        (<Button autoFocus color="primary" disabled>
+        Currently pending request
+      </Button>)
+
+        }
         </DialogActions>
       </Dialog>
     </div>

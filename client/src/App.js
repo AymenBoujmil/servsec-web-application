@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AboutUs from './pages/AboutUs';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { getUsers } from './actions/users';
 import Users2 from './components/Users/Users2';
 import UserForm from './components/Forms/UserForm';
@@ -8,19 +8,22 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, useLocation} from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
-import Main from './components/Main';
+import Main from './components/Main/Main';
 import Profile from './components/Profile/Profile';
 import Login from './components/authentification/Login';
 import ServiceList from './components/Services/ServiceList';
 import Update from './components/Profile/Update';
-import RequestForm from './components/RequestForm';
-import ServiceRequestForm from './components/ServiceRequestForm';
+import RequestForm from './components/Request/Forms/RequestForm';
+import ServiceRequestForm from './components/Request/Forms/ServiceRequestForm';
 
 import { getServices } from './actions/services';
 import AddServiceForm from './components/Services/Forms/AddServiceForm';
 import UpdateServiceForm from './components/Services/Forms/UpdateServiceForm';
 import ScrollToTop from './_utils/ScrollToTop';
 import { getRqData } from './actions/requestsData';
+import ServiceInfo from './components/Services/ServiceInfo';
+import ContactForm from './components/Main/ContactForm'
+import { getRequests } from './actions/requests';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -32,8 +35,8 @@ const App = () => {
         dispatch(getUsers());
         dispatch(getServices());
         dispatch(getRqData());
-    }, [dispatch]);
-
+        dispatch(getRequests());
+    },[dispatch]);
 
     return (
         <Router>
@@ -63,6 +66,8 @@ const App = () => {
                 <Route path='/updateService/:id'  exact component={UpdateServiceForm} />
                 <Route path='/service/RequestForm/:id' exact component={RequestForm} />
                 <Route path='/service/Form/:id' exact component={ServiceRequestForm} />
+                <Route path='/service/Info/:id' exact component={ServiceInfo} />
+                <Route path='/contact' exact component={ContactForm} />
             </Switch>
             <Footer />
         </Router>

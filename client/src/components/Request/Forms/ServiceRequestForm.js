@@ -7,8 +7,8 @@ import { IoSend } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { getRqData } from "../actions/requestsData";
-import { createRequest } from "../actions/requests";
+import { getRqData } from "../../../actions/requestsData";
+import { createRequest,getRequests,updateRequest } from "../../../actions/requests";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -20,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ServiceRequestForm() {
-  const classes = useStyles();
-  const { id } = useParams();
-  const location = useLocation();
-  const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
   const initialForm = {
@@ -40,21 +36,46 @@ function ServiceRequestForm() {
     },
   };
 
-  const requestData = useSelector((state) =>
-    state.rqdatas.find((r) => r.serviceId === id)
+  const [loading,setLoading] = useState(true)
+  const classes = useStyles();
+  const { id } = useParams();
+  console.log(id);
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const requestDatas = useSelector((state) =>
+  state.rqdatas
   );
-  requestData.items.forEach((item) =>
+  const requests = useSelector((state) =>
+  state.requests
+  );
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const request = requests.find(r => r.serviceId === id && r.clientId === user.result._id)
+  console.log(requestDatas)
+  const requestData = requestDatas.find(r=>r.serviceId===id)
+  if(!loading){  requestData.items.forEach((item) =>
     initialForm.items.push({
       ...item,
       value: item.type === "date" ? today : "",
     })
-  );
+  );}
 
-  const [formData, setFormData] = useState(initialForm);
+
 
   useEffect(() => {
-    dispatch(getRqData());
-  }, [location]);
+    Promise.all([dispatch(getRqData()),dispatch(getRequests())]).then(()=> {
+      setLoading(false);
+      console.log(requestData)
+    
+    })
+    ;
+  },[]);
+
+  
+
+
+  const [formData, setFormData] = useState(initialForm);
+  
   const history=useHistory();
 
   const handleChangeDate = (e) => {
@@ -94,10 +115,11 @@ function ServiceRequestForm() {
       status:"Pending"
     };
     console.log(data);
+    request ? dispatch(updateRequest(request._id,data,history)):
     dispatch(createRequest(data,history));
 
   };
-
+  if (loading) return (<p>loading...</p>)
   return (
     <div
       className="container card border-0 shadow my-5 card-body p-5"

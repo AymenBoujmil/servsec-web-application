@@ -6,6 +6,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
+import Button from "@material-ui/core/Button";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
@@ -20,34 +21,42 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from "@material-ui/icons/Update";
-import TextFields from "@material-ui/icons/TextFields"
+import TextFields from "@material-ui/icons/TextFields";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { deleteService, getServices } from "../actions/services";
+import { deleteService, getServices } from "../../actions/services";
 import { useLocation, useHistory } from "react-router-dom";
 import { Link, Route } from "react-router-dom";
-import AddServiceForm from "../components/Services/Forms/AddServiceForm";
-import { getRqData } from "../actions/requestsData";
+import AddServiceForm from "../Services/Forms/AddServiceForm";
+import { getRqData } from "../../actions/requestsData";
+import { getRequests } from "../../actions/requests";
+import ServiceList from "../Services/ServiceList";
+import { getUsers } from "../../actions/users";
+import RequestModal from "../Request/RequestModal";
+import '../../assets/ModalButtonStyle.css';
 
-function ServicesTable() {
+function History() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
-  
+
   useEffect(() => {
+    dispatch(getUsers());
     dispatch(getServices());
-    dispatch(getRqData());
+    dispatch(getRequests());
   }, [location]);
 
   const services = useSelector((state) => state.services);
+  const requests = useSelector((state) => state.requests);
+  const users = useSelector((state) => state.users);
   const user = JSON.parse(localStorage.getItem("profile"));
-  const aux = [];
-  aux.unshift(services.filter((s) => s.owner === user.result._id));
-  const rows = aux[0];
+  const rows = requests.filter((r) => r.clientId === user.result._id);
+
   //const rows = services.filter(s => props.id.includes(s._id));
 
   function descendingComparator(a, b, orderBy) {
+    console.log(a[orderBy]);
     if (b[orderBy] < a[orderBy]) {
       return -1;
     }
@@ -59,7 +68,10 @@ function ServicesTable() {
 
   function getComparator(order, orderBy) {
     return order === "desc"
-      ? (a, b) => descendingComparator(a, b, orderBy)
+      ? (a, b) => {
+          descendingComparator(a, b, orderBy);
+          console.log("hiiiii");
+        }
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
 
@@ -76,12 +88,12 @@ function ServicesTable() {
   const headCells = [
     { id: "sector", numeric: false, disablePadding: false, label: "Sector" },
     {
-      id: "description",
+      id: "timestamp",
       numeric: false,
       disablePadding: false,
-      label: "Description",
+      label: "Date",
     },
-    { id: "price", numeric: false, disablePadding: false, label: "Price(DT)" },
+    { id: "status", numeric: false, disablePadding: false, label: "Status" },
   ];
 
   function EnhancedTableHead(props) {
@@ -99,12 +111,12 @@ function ServicesTable() {
               key={headCell.id}
               align={"center"}
               padding={headCell.disablePadding ? "none" : "default"}
-              sortDirection={orderBy === headCell.id ? order : false}
+              //sortDirection={orderBy === headCell.id ? order : false}
             >
               <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(headCell.id)}
+              //active={orderBy === headCell.id}
+              //direction={orderBy === headCell.id ? order : "asc"}
+              //onClick={createSortHandler(headCell.id)}
               >
                 {headCell.label}
                 {orderBy === headCell.id ? (
@@ -156,21 +168,6 @@ function ServicesTable() {
     const { numSelected } = props;
     const numSelectedInt = parseInt(numSelected);
 
-    const handleDelete = (e) => {
-      e.preventDefault();
-      dispatch(deleteService(numSelected));
-    };
-
-    const handleupdate = (e) => {
-      e.preventDefault();
-      history.push(`updateService/${numSelected}`);
-    };
-
-    const handleRequestForm = (e) =>{
-      e.preventDefault();
-      history.push(`service/RequestForm/${numSelected}`);
-    };
-
     return (
       <Toolbar
         className={clsx(classes.root, {
@@ -184,7 +181,7 @@ function ServicesTable() {
             variant="subtitle1"
             component="div"
           >
-            Service selected
+            Request selected
           </Typography>
         ) : (
           <Typography
@@ -193,25 +190,15 @@ function ServicesTable() {
             id="tableTitle"
             component="div"
           >
-            Services
+            Request History
           </Typography>
         )}
 
         {numSelectedInt > -1 ? (
           <div style={{ display: "flex", flexDirection: "row" }}>
-            <Tooltip title="Delete" onClick={handleDelete}>
+            <Tooltip title="Delete" /*onClick={handleDelete}*/>
               <IconButton aria-label="delete">
                 <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="update">
-              <IconButton aria-label="update">
-                <UpdateIcon onClick={handleupdate} />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Request Data">
-              <IconButton aria-label="update">
-                <TextFields onClick={handleRequestForm} />
               </IconButton>
             </Tooltip>
           </div>
@@ -301,6 +288,12 @@ function ServicesTable() {
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+    const colors = {
+      "Pending": "#FF8C00",
+      "Completed": "#ADFF2F",
+      "Refused": "#FF6347",
+      "In Progress": "#0096FF"
+    };
     return (
       <div>
         <Paper className={classes.paper}>
@@ -326,6 +319,15 @@ function ServicesTable() {
                   .map((row, index) => {
                     const isItemSelected = isSelected(row._id);
                     const labelId = `enhanced-table-checkbox-${index}`;
+                    const service = services.find(
+                      (service) => service._id === row.serviceId
+                    );
+                    const serviceName = service.sector;
+                    const owner = users.find(
+                      (user) => user._id === service.owner
+                    );
+
+                    console.log(serviceName);
 
                     return (
                       <TableRow
@@ -336,6 +338,7 @@ function ServicesTable() {
                         tabIndex={-1}
                         key={row._id}
                         selected={isItemSelected}
+                        className="parent"
                       >
                         <TableCell padding="checkbox">
                           <Checkbox
@@ -349,12 +352,33 @@ function ServicesTable() {
                           scope="row"
                           align="center"
                         >
-                          <Link to={`service/Info/${row._id}`}>
-                          {row.sector}
-                          </Link>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                            }}
+                          >
+                            <div style={{ alignSelf: "center" }}>
+                              {service.sector}
+                            </div>
+                            <div className ="child" style={{ marginLeft: "auto"}}>
+                              <RequestModal
+                                service={service}
+                                owner={owner}
+                                request={row}
+                              />
+                            </div>
+                          </div>
                         </TableCell>
-                        <TableCell align="center">{row.description}</TableCell>
-                        <TableCell align="center">{row.price}</TableCell>
+                        <TableCell align="center">{row.timestamp}</TableCell>
+                        <TableCell align="center">
+                          <Button
+                            style={{ backgroundColor: colors[`${row.status}`] }}
+                          >
+                            {row.status}
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -392,13 +416,13 @@ function ServicesTable() {
             role="alert"
             style={{ display: "flex", justifyContent: "space-between" }}
           >
-            You currently have no services !
+            You currently have no requests made !
             <Link to="/addService">
               <button type="button" class="btn btn-outline-primary">
-                Lets Add more
+                Lets Request a service!
               </button>
             </Link>
-            <Route path="/addService" component={AddServiceForm}></Route>
+            <Route path="/ServiceList" component={ServiceList}></Route>
           </div>
         </div>
       ) : (
@@ -410,7 +434,7 @@ function ServicesTable() {
                 Lets Add more
               </button>
             </Link>
-            <Route path="/addService" component={AddServiceForm}></Route>
+            <Route path="/ServiceList" component={ServiceList}></Route>
           </div>
         </div>
       )}
@@ -418,4 +442,4 @@ function ServicesTable() {
   );
 }
 
-export default ServicesTable;
+export default History;

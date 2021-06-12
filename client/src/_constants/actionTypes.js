@@ -9,6 +9,7 @@ export const FETCH_ALL_SERVICES='FETCH_ALL_SERVICES';
 export const CREATE_SERVICE='CREATE_SERVICE';
 export const DELETE_SERVICE='DELETE_SERVICE';
 export const UPDATE_SERVICE='UPDATE_SERVICE';
+export const SEARCH_SERVICE='SEARCH_SERVICE';
 //Authentification 
 export const LOGOUT='LOGOUT';
 export const AUTH='AUTH';
@@ -27,3 +28,6 @@ export const CREATE_REQUEST='CREATE_REQUEST';
 export const UPDATE_REQUEST='UPDATE_REQUEST';
 export const DELETE_REQUEST='DELETE_REQUEST';
 export const FETCH_ALL_REQUESTS='FETCH_ALL_REQUESTS';
+
+// Contact actions
+export const CREATE_CONTACT='CREATE_CONTACT';

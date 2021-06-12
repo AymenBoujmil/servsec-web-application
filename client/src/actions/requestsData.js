@@ -1,7 +1,7 @@
 import * as api from '../api/index.js';
 import {CREATE_REQUEST_DATA, DELETE_REQUEST_DATA, FETCH_ALL_REQUEST_DATA, UPDATE_REQUEST_DATA} from '../_constants/actionTypes';
 
-export const getRqData=() => async (dispatch) =>
+export const getRqData= () => async (dispatch) =>
 {
     try {   
         const { data } = await api.fetchRqData(); 

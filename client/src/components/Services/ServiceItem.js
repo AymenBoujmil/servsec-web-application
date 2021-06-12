@@ -8,6 +8,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import ServiceModal from "./ServiceModal";
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginBottom:"10px",
     width: "95%",
     flexGrow: 1,
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -33,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ServiceItem = (props) => {
   const users=useSelector(state=>state.users);
-  console.log(users);
   const user = useSelector(state => state.users.find((u)=>u._id===props.service.owner));
 
   const classes = useStyles();
@@ -41,7 +41,7 @@ const ServiceItem = (props) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid container spacing={2}>
+        <Grid container spacing={4}>
           <Grid item>
             <ButtonBase className={classes.image}>
               <img
@@ -52,48 +52,7 @@ const ServiceItem = (props) => {
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
-           <div
-                  class="modal fade"
-                  id="exampleModalLong"
-                  tabIndex="-1"
-                  role="dialog"
-                  aria-labelledby="exampleModalLongTitle"
-                  aria-hidden="true"
-                >
-                  <div
-                    class="modal-dialog modal-dialog-centered"
-                    role="document"
-                  >
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">
-                          {props.service.sector}
-                        </h5>
-                        <button
-                          type="button"
-                          class="close"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                        >
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">{props.service.description}</div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-dismiss="modal"
-                        >
-                          Close
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                          Arrange Service
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+           
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
@@ -102,7 +61,9 @@ const ServiceItem = (props) => {
                 <Typography variant="body2" gutterBottom>
                   { user ? `${user.name}` : null }
                 </Typography>
-
+                <Typography variant="subtitle1">
+                {props.service.price} DT
+              </Typography>
               </Grid>
               <Grid item>
                 <Typography variant="body2">
@@ -110,11 +71,6 @@ const ServiceItem = (props) => {
                 </Typography>
 
               </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">
-                {props.service.price} DT
-              </Typography>
             </Grid>
           </Grid>
         </Grid>

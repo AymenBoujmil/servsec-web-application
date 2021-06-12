@@ -11,9 +11,9 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
-import { getRqData } from "../actions/requestsData";
+import { getRqData } from "../../../actions/requestsData";
 import { useSelector } from "react-redux";
-import { createRqData, updateRqData } from "../actions/requestsData";
+import { createRqData, updateRqData } from "../../../actions/requestsData";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RequestForm() {
+  const [formSet,setForm] = useState(false)
+  const [loading,setLoading] = useState(true)
+  
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log(id);
@@ -30,7 +33,7 @@ function RequestForm() {
 
   const types = ["text", "date", "color", "number"];
 
-  const initialForm = {
+  let initialForm = {
     reqDate: {
       label: "Request Date",
       type: "date",
@@ -47,14 +50,29 @@ function RequestForm() {
     state.rqdatas.find((r) => r.serviceId === id)
   );
   const [formItems, setFormItems] = useState(
-    requestItems ? requestItems : initialForm
-  );
+    initialForm
+  );  
+  const [isUpdated, setUpdated] = useState(false);
+  if(!loading){
+    console.log(requestItems)
+    requestItems.items.forEach((item) =>
+    initialForm.items.push({
+      ...item,
+    })
+  );}
+  if (!formSet && requestItems){
+    setFormItems(requestItems)
+    setForm(true)
+    setUpdated(true)
+}
+  console.log(initialForm)
 
-  const [isUpdated, setUpdated] = useState(requestItems !== undefined);
 
   useEffect(() => {
-    dispatch(getRqData());
-  }, [location]);
+    Promise.all([dispatch(getRqData())]).then(()=>{
+      setLoading(false);
+    })
+  }, []);
 
   const handleAddItem = (e) => {
     e.preventDefault();
@@ -105,7 +123,7 @@ function RequestForm() {
       dispatch(createRqData(formItems, history));
     }
   };
-
+if (loading) return (<p>loading ...</p>)
   return (
     <form onSubmit={handleSubmit}>
       <div className="container card border-0 shadow my-5 card-body p-5">

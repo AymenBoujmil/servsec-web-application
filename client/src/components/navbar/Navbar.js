@@ -303,7 +303,7 @@ export default function Navbar() {
 													borderBottom: '3px solid #795376',
 												}}
 												>
-												<HiOutlineLogin/> logIn
+												<HiOutlineLogin/> Login
 											</NavLink>
 										) }
 									</div>

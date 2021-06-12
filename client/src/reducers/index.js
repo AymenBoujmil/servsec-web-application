@@ -5,6 +5,7 @@ import auth  from './auth';
 import message from './message';
 import rqdatas from './rqdatas';
 import requests from './requests'
+import contacts from './contacts'
 
-export default combineReducers({ users,auth,services,message,rqdatas,requests});
+export default combineReducers({ users,auth,services,message,rqdatas,requests,contacts});
 
