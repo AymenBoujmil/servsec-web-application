@@ -226,9 +226,6 @@ export default function Navbar() {
 										</ul>
 									</div>
 									<div className='hearer_icon d-flex align-items-center'>
-										<a id='search_1' href='javascript:void(0)'>
-											<i className='ti-search' />
-										</a>
 										{user ?(
 											<div className='navbar-nav'>
 											<div className='nav-item dropdown'>
