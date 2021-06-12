@@ -31,7 +31,6 @@ const initState={
   sector:''
 }
 function Login() {
-
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   const [formData, setformData] = useState(initState)
@@ -78,6 +77,7 @@ function Login() {
 
   const handlechange=(e)=>
   {
+   
     if(e.target.name === "role")
     {
       setformData({
@@ -149,19 +149,6 @@ function Login() {
 
   return (
     <div>
-  {/* breadcrumb part start*/}
-  <section className="breadcrumb_part">
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="breadcrumb_iner">
-            <h2>{ isSignup ? "Signup" : "Login" } </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  {/* breadcrumb part end*/}
   {/*================login_part Area =================*/}
   <div className="container card border-0 shadow my-5 card-body p-5" >
   <section className="login_part ">

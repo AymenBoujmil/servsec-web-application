@@ -8,7 +8,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, useLocation} from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
-import Main from './components/Main';
+import Main from './components/Main/Main';
 import Profile from './components/Profile/Profile';
 import Login from './components/authentification/Login';
 import ServiceList from './components/Services/ServiceList';

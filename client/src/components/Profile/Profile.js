@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import {Link,Route} from "react-router-dom";
 import ServicesTable from "../../_utils/ServicesTable";
 import Update from './Update'
 
+
 function Profile() {
   const user=JSON.parse(localStorage.getItem('profile'));
   const nom = user.result.role === "Client" ? user.result.lastname+'_'+user.result.firstname : user.result.name;
-
+  console.log(user);
   return (
     <>
       <link
@@ -25,7 +26,7 @@ function Profile() {
                   <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
                       <img
-                        src="https://davidwilsondmd.com/wp-content/uploads/2015/11/user.png"
+                        src= {user.result.url ||"https://davidwilsondmd.com/wp-content/uploads/2015/11/user.png" }
                         alt="Admin"
                         class="rounded-circle"
                         width="150"
