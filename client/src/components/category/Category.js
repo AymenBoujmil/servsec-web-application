@@ -10,7 +10,7 @@ function Category() {
 		
 	}
 	return (
-		<section className="trending_items" style={{paddingTop:"50px"}} id="categoryList">
+		<section /*className="trending_items" */ style={{paddingTop:"50px"}} id="categoryList">
 		<div class='service'>
 			<div class='container-fluid'>
 				<div class='section-header'>
@@ -22,10 +22,11 @@ function Category() {
 				<div class='row'>
 					{ categories.map((option)=>
 											(
+												
 												<div className="col-lg-4 col-sm-6" key ={option._id} onClick={handleClick(option._id)}>
 													<div className="single_product_item">
 													<div className="single_product_item_thumb">
-														<img src="img/tranding_item/tranding_item_1.png" alt="#" className="img-fluid" />
+														<img src={'img/categories/'+option.label.replace(/\s/g, '')+'.jpg'} alt={option.label} className="img-fluid" height="150px"/>
 													</div>
 													<h3> {option.label} </h3>
 													<p>{option.definition}</p>

@@ -1,6 +1,6 @@
 import  React, { Component,useState } from 'react'
-import  Banner from '../Banner';
-import  Productlist from '../Productlist';
+import  Banner from './Banner';
+import  Funclist from './FuncList';
 import  Clientreview from '../Users/Clientreview';
 import  Featurepart from '../Featurepart';
 import  Subscribe from '../Subscribe';
@@ -16,7 +16,7 @@ const Main = () => {
     return (
         <div>
                 <Banner/> 
-                <Productlist/>
+                <Funclist/>
                 {user? (
                     <div >
                      <Clientreview/>

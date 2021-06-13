@@ -9,8 +9,10 @@ import { getServices } from '../../actions/services';
 import {useLocation} from 'react-router-dom';
 import { getRequests } from "../../actions/requests";
 import { getCategories } from "../../actions/categories";
+import { Redirect} from 'react-router-dom';
 
 function ServiceList() {
+  
     const location=useLocation();
     const dispatch = useDispatch();
     const useStyles = makeStyles((theme) => ({
@@ -20,14 +22,17 @@ function ServiceList() {
     }
     ))
     const [result, setResult] = useState(null)
+    
     useEffect(() => {
       dispatch(getServices());
       dispatch(getRequests())
       dispatch(getCategories())
     }, [location]);
+
     const classes = useStyles()
     const services = useSelector(state => state.services);
     var val = result ? result : services;
+    console.log(services)
     console.log(val)
   return (
     <div className="container card border-0 shadow my-5 card-body p-5">

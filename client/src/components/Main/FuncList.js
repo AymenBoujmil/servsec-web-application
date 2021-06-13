@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import ControlledCarousel from '../_utils/Carousel'
-import {Link,Route} from "react-router-dom";
+import React from 'react'
+import ControlledCarousel from '../../_utils/Carousel'
+import {Link} from "react-router-dom";
 
-function  Productlist () {
+function  Funclist () {
   const user=JSON.parse(localStorage.getItem('profile'));
   var val = user ? "/ServiceList" : "/login";
 
@@ -24,7 +24,7 @@ function  Productlist () {
             <div className="col-lg-5 col-sm-6">
               <div className="single_product_content">
                 <h5>Check it now</h5>
-                <h2> <a href="single-product.html">Assured Quality while saving time and money !!</a> </h2>
+                <h2> <a href="#">Assured Quality while saving time and money !!</a> </h2>
                 <Link to={val} className="btn_3">{user ? "Start Now! " : "Log In Now !" }</Link>
               </div>
             </div>
@@ -41,7 +41,7 @@ function  Productlist () {
             <div className="col-lg-5 col-sm-6">
               <div className="single_product_content">
                 <h5>A variety of choices </h5>
-                <h2> <a href="single-product.html">Explore all our categories and choose what you need ..</a> </h2>
+                <h2> <a href="#categoryList">Explore all our categories and choose what you need ..</a> </h2>
                 {user?(
                   <a href="#categoryList" className="btn_3">Explore Now</a>
                 ):(
@@ -60,4 +60,4 @@ function  Productlist () {
             </div>
         )
     }
-export default Productlist;
+export default Funclist;

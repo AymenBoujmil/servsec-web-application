@@ -49,33 +49,20 @@ const App = () => {
             <ScrollToTop />
             <Switch>
                 <Route path='/' exact component={Main} />
-                <Route path='/Aboutus'>
-                    <AboutUs />
-                </Route>
-                <Route path='/Admin'>
-                    {user ? (
-                        <div>
-                            <Users2 setCurrentId={setCurrentId} />
-                            <UserForm currentId={currentId} setCurrentId={setCurrentId} />
-                        </div>
-                    ) : (
-                        <Login/>
-                    ) }
-
-                </Route>
+                <Route path='/Aboutus' exact component={AboutUs} />
+                <Route path='/contact' exact component={ContactForm} />
+                <Route path="/TermsofService" exact component={TermsofService}/>
+                <Route path="/FrequentlyAskedQuestion" exact component={FrequentlyAskedQuestion}/>
+                <Route path="/OurAdvices" exact component={OurAdvices}/>
                 <Route path='/profile' exact component={Profile} />
-                <Route path='/login' exact component={Login} />
                 <Route path='/ServiceList'  exact component={ServiceList} />
-                <Route path='/Update'  exact component={Update} />
+                <Route path='/Update'  exact component={Update} />                                  
                 <Route path='/addService'  exact component={AddServiceForm} />
                 <Route path='/updateService/:id'  exact component={UpdateServiceForm} />
                 <Route path='/service/RequestForm/:id' exact component={RequestForm} />
                 <Route path='/service/Form/:id' exact component={ServiceRequestForm} />
                 <Route path='/service/Info/:id' exact component={ServiceInfo} />
-                <Route path='/contact' exact component={ContactForm} />
-                <Route path="/TermsofService" exact component={TermsofService}/>
-                <Route path="/FrequentlyAskedQuestion" exact component={FrequentlyAskedQuestion}/>
-                <Route path="/OurAdvices" exact component={OurAdvices}/>
+                <Route path='/login' exact component={Login} />                              
             </Switch>
             <Footer />
         </Router>

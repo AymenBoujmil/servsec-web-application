@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import {Link,Route} from "react-router-dom";
 import ServicesTable from "../../_utils/ServicesTable";
-import Update from './Update'
-import History from './History'
-
+import Update from './Update';
+import History from './History';
+import {Redirect} from 'react-router-dom';
 
 function Profile() {
   const user=JSON.parse(localStorage.getItem('profile'));
+  if (user === null)
+  return(
+    <Redirect to="/"></Redirect> 
+  )
   const nom = user.result.role === "Client" ? user.result.lastname+'_'+user.result.firstname : user.result.name;
-
+  
   return (
     <>
+      
       <link
         href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         rel="stylesheet"

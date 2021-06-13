@@ -37,15 +37,12 @@ const ServiceItem = (props) => {
   const [user,setUser] = useState();
   const [loading,setLoading] = useState(true)
   useEffect(()=>{
-    fetchUsers().then((res)=>{
-      console.log(res)
+    fetchUsers().then((res)=>{     
       setUser(res.data.find(u=>u._id===props.service.owner));
-      setLoading(false);
+      setLoading(false);      
     }
     )
-  })
-
-
+  },[])
   const classes = useStyles();
 if (loading) return <div></div>
   return (
