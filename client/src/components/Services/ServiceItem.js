@@ -7,6 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import {fetchUsers} from './../../api/index'
 import ServiceModal from "./ServiceModal";
+import ProviderModal from './../Users/ProviderModal'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom:"10px",
@@ -43,10 +45,11 @@ const ServiceItem = (props) => {
       setLoading(false);
     }
     )
-  })
+  },[])
 
 
   const classes = useStyles();
+  console.log(user);
 if (loading) return <div></div>
   return (
     
@@ -55,11 +58,7 @@ if (loading) return <div></div>
         <Grid container spacing={4}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img
-                className={classes.img}
-                alt="complex"
-                src={user.url}
-              />
+              <ProviderModal user={user}/>
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>

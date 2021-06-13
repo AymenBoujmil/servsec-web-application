@@ -175,7 +175,7 @@ export default function Navbar() {
 													</NavLink>
 													<NavLink
 														className='dropdown-item'
-														to='/Services/Categories'
+														to='/Categories'
 													>
 														Categories
 													</NavLink>

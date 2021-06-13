@@ -28,6 +28,7 @@ import { getCategories} from './actions/categories';
 import TermsofService from './pages/TermsofService';
 import FrequentlyAskedQuestion from './pages/FrequentlyAskedQuestion';
 import OurAdvices from './pages/OurAdvices';
+import Category from './components/category/Category'
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -76,6 +77,7 @@ const App = () => {
                 <Route path="/TermsofService" exact component={TermsofService}/>
                 <Route path="/FrequentlyAskedQuestion" exact component={FrequentlyAskedQuestion}/>
                 <Route path="/OurAdvices" exact component={OurAdvices}/>
+                <Route path="/Categories" exact component={Category}/>
             </Switch>
             <Footer />
         </Router>

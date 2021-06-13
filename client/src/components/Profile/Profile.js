@@ -138,6 +138,8 @@ function Profile() {
                           <div class="table-responsive">
             <table class="table table-sm table-borderless mb-0">
               <tbody>
+                {user.result.role==="Client" ?(
+                  <>
                 <tr>
                   <th class="pl-0 w-25" scope="row">
                     <strong>First Name</strong>
@@ -158,7 +160,9 @@ function Profile() {
                       : "Unavailable"}
                   </td>
                 </tr>
-                <tr>
+                  </>
+                  ):null
+                }<tr>
                   <th class="pl-0 w-25" scope="row">
                     <strong>{user.result.role==="Client" ? "Birth Date" : "Founded in"}</strong>
                   </th>
