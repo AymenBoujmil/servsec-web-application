@@ -10,7 +10,8 @@ export default (rqdatas=[],action)=>{
         return rqdatas.filter((rqdata)=> rqdata._id !== action.payload);
       case UPDATE_REQUEST_DATA:
         return rqdatas.map((rqdata)=> rqdata._id ===action.payload._id ? action.payload : rqdata); 
-      default:
+      default:{
         return rqdatas;
+      }
   }
 }

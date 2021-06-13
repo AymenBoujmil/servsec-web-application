@@ -1,4 +1,4 @@
-import {CREATE_SERVICE, DELETE_SERVICE, FETCH_ALL_SERVICES, UPDATE_SERVICE} from '../_constants/actionTypes';
+import {CREATE_SERVICE, DELETE_SERVICE, FETCH_ALL_SERVICES, UPDATE_SERVICE,SEARCH_SERVICE} from '../_constants/actionTypes';
 
 export default (services=[],action)=>{
   switch (action.type) {
@@ -10,6 +10,8 @@ export default (services=[],action)=>{
         return services.filter((service)=> service._id !== action.payload);
       case UPDATE_SERVICE:
         return services.map((service)=> service._id ===action.payload._id ? action.payload : service); 
+      case SEARCH_SERVICE:
+        return action.payload; 
       default:
         return services;
   }

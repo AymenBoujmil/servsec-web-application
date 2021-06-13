@@ -149,7 +149,7 @@ export default function Navbar() {
 											<li className='nav-item dropdown'>
 												<NavLink
 													className='nav-link dropdown-toggle'
-													to={user?'/Services': '/login'}
+													to={user?'/ServiceList': '/login'}
 													id='navbarDropdown_1'
 													role='button'
 													data-toggle='dropdown'
@@ -175,7 +175,7 @@ export default function Navbar() {
 													</NavLink>
 													<NavLink
 														className='dropdown-item'
-														to='/Services/Categories'
+														to='/Categories'
 													>
 														Categories
 													</NavLink>
@@ -226,9 +226,6 @@ export default function Navbar() {
 										</ul>
 									</div>
 									<div className='hearer_icon d-flex align-items-center'>
-										<a id='search_1' href='javascript:void(0)'>
-											<i className='ti-search' />
-										</a>
 										{user ?(
 											<div className='navbar-nav'>
 											<div className='nav-item dropdown'>
@@ -250,9 +247,16 @@ export default function Navbar() {
 														variant='dot'
 														invisible={invisible}
 													>
-														<Avatar
+												
+															<img
+															src= {user.result.url ||"https://davidwilsondmd.com/wp-content/uploads/2015/11/user.png" }
+															alt="User"
+															class="rounded-circle"
+															width="60"
+															/>
+														{/*	<Avatar
 															className={(classes.purple, classes.small)}
-														></Avatar>
+														></Avatar> */	}																		
 													</Badge>
 												</NavLink>
 												<div
@@ -303,7 +307,7 @@ export default function Navbar() {
 													borderBottom: '3px solid #795376',
 												}}
 												>
-												<HiOutlineLogin/> logIn
+												<HiOutlineLogin/> Login
 											</NavLink>
 										) }
 									</div>

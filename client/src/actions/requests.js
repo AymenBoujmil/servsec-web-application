@@ -37,6 +37,17 @@ export const updateRequest = (id,request,history) => async (dispatch) => {
     }
   };
 
+  export const manageRequest = (id,request) => async (dispatch) => {
+    try {
+      const { data } = await api.updateRequest(id,request);
+      dispatch({ type : UPDATE_REQUEST , payload : data});
+    } catch (error) {
+      if (error.response && error.response.data) {
+        dispatch({type:"ERROR",payload:error.response.data.message});
+      }
+    }
+  };
+
 export const deleteRequest = (id) => async (dispatch) => {
     try {
       const {data} = await api.deleteRequest(id);

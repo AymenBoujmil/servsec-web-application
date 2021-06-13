@@ -7,8 +7,9 @@ import { IoSend } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { getRqData } from "../actions/requestsData";
-import { createRequest } from "../actions/requests";
+import { getRqData } from "../../../actions/requestsData";
+import { createRequest,getRequests,updateRequest } from "../../../actions/requests";
+import * as api from './../../../api/index'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -20,11 +21,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ServiceRequestForm() {
+  const today = new Date().toISOString().slice(0, 10);
+
+
+  const [loading,setLoading] = useState(true)
+  const [requestData,setRqDatas] = useState(null);
+  const [request,setRequest] = useState(null)
+  const [isUpdated,setUpdated] = useState(null)
   const classes = useStyles();
   const { id } = useParams();
+  console.log(id);
   const location = useLocation();
   const dispatch = useDispatch();
-  const today = new Date().toISOString().slice(0, 10);
+
+  /*const requestDatas = useSelector((state) =>
+  state.rqdatas
+  );
+  const requests = useSelector((state) =>
+  state.requests
+  );
+  */const user = JSON.parse(localStorage.getItem("profile"));
+  /*const request = requests.find(r => r.serviceId === id && r.clientId === user.result._id)
+  console.log(requestDatas)
+  const requestData = requestDatas.find(r=>r.serviceId===id)
+  if(!loading){  requestData.items.forEach((item) =>
+    initialForm.items.push({
+      ...item,
+      value: item.type === "date" ? today : "",
+    })
+  );}*/
+
 
   const initialForm = {
     reqDate: {
@@ -39,22 +65,35 @@ function ServiceRequestForm() {
       value: "",
     },
   };
-
-  const requestData = useSelector((state) =>
-    state.rqdatas.find((r) => r.serviceId === id)
-  );
-  requestData.items.forEach((item) =>
-    initialForm.items.push({
-      ...item,
-      value: item.type === "date" ? today : "",
-    })
-  );
-
-  const [formData, setFormData] = useState(initialForm);
-
   useEffect(() => {
-    dispatch(getRqData());
-  }, [location]);
+    Promise.all([api.fetchRqData(),api.fetchRequests()]).then((res)=> {
+      console.log(res)
+      setRqDatas(res[0].data.find(r=>r.serviceId===id)?
+      res[0].data.find(r=>r.serviceId===id):initialForm)
+      setRequest(res[1].data.find(r => r.serviceId === id && r.clientId === user.result._id))
+      setUpdated(res[1].data.find(r => r.serviceId === id && r.clientId === user.result._id)?true:false)
+      setLoading(false);
+      let rq;
+      if(res[0].data.find(r=>r.serviceId===id)){
+      rq=res[0].data.find(r=>r.serviceId===id)
+
+      rq.items.map((item)=>initialForm.items.push({...item,value:""}))
+    }
+    })
+    ;
+  },[]);
+  const [formData, setFormData] = useState(initialForm);  
+/*  console.log(requestData)
+if (requestData){
+requestData.items.map((item)=>{
+  initialForm.items.push({...item,value:""})
+})
+console.log(initialForm)
+}*/
+
+
+console.log(initialForm)
+
   const history=useHistory();
 
   const handleChangeDate = (e) => {
@@ -69,16 +108,20 @@ function ServiceRequestForm() {
     let updatedPrice = formData.price;
     updatedPrice.value = e.target.value;
     setFormData({ ...formData, price: updatedPrice });
+    console.log(formData)
   };
 
   const handleChangeField = (e, id) => {
     e.preventDefault();
+    console.log(formData)
     let dataItems = { ...formData };
-    let items = [...dataItems.items];
+    let items = dataItems.items;
+    console.log(items)
     const updatedItems = items.map((i) =>
       i.id === id ? { ...i, value: e.target.value } : i
     );
     dataItems.items = updatedItems;
+    console.log(dataItems)
     setFormData(dataItems);
   };
 
@@ -90,14 +133,19 @@ function ServiceRequestForm() {
       clientId: JSON.parse(localStorage.getItem('profile')).result._id,
       requestData: formData,
       timestamp: dateTime,
-      serviceId: requestData.serviceId,
+      serviceId: id,
       status:"Pending"
     };
     console.log(data);
-    dispatch(createRequest(data,history));
+    isUpdated ? api.updateRequest(request._id,data).then(()=>{
+      history.push('/profile')
+    }):
+    api.createRequest(data).then(()=>{
+      history.push('/profile')
+    });
 
   };
-
+  if (loading) return (<p>loading...</p>)
   return (
     <div
       className="container card border-0 shadow my-5 card-body p-5"

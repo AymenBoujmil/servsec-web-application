@@ -23,6 +23,7 @@ export const resetPassword=(formData,token)=>API.post('/users/resetPassword',for
 
 //services
 export const fetchServices = ()=> API.get('/Services');
+export const searchServices = (service)=> API.get(`/Services/${service}`);
 export const createService = (newService)=>API.post('/profile/services',newService);
 export const updateService = (id,updatedService)=>API.patch(`/profile/services/${id}`,updatedService);
 export const deleteService = (id) => API.delete(`/profile/services/${id}`);
@@ -40,3 +41,6 @@ export const fetchRequests = ()=> API.get('/profile/request');
 export const createRequest = (newRequest)=>API.post('/profile/request',newRequest);
 export const updateRequest = (id,updatedRequest)=>API.patch(`/profile/request/${id}`,updatedRequest);
 export const deleteRequest = (id) => API.delete(`/profile/request/${id}`);
+
+//contacts
+export const createContact = (newContact)=>API.post('/contact',newContact);

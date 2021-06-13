@@ -11,9 +11,10 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
-import { getRqData } from "../actions/requestsData";
+import { getRqData } from "../../../actions/requestsData";
 import { useSelector } from "react-redux";
-import { createRqData, updateRqData } from "../actions/requestsData";
+import { createRqData, updateRqData } from "../../../actions/requestsData";
+import * as api from './../../../api/index'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -22,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RequestForm() {
+  const [loading,setLoading] = useState(true)
+  
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log(id);
@@ -30,7 +33,7 @@ function RequestForm() {
 
   const types = ["text", "date", "color", "number"];
 
-  const initialForm = {
+  let initialForm = {
     reqDate: {
       label: "Request Date",
       type: "date",
@@ -41,20 +44,39 @@ function RequestForm() {
       type: "number",
     },
     serviceId: id,
-  };
+  };  const [formItems, setFormItems] = useState(
+    null
+  );
+  const [isUpdated, setUpdated] = useState(false);
   const location = useLocation();
-  const requestItems = useSelector((state) =>
+  /*const requestItems = useSelector((state) =>
     state.rqdatas.find((r) => r.serviceId === id)
-  );
-  const [formItems, setFormItems] = useState(
-    requestItems ? requestItems : initialForm
-  );
+  );/*
+  
 
-  const [isUpdated, setUpdated] = useState(requestItems !== undefined);
+/*  if(!loading){
+    console.log(requestItems)
+    requestItems.items.forEach((item) =>
+    initialForm.items.push({
+      ...item,
+    })
+  );}*/
+/*  if (!formSet){
+    setFormItems(requestItems)
+    setUpdated(true)
+}*/
+  console.log(initialForm)
+  console.log(isUpdated)
 
   useEffect(() => {
-    dispatch(getRqData());
-  }, [location]);
+    Promise.all([api.fetchRqData()]).then((res)=>{
+
+      console.log(res[0].data.find(r=>r.serviceId===id)?true:false)
+      setFormItems(res[0].data.find(r=>r.serviceId===id) ? res[0].data.find(r=>r.serviceId===id) : initialForm)
+      setUpdated(res[0].data.find(r=>r.serviceId===id) ? true:false);
+      setLoading(false);
+    })
+  }, []);
 
   const handleAddItem = (e) => {
     e.preventDefault();
@@ -99,13 +121,14 @@ function RequestForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(isUpdated)
     if (isUpdated) {
       dispatch(updateRqData(formItems._id, formItems, history));
     } else {
       dispatch(createRqData(formItems, history));
     }
   };
-
+if (loading) return (<p>loading ...</p>)
   return (
     <form onSubmit={handleSubmit}>
       <div className="container card border-0 shadow my-5 card-body p-5">

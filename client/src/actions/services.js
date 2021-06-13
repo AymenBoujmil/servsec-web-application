@@ -1,11 +1,22 @@
 import * as api from '../api/index.js';
-import {CREATE_SERVICE, DELETE_SERVICE, FETCH_ALL_SERVICES, UPDATE_SERVICE} from '../_constants/actionTypes';
+import {CREATE_SERVICE, DELETE_SERVICE, FETCH_ALL_SERVICES, UPDATE_SERVICE,SEARCH_SERVICE } from '../_constants/actionTypes';
 
 export const getServices=() => async (dispatch) =>
 {
     try {   
         const { data } = await api.fetchServices(); 
         dispatch({type : FETCH_ALL_SERVICES ,payload : data});
+    } catch (error) {
+         console.log(error);
+    }
+
+}
+
+export const searchServices=(service) => async (dispatch) =>
+{
+    try {   
+        const { data } = await api.searchServices(service); 
+        dispatch({type : SEARCH_SERVICE ,payload : data});
     } catch (error) {
          console.log(error);
     }

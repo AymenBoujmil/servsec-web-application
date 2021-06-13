@@ -42,10 +42,7 @@ function ServicesTable() {
 
   const services = useSelector((state) => state.services);
   const user = JSON.parse(localStorage.getItem("profile"));
-  const aux = [];
-  aux.unshift(services.filter((s) => s.owner === user.result._id));
-  const rows = aux[0];
-  //const rows = services.filter(s => props.id.includes(s._id));
+  const rows=services.filter((s) => s.owner === user.result._id);
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -346,7 +343,9 @@ function ServicesTable() {
                           scope="row"
                           align="center"
                         >
+                          <Link to={`service/Info/${row._id}`}>
                           {row.sector}
+                          </Link>
                         </TableCell>
                         <TableCell align="center">{row.description}</TableCell>
                         {/* <TableCell align="center">{row.category}</TableCell> */}
