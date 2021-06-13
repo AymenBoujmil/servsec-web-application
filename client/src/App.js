@@ -27,6 +27,7 @@ import { getRequests } from './actions/requests';
 import { getCategories} from './actions/categories';
 import TermsofService from './pages/TermsofService';
 import FrequentlyAskedQuestion from './pages/FrequentlyAskedQuestion';
+import OurAdvices from './pages/OurAdvices';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -74,6 +75,7 @@ const App = () => {
                 <Route path='/contact' exact component={ContactForm} />
                 <Route path="/TermsofService" exact component={TermsofService}/>
                 <Route path="/FrequentlyAskedQuestion" exact component={FrequentlyAskedQuestion}/>
+                <Route path="/OurAdvices" exact component={OurAdvices}/>
             </Switch>
             <Footer />
         </Router>
