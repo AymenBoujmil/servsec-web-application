@@ -9,6 +9,7 @@ import * as yup from 'yup';
 const ContactForm=()=> {
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem("profile"))
+  const role= user? user.result.role : null
   /*const initialForm = {
     name: user? `${user.result.firstname} ${user.result.lastname}`:"",
     email: user? `${user.result.email}`:"",
@@ -52,7 +53,7 @@ const handleChangeMessage = (e) =>{
   
     const formik = useFormik({
       initialValues: {
-        name: user? `${user.result.firstname} ${user.result.lastname}`:"",
+        name: user? (user.result.role ==="Client"? `${user.result.firstname} ${user.result.lastname}`:`${user.result.name}` ):"",
         email: user? `${user.result.email}`:"",
         message:""
       },

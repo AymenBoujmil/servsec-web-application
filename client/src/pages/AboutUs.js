@@ -12,7 +12,7 @@ export default class AboutUs extends Component {
                     -Our Mission-</h3>
                 </div>
                 <br />
-                <p style={{fontSize: 'large',textAlign:'center'}}> To provide a reliable web application to access dierse services</p>
+                <p style={{fontSize: 'large',textAlign:'center'}}> To provide a reliable web application to access diverse services</p>
                 <br />
                 <h3  style={{fontWeight: 600, color:'burlywood',textAlign:'center'}}>
                 -About-</h3>
@@ -27,14 +27,14 @@ export default class AboutUs extends Component {
                 to follow the progress of the work.
                 </p>
                 <br />
-                <p>On the other hand, if you are a dedicated worker looking to magnify the range of your activity
+                <p id="Team">On the other hand, if you are a dedicated worker looking to magnify the range of your activity
                 you have the possibility to sign up as a provider and to offer your services to the masses.
                 </p>
                 <br />
                 <h3  style={{fontWeight: 600, color:'burlywood',textAlign:'center'}}>
                 -Our Staff-</h3>
                 <br/><br/>
-                <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+                <div  style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
                     <div>
                         <img src={window.location.origin + '/img/Man.png'} />
                         <figure>

@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
+import ControlledCarousel from '../_utils/Carousel'
+import {Link,Route} from "react-router-dom";
 
-export default class Productlist extends Component {
-    render() {
+function  Productlist () {
+  const user=JSON.parse(localStorage.getItem('profile'));
+  var val = user ? "/ServiceList" : "/login";
+
         return (
             <div>
                 {/* product list start*/}
-  <section className="single_product_list">
+  <section className="single_product_list" style={{paddingTop:"50px"}}>
   <div className="container">
     <div className="row">
       <div className="col-lg-12">
@@ -13,17 +17,15 @@ export default class Productlist extends Component {
           <div className="row align-items-center justify-content-between">
             <div className="col-lg-6 col-sm-6">
               <div className="single_product_img">
-                <img src="img/single_product_1.png" className="img-fluid" alt="#" />
-                <img src="img/product_overlay.png" alt="#" className="product_overlay img-fluid" />
+                <ControlledCarousel/>
+                <img src="img/product_overlay.png" alt="#" className="product_overlay img-fluid" style={{height:"320px"}} />
               </div>
             </div>
             <div className="col-lg-5 col-sm-6">
               <div className="single_product_content">
-                <h5>Started from $10</h5>
-                <h2> <a href="single-product.html">Printed memory foam 
-                    brief modern throw 
-                    pillow case</a> </h2>
-                <a href="product_list.html" className="btn_3">Explore Now</a>
+                <h5>Check it now</h5>
+                <h2> <a href="single-product.html">Assured Quality while saving time and money !!</a> </h2>
+                <Link to={val} className="btn_3">{user ? "Start Now! " : "Log In Now !" }</Link>
               </div>
             </div>
           </div>
@@ -32,36 +34,20 @@ export default class Productlist extends Component {
           <div className="row align-items-center justify-content-between">
             <div className="col-lg-6 col-sm-6">
               <div className="single_product_img">
-                <img src="img/single_product_2.png" className="img-fluid" alt="#" />
-                <img src="img/product_overlay.png" alt="#" className="product_overlay img-fluid" />
+                <img src="img/banner.jpg" className="img-fluid" alt="#" />
+                <img src="img/product_overlay.png" alt="#" className="product_overlay img-fluid" style={{height:"220px",width:"60%"}} />
               </div>
             </div>
             <div className="col-lg-5 col-sm-6">
               <div className="single_product_content">
-                <h5>Started from $10</h5>
-                <h2> <a href="single-product.html">Printed memory foam 
-                    brief modern throw 
-                    pillow case</a> </h2>
-                <a href="product_list.html" className="btn_3">Explore Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="single_product_iner">
-          <div className="row align-items-center justify-content-between">
-            <div className="col-lg-6 col-sm-6">
-              <div className="single_product_img">
-                <img src="img/single_product_3.png" className="img-fluid" alt="#" />
-                <img src="img/product_overlay.png" alt="#" className="product_overlay img-fluid" />
-              </div>
-            </div>
-            <div className="col-lg-5 col-sm-6">
-              <div className="single_product_content">
-                <h5>Started from $10</h5>
-                <h2> <a href="single-product.html">Printed memory foam 
-                    brief modern throw 
-                    pillow case</a> </h2>
-                <a href="product_list.html" className="btn_3">Explore Now</a>
+                <h5>A variety of choices </h5>
+                <h2> <a href="single-product.html">Explore all our categories and choose what you need ..</a> </h2>
+                {user?(
+                  <a href="#categoryList" className="btn_3">Explore Now</a>
+                ):(
+                  <Link to="/login" className="btn_3">Explore Now</Link>
+                )}
+                
               </div>
             </div>
           </div>
@@ -74,4 +60,4 @@ export default class Productlist extends Component {
             </div>
         )
     }
-}
+export default Productlist;

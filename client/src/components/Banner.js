@@ -1,34 +1,23 @@
 import React, { Component } from 'react'
+import {Link,Route} from "react-router-dom";
 
-export default class Banner extends Component {
-    render() {
+function Banner (){
+    const user=JSON.parse(localStorage.getItem('profile'));
+    var val = user ? "/ServiceList" : "/login";
         return (
-          <div>
-  {/* banner part start*/}
-  <section className="banner_part">
-    <div className="container">
-      <div className="row align-items-center">
-        <div className="col-md-5">
-          <div className="banner_text">
-            <div className="banner_text_iner">
-              <h1>Best quality
-                services</h1>
-              <p>Enjoy a variety of services while saving money,time and much more ..
-             </p>
-              <a href="product_list.html" className="btn_1">Start now!</a>
+          <div className="container" style={{paddingTop:"100px"}}>
+            <div style={{width:'100%'}} >
+              <img  style={{width:'100%',height:"220px"}} src="img/welcome.jpg"/>
             </div>
+            <br></br>
+            <div class='section-header'>
+              <h2>ServSec</h2>
+              <p>
+                An easy solution for an easy life 
+                learn everything <Link to="/Aboutus"></Link>about us 
+              </p>
           </div>
-        </div>
-      </div>
-    </div>
-    <div className="banner_img">
-      <img src="img/banner.jpg" alt="#" className="img-fluid" />
-      <img src="img/banner_pattern.png " alt="#" className="pattern_img img-fluid" />
-    </div>
-  </section>
-  {/* banner part start*/}
-</div>
-
+          </div>
         )
     }
-}
+export default Banner;
