@@ -36,10 +36,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ServiceItem = (props) => {
-  const [user,setUser] = useState();
+  const [user,setUser] = useState(null);
   const [loading,setLoading] = useState(true)
   useEffect(()=>{
     fetchUsers().then((res)=>{     
+      console.log(props.service)
       setUser(res.data.find(u=>u._id===props.service.owner));
       setLoading(false);      
     }
