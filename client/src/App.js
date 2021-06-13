@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import AboutUs from './pages/AboutUs';
 import { useDispatch,useSelector } from 'react-redux';
 import { getUsers } from './actions/users';
-import Users2 from './components/Users/Users2';
-import UserForm from './components/Forms/UserForm';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, useLocation} from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
@@ -29,6 +27,8 @@ import TermsofService from './pages/TermsofService';
 import FrequentlyAskedQuestion from './pages/FrequentlyAskedQuestion';
 import OurAdvices from './pages/OurAdvices';
 import Category from './components/category/Category'
+import ForgotPassword from './components/authentification/ForgotPassword';
+import ResetPassword from './components/authentification/ResetPassword';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -64,7 +64,9 @@ const App = () => {
                 <Route path='/service/Form/:id' exact component={ServiceRequestForm} />
                 <Route path='/service/Info/:id' exact component={ServiceInfo} />
                 <Route path='/login' exact component={Login} />         
-                <Route path="/Categories" exact component={Category}/>                     
+                <Route path="/Categories" exact component={Category}/>
+                <Route path="/forgotPassword" exact component={ForgotPassword}/> 
+                <Route path="/resetPassword/:token" exact component={ResetPassword}  />           
             </Switch>
             <Footer />
         </Router>

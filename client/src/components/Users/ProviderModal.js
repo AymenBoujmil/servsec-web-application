@@ -58,19 +58,20 @@ const useStyles = makeStyles((theme) => ({
 const ProviderModal=(props) =>{
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    e.preventDefault();
     setOpen(true);
   };
-  const handleClose = () => {
+  const handleClose = (e) => {
+    e.preventDefault();
     setOpen(false);
   };
-
   return (
     <div>
       <img
       alt="complex"
       className={classes.img} 
-      src={props.user.url}
+      src={props.user.url || "img/user.png"}
       onClick={handleClickOpen}
       />
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>

@@ -47,8 +47,7 @@ const ServiceItem = (props) => {
     )
   },[])
   const classes = useStyles();
-  console.log(user);
-if (loading) return <div></div>
+  if (loading) return <div></div>
   return (
     
     <div className={classes.root}>
