@@ -25,6 +25,9 @@ import ServiceInfo from './components/Services/ServiceInfo';
 import ContactForm from './components/Main/ContactForm'
 import { getRequests } from './actions/requests';
 import { getCategories} from './actions/categories';
+import TermsofService from './pages/TermsofService';
+import FrequentlyAskedQuestion from './pages/FrequentlyAskedQuestion';
+import OurAdvices from './pages/OurAdvices';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -70,6 +73,9 @@ const App = () => {
                 <Route path='/service/Form/:id' exact component={ServiceRequestForm} />
                 <Route path='/service/Info/:id' exact component={ServiceInfo} />
                 <Route path='/contact' exact component={ContactForm} />
+                <Route path="/TermsofService" exact component={TermsofService}/>
+                <Route path="/FrequentlyAskedQuestion" exact component={FrequentlyAskedQuestion}/>
+                <Route path="/OurAdvices" exact component={OurAdvices}/>
             </Switch>
             <Footer />
         </Router>

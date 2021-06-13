@@ -2,7 +2,10 @@ import React from 'react';
 import { IconContext } from 'react-icons';
 import { MdEmail, MdPhone, MdPinDrop, MdCopyright } from 'react-icons/md';
 import './footer.css';
+import {Link} from 'react-router-dom';
 export const Footer = () => {
+	const user=JSON.parse(localStorage.getItem('profile'));
+	var val = user ? "/ServiceList" : "/login";
 	const copyRStyle = {
 		padding: '4px',
 		color: '#797979',
@@ -21,9 +24,10 @@ export const Footer = () => {
 								<h6>About ServSec</h6>
 								<p>
 									The world has become so fast paced that people don’t want to
-									stand by reading a page of information to be they would much
-									rather look at a presentation and understand the message. It
-									has come to a point where images and videos are used more to
+									stand by searching for a solution on a page of information or 
+									going around checking for the best price instead they would 
+									much rather find the fastest most efficient solutions in a  
+									blink of an eye ...
 								</p>
 							</div>
 						</div>
@@ -37,29 +41,29 @@ export const Footer = () => {
 												<a href='#'>Home</a>
 											</li>
 											<li>
-												<a href='#'>about</a>
+												<Link to="/AboutUs">AboutUs</Link>
 											</li>
 											<li>
-												<a href='#'>Themes</a>
+												<Link to={val}>Our Services</Link>
 											</li>
 											<li>
-												<a href='#'>Speakers</a>
+												<Link to="/FrequentlyAskedQuestion">FAQ</Link>
 											</li>
 										</ul>
 									</div>
 									<div className='col'>
 										<ul>
 											<li>
-												<a href='#'>Team</a>
+												<a href="/AboutUs/#Team">Team</a>
 											</li>
 											<li>
-												<a href='#'>Schedule</a>
+												<Link to="TermsofService">Terms of Service</Link>
 											</li>
 											<li>
-												<a href='#'>Hotel</a>
+												<Link to="/contact">Contact</Link>
 											</li>
 											<li>
-												<a href='#'>Contact</a>
+												<Link to="/OurAdvices">Our Tips</Link>
 											</li>
 										</ul>
 									</div>
@@ -94,7 +98,7 @@ export const Footer = () => {
 											<div style={{display:'flex',flexDirection:'row'}}>
 												<MdEmail></MdEmail>
 
-												<p>hello@youremail.com</p>
+												<p>servsec80@gmail.com</p>
 											</div>
 										</li>
 									</ul>

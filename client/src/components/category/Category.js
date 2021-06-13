@@ -10,7 +10,7 @@ function Category() {
 		
 	}
 	return (
-		<section className="trending_items" style={{paddingTop:"0px"}}>
+		<section className="trending_items" style={{paddingTop:"50px"}} id="categoryList">
 		<div class='service'>
 			<div class='container-fluid'>
 				<div class='section-header'>

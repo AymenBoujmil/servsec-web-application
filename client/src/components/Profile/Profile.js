@@ -8,7 +8,7 @@ import History from './History'
 function Profile() {
   const user=JSON.parse(localStorage.getItem('profile'));
   const nom = user.result.role === "Client" ? user.result.lastname+'_'+user.result.firstname : user.result.name;
-  console.log(user);
+
   return (
     <>
       <link
