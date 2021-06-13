@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
@@ -6,6 +6,8 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
@@ -30,31 +32,45 @@ import { useLocation, useHistory } from "react-router-dom";
 import { Link, Route } from "react-router-dom";
 import AddServiceForm from "../Services/Forms/AddServiceForm";
 import { getRqData } from "../../actions/requestsData";
-import { getRequests } from "../../actions/requests";
 import ServiceList from "../Services/ServiceList";
 import { getUsers } from "../../actions/users";
+import { getRequests} from "../../actions/requests";
 import RequestModal from "../Request/RequestModal";
 import '../../assets/ModalButtonStyle.css';
+import * as api from './../../api/index'
 
 function History() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
+  const [loading,setLoading] = useState(true)
+  const [users,setUsers] = useState(null)
+  const [services,setServices] = useState(null)
+  const [requests,setRequests] = useState(null)
+  const [status,setStatus] = useState("None")
 
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getServices());
-    dispatch(getRequests());
-  }, [location]);
 
-  const services = useSelector((state) => state.services);
+    Promise.all([api.fetchUsers()
+    ,api.fetchServices()
+    ,api.fetchRequests()]).then((res)=>{
+      console.log(res)
+      setUsers(res[0].data);
+      setServices(res[1].data);
+      setRequests(res[2].data.filter((r) => r.clientId === user.result._id));
+      setLoading(false);
+    })
+  },[location]);
+  let rows;
+  /*const services = useSelector((state) => state.services);
   const requests = useSelector((state) => state.requests);
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state) => state.users);*/
   const user = JSON.parse(localStorage.getItem("profile"));
-  const rows = requests.filter((r) => r.clientId === user.result._id);
+  if (!loading)
+  rows = status ==="None"?requests.filter((r) => r.clientId === user.result._id):requests.filter((r) => r.clientId === user.result._id && r.status===status);
 
   //const rows = services.filter(s => props.id.includes(s._id));
-
+const statuses = ["Pending","In Progress","Canceled","Refused","Completed"]
   function descendingComparator(a, b, orderBy) {
     console.log(a[orderBy]);
     if (b[orderBy] < a[orderBy]) {
@@ -163,16 +179,22 @@ function History() {
     },
   }));
 
+
   const EnhancedTableToolbar = (props) => {
+
+    const handleStatusChange = (e) =>{
+      props.setStatus(e.target.value)
+    }
     const classes = useToolbarStyles();
     const { numSelected } = props;
     const numSelectedInt = parseInt(numSelected);
-
+if (loading) return (<div></div>)
     return (
       <Toolbar
         className={clsx(classes.root, {
           [classes.highlight]: numSelectedInt > 0,
         })}
+        style={{display:"flex 6 3 3 auto"}}
       >
         {numSelectedInt > -1 ? (
           <Typography
@@ -203,11 +225,25 @@ function History() {
             </Tooltip>
           </div>
         ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
+          <>
+          <div style={{width:"20%"}}>Filter by</div>
+                    <Select
+                    variant="filled"
+                    style={{flexGrow:3}}
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={props.status}
+          onChange={handleStatusChange}
+          label="Statuses"
+        >
+          <MenuItem value="None" >
+            <em>None</em>
+          </MenuItem>
+          {statuses.map((st)=>(
+            <MenuItem value={st}>{st}</MenuItem>
+          ))}
+          </Select>
+          </>
         )}
       </Toolbar>
     );
@@ -241,7 +277,7 @@ function History() {
     },
   }));
 
-  function EnhancedTable() {
+  const EnhancedTable=(props)=> {
     const classes = useStyles();
     const [order, setOrder] = React.useState("asc");
     const [orderBy, setOrderBy] = React.useState("calories");
@@ -292,12 +328,13 @@ function History() {
       "Pending": "#FF8C00",
       "Completed": "#ADFF2F",
       "Refused": "#FF6347",
-      "In Progress": "#0096FF"
+      "In Progress": "#0096FF",
+      "Canceled":"#262626"
     };
     return (
       <div>
         <Paper className={classes.paper}>
-          <EnhancedTableToolbar numSelected={selected} />
+          <EnhancedTableToolbar status={props.status} setStatus={props.setStatus} numSelected={selected} />
           <TableContainer>
             <Table
               className={classes.table}
@@ -374,7 +411,7 @@ function History() {
                         <TableCell align="center">{row.timestamp}</TableCell>
                         <TableCell align="center">
                           <Button
-                            style={{ backgroundColor: colors[`${row.status}`] }}
+                            style={{ backgroundColor: colors[`${row.status}`],color:row.status==="Canceled"?"#FFFFFF":"#000000" }}
                           >
                             {row.status}
                           </Button>
@@ -407,9 +444,14 @@ function History() {
       </div>
     );
   }
+  if (loading) return (<div></div>)
   return (
     <div>
       {!rows.length ? (
+        <>
+        <div>
+        <EnhancedTable status={status} setStatus={setStatus}/>
+      </div>
         <div style={{ paddingTop: "50px" }}>
           <div
             class="alert alert-info"
@@ -425,17 +467,10 @@ function History() {
             <Route path="/ServiceList" component={ServiceList}></Route>
           </div>
         </div>
+        </>
       ) : (
         <div>
-          <EnhancedTable />
-          <div>
-            <Link to="/addService">
-              <button type="button" class="btn btn-outline-primary">
-                Lets Add more
-              </button>
-            </Link>
-            <Route path="/ServiceList" component={ServiceList}></Route>
-          </div>
+          <EnhancedTable status={status} setStatus={setStatus}/>
         </div>
       )}
     </div>

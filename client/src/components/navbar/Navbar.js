@@ -149,7 +149,7 @@ export default function Navbar() {
 											<li className='nav-item dropdown'>
 												<NavLink
 													className='nav-link dropdown-toggle'
-													to={user?'/Services': '/login'}
+													to={user?'/ServiceList': '/login'}
 													id='navbarDropdown_1'
 													role='button'
 													data-toggle='dropdown'

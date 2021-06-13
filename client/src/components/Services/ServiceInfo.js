@@ -53,6 +53,7 @@ const ServiceInfo = () => {
     <div className="container card border-0 shadow my-5 card-body p-5">
       <h1>Service : {service.sector}</h1>
       <div className={classes.root}>
+        {!requests.length ? (<div>No requests for this service.</div>):null}
         {requests.map((req) => {
           let user = users.find((u) => u._id === req.clientId);
           console.log(user);

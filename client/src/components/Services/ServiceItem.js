@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {useSelector} from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import {fetchUsers} from './../../api/index'
 import ServiceModal from "./ServiceModal";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,12 +34,22 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ServiceItem = (props) => {
-  const users=useSelector(state=>state.users);
-  const user = useSelector(state => state.users.find((u)=>u._id===props.service.owner));
+  const [user,setUser] = useState();
+  const [loading,setLoading] = useState(true)
+  useEffect(()=>{
+    fetchUsers().then((res)=>{
+      console.log(res)
+      setUser(res.data.find(u=>u._id===props.service.owner));
+      setLoading(false);
+    }
+    )
+  })
+
 
   const classes = useStyles();
-
+if (loading) return <div></div>
   return (
+    
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Grid container spacing={4}>
@@ -47,7 +58,7 @@ const ServiceItem = (props) => {
               <img
                 className={classes.img}
                 alt="complex"
-                src="https://davidwilsondmd.com/wp-content/uploads/2015/11/user.png"
+                src={user.url}
               />
             </ButtonBase>
           </Grid>

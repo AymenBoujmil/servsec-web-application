@@ -8,9 +8,11 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { useHistory} from "react-router";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Tooltip from "@material-ui/core/Tooltip";
+import { updateRequest } from "../../api/index";
 
 const styles = (theme) => ({
   root: {
@@ -57,6 +59,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 const RequestModal = (props) => {
+  const dispatch = useDispatch()
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const [isPending, setPending] = React.useState(
@@ -74,6 +77,15 @@ const RequestModal = (props) => {
   const handleRequestForm = (e) => {
     e.preventDefault();
     history.push(`service/Form/${props.service._id}`);
+  };
+
+  const handleRequestCancel = (e) => {
+    e.preventDefault()
+    const canceledRequest= {...props.request,status : "Canceled"}
+    console.log(canceledRequest)
+    updateRequest(canceledRequest._id,canceledRequest,history).then(()=>{
+      history.push("/profile");
+    });
   };
 
   return (
@@ -160,9 +172,14 @@ const RequestModal = (props) => {
         </DialogContent>
         <DialogActions>
           {isPending ? (
+            <>
             <Button autoFocus onClick={handleRequestForm} color="primary">
               Change request data
             </Button>
+            <Button autoFocus onClick={handleRequestCancel} color="primary">
+              Cancel Request
+            </Button>
+            </>
           ) : (
             <Button
               autoFocus

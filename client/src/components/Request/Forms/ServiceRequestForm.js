@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { getRqData } from "../../../actions/requestsData";
 import { createRequest,getRequests,updateRequest } from "../../../actions/requests";
+import * as api from './../../../api/index'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -37,20 +38,23 @@ function ServiceRequestForm() {
   };
 
   const [loading,setLoading] = useState(true)
+  const [requestData,setRqDatas] = useState(null);
+  const [request,setRequest] = useState(null)
+  const [isUpdated,setUpdated] = useState(null)
   const classes = useStyles();
   const { id } = useParams();
   console.log(id);
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const requestDatas = useSelector((state) =>
+  /*const requestDatas = useSelector((state) =>
   state.rqdatas
   );
   const requests = useSelector((state) =>
   state.requests
   );
-  const user = JSON.parse(localStorage.getItem("profile"));
-  const request = requests.find(r => r.serviceId === id && r.clientId === user.result._id)
+  */const user = JSON.parse(localStorage.getItem("profile"));
+  /*const request = requests.find(r => r.serviceId === id && r.clientId === user.result._id)
   console.log(requestDatas)
   const requestData = requestDatas.find(r=>r.serviceId===id)
   if(!loading){  requestData.items.forEach((item) =>
@@ -58,12 +62,17 @@ function ServiceRequestForm() {
       ...item,
       value: item.type === "date" ? today : "",
     })
-  );}
+  );}*/
 
 
 
   useEffect(() => {
-    Promise.all([dispatch(getRqData()),dispatch(getRequests())]).then(()=> {
+    Promise.all([api.fetchRqData(),api.fetchRequests()]).then((res)=> {
+      console.log(res)
+      setRqDatas(res[0].data.find(r=>r.serviceId===id)?
+      res[0].data.find(r=>r.serviceId===id):initialForm)
+      setRequest(res[1].data.find(r => r.serviceId === id && r.clientId === user.result._id))
+      setUpdated(res[1].data.find(r => r.serviceId === id && r.clientId === user.result._id)?true:false)
       setLoading(false);
       console.log(requestData)
     
@@ -109,14 +118,18 @@ function ServiceRequestForm() {
     var dateTime = today.getFullYear() + "-" + ('0' + (today.getMonth() + 1)).slice(-2) + "-" + ('0' + today.getDate()).slice(-2) + " " + ('0' + today.getHours()).slice(-2) + ":" + ('0' + today.getMinutes()).slice(-2) + ":" + ('0' + today.getSeconds()).slice(-2);
     let data = {
       clientId: JSON.parse(localStorage.getItem('profile')).result._id,
-      requestData: formData,
+      requestData: requestData,
       timestamp: dateTime,
-      serviceId: requestData.serviceId,
+      serviceId: id,
       status:"Pending"
     };
     console.log(data);
-    request ? dispatch(updateRequest(request._id,data,history)):
-    dispatch(createRequest(data,history));
+    isUpdated ? api.updateRequest(request._id,data).then(()=>{
+      history.push('/profile')
+    }):
+    api.createRequest(data).then(()=>{
+      history.push('/profile')
+    });
 
   };
   if (loading) return (<p>loading...</p>)

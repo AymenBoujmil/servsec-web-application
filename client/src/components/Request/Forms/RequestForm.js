@@ -14,6 +14,7 @@ import { useHistory, useLocation, useParams } from "react-router";
 import { getRqData } from "../../../actions/requestsData";
 import { useSelector } from "react-redux";
 import { createRqData, updateRqData } from "../../../actions/requestsData";
+import * as api from './../../../api/index'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -22,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RequestForm() {
-  const [formSet,setForm] = useState(false)
   const [loading,setLoading] = useState(true)
   
   const dispatch = useDispatch();
@@ -44,32 +44,36 @@ function RequestForm() {
       type: "number",
     },
     serviceId: id,
-  };
-  const location = useLocation();
-  const requestItems = useSelector((state) =>
-    state.rqdatas.find((r) => r.serviceId === id)
+  };  const [formItems, setFormItems] = useState(
+    null
   );
-  const [formItems, setFormItems] = useState(
-    initialForm
-  );  
   const [isUpdated, setUpdated] = useState(false);
-  if(!loading){
+  const location = useLocation();
+  /*const requestItems = useSelector((state) =>
+    state.rqdatas.find((r) => r.serviceId === id)
+  );/*
+  
+
+/*  if(!loading){
     console.log(requestItems)
     requestItems.items.forEach((item) =>
     initialForm.items.push({
       ...item,
     })
-  );}
-  if (!formSet && requestItems){
+  );}*/
+/*  if (!formSet){
     setFormItems(requestItems)
-    setForm(true)
     setUpdated(true)
-}
+}*/
   console.log(initialForm)
-
+  console.log(isUpdated)
 
   useEffect(() => {
-    Promise.all([dispatch(getRqData())]).then(()=>{
+    Promise.all([api.fetchRqData()]).then((res)=>{
+
+      console.log(res[0].data.find(r=>r.serviceId===id)?true:false)
+      setFormItems(res[0].data.find(r=>r.serviceId===id) ? res[0].data.find(r=>r.serviceId===id) : initialForm)
+      setUpdated(res[0].data.find(r=>r.serviceId===id) ? true:false);
       setLoading(false);
     })
   }, []);
@@ -117,6 +121,7 @@ function RequestForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(isUpdated)
     if (isUpdated) {
       dispatch(updateRqData(formItems._id, formItems, history));
     } else {

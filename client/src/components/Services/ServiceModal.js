@@ -62,7 +62,7 @@ const ServiceModal = (props)=> {
   const [open, setOpen] = React.useState(false);
   const user = JSON.parse(localStorage.getItem("profile"));
   const requests = useSelector(state => state.requests);
-  const request = requests.find(r=>r.clientId === user.result._id && r.serviceId === props.service._id);
+  const request = requests.find(r=>r.clientId === user.result._id && r.serviceId === props.service._id && r.status ==="Pending");
   const handleClickOpen = () => {
     setOpen(true);
   };

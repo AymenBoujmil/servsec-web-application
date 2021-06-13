@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { getServices } from '../../actions/services';
 import {useLocation} from 'react-router-dom';
 import { getRequests } from "../../actions/requests";
+import { getCategories } from "../../actions/categories";
 
 function ServiceList() {
     const location=useLocation();
@@ -22,6 +23,7 @@ function ServiceList() {
     useEffect(() => {
       dispatch(getServices());
       dispatch(getRequests())
+      dispatch(getCategories())
     }, [location]);
     const classes = useStyles()
     const services = useSelector(state => state.services);
