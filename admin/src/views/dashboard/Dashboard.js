@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, useState } from "react";
 import {
   CBadge,
   CButton,
@@ -15,6 +15,7 @@ import {
 import CIcon from "@coreui/icons-react";
 
 import MainChartExample from "../hwijet/charts/MainChartExample.js";
+import { Redirect } from "react-router-dom";
 
 const WidgetsDropdown = lazy(() =>
   import("../hwijet/widgets/WidgetsDropdown.js")
@@ -22,6 +23,8 @@ const WidgetsDropdown = lazy(() =>
 const WidgetsBrand = lazy(() => import("../hwijet/widgets/WidgetsBrand.js"));
 
 const Dashboard = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  if (!user) return <Redirect to="/login" />;
   return (
     <>
       <WidgetsDropdown />

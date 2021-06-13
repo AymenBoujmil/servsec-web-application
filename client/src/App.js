@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AboutUs from './pages/AboutUs';
 import { useDispatch } from 'react-redux';
-import { getUsers } from './actions/users';
 import Users2 from './components/Users/Users2';
 import UserForm from './components/Forms/UserForm';
 import './App.css';
@@ -15,13 +14,14 @@ import ServiceList from './components/Services/ServiceList';
 import Update from './components/Profile/Update';
 import RequestForm from './components/RequestForm';
 import ServiceRequestForm from './components/ServiceRequestForm';
+import { getUsers } from './actions/users';
+import { getCategories} from './actions/categories';
 
 import { getServices } from './actions/services';
 import AddServiceForm from './components/Services/Forms/AddServiceForm';
 import UpdateServiceForm from './components/Services/Forms/UpdateServiceForm';
 import ScrollToTop from './_utils/ScrollToTop';
 import { getRqData } from './actions/requestsData';
-import { getCategories} from './actions/categories';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);

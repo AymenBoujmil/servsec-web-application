@@ -22,9 +22,15 @@ import {
   TheHeaderDropdownNotif,
   TheHeaderDropdownTasks,
 } from "./index";
+import { useHistory } from "react-router-dom";
 
 const TheHeader = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const Logout = () => {
+    dispatch({ type: "LOGOUT" });
+    history.push("/login");
+  };
   const sidebarShow = useSelector((state) => state.sidebarShow);
 
   const toggleSidebar = () => {
@@ -65,7 +71,9 @@ const TheHeader = () => {
           <CHeaderNavLink to="/users">Users</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink>Settings</CHeaderNavLink>
+          <CHeaderNavLink style={{ color: "red" }} onClick={Logout}>
+            Logout
+          </CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 

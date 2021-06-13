@@ -39,12 +39,20 @@ import AddCategorie from "./views/categories/addCategorie";
 // const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import("./views/hwijet/users/User"));
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
-const ListeCategorie = React.lazy(() =>
-  import("./views/categories/listeCategories")
+const ListCat = React.lazy(() => import("./views/categories/listCat.js"));
+const ListService = React.lazy(() => import("./views/Services/ServiceList.js"));
+const updateService = React.lazy(() =>
+  import("./views/Services/Forms/UpdateServiceForm.js")
 );
+const updateCategory = React.lazy(() =>
+  import("./views/categories/Forms/UpdateCategoryForm.js")
+);
+const usersList = React.lazy(() => import("./views/users/usersList.js"));
+const users2List = React.lazy(() => import("./views/users/User2List.js"));
 const newCategorie = React.lazy(() =>
   import("./views/categories/CategorieAdd")
 );
+const sign = React.lazy(() => import("./views/login/login"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -52,13 +60,43 @@ const routes = [
   {
     path: "/categories",
     name: "Categories",
-    component: ListeCategorie,
+    component: ListCat,
   },
   {
     path: "/categories-add",
     name: " ajouter Categorie",
     component: AddCategorie,
   },
+  {
+    path: "/Services",
+    name: "Services",
+    component: ListService,
+  },
+  {
+    path: "/updateService/:id",
+    name: "Services Update",
+    component: updateService,
+  },
+  {
+    path: "/updateCategory/:id",
+    name: "Category Update",
+    component: updateCategory,
+  },
+  {
+    path: "/entreprises",
+    name: "entreprises",
+    component: usersList,
+  },
+  {
+    path: "/client",
+    name: "client",
+    component: users2List,
+  },
+  // {
+  //   path: "/signin",
+  //   name: "signin",
+  //   component: sign,
+  // },
   // { path: '/theme', name: 'Theme', component: Colors, exact: true },
   // { path: '/theme/colors', name: 'Colors', component: Colors },
   // { path: '/theme/typography', name: 'Typography', component: Typography },
