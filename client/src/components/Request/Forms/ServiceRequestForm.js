@@ -23,19 +23,6 @@ const useStyles = makeStyles((theme) => ({
 function ServiceRequestForm() {
   const today = new Date().toISOString().slice(0, 10);
 
-  const initialForm = {
-    reqDate: {
-      label: "Request Date",
-      type: "date",
-      value: today,
-    },
-    items: [],
-    price: {
-      label: "Price",
-      type: "number",
-      value: "",
-    },
-  };
 
   const [loading,setLoading] = useState(true)
   const [requestData,setRqDatas] = useState(null);
@@ -65,7 +52,19 @@ function ServiceRequestForm() {
   );}*/
 
 
-
+  const initialForm = {
+    reqDate: {
+      label: "Request Date",
+      type: "date",
+      value: today,
+    },
+    items: [],
+    price: {
+      label: "Price",
+      type: "number",
+      value: "",
+    },
+  };
   useEffect(() => {
     Promise.all([api.fetchRqData(),api.fetchRequests()]).then((res)=> {
       console.log(res)
@@ -74,17 +73,27 @@ function ServiceRequestForm() {
       setRequest(res[1].data.find(r => r.serviceId === id && r.clientId === user.result._id))
       setUpdated(res[1].data.find(r => r.serviceId === id && r.clientId === user.result._id)?true:false)
       setLoading(false);
-      console.log(requestData)
-    
+      let rq;
+      if(res[0].data.find(r=>r.serviceId===id)){
+      rq=res[0].data.find(r=>r.serviceId===id)
+
+      rq.items.map((item)=>initialForm.items.push({...item,value:""}))
+    }
     })
     ;
   },[]);
+  const [formData, setFormData] = useState(initialForm);  
+/*  console.log(requestData)
+if (requestData){
+requestData.items.map((item)=>{
+  initialForm.items.push({...item,value:""})
+})
+console.log(initialForm)
+}*/
 
-  
 
+console.log(initialForm)
 
-  const [formData, setFormData] = useState(initialForm);
-  
   const history=useHistory();
 
   const handleChangeDate = (e) => {
@@ -99,16 +108,20 @@ function ServiceRequestForm() {
     let updatedPrice = formData.price;
     updatedPrice.value = e.target.value;
     setFormData({ ...formData, price: updatedPrice });
+    console.log(formData)
   };
 
   const handleChangeField = (e, id) => {
     e.preventDefault();
+    console.log(formData)
     let dataItems = { ...formData };
-    let items = [...dataItems.items];
+    let items = dataItems.items;
+    console.log(items)
     const updatedItems = items.map((i) =>
       i.id === id ? { ...i, value: e.target.value } : i
     );
     dataItems.items = updatedItems;
+    console.log(dataItems)
     setFormData(dataItems);
   };
 
@@ -118,7 +131,7 @@ function ServiceRequestForm() {
     var dateTime = today.getFullYear() + "-" + ('0' + (today.getMonth() + 1)).slice(-2) + "-" + ('0' + today.getDate()).slice(-2) + " " + ('0' + today.getHours()).slice(-2) + ":" + ('0' + today.getMinutes()).slice(-2) + ":" + ('0' + today.getSeconds()).slice(-2);
     let data = {
       clientId: JSON.parse(localStorage.getItem('profile')).result._id,
-      requestData: requestData,
+      requestData: formData,
       timestamp: dateTime,
       serviceId: id,
       status:"Pending"

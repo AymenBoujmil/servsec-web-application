@@ -354,8 +354,10 @@ if (loading) return (<div></div>)
                 {stableSort(rows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
+                    console.log(row)
                     const isItemSelected = isSelected(row._id);
                     const labelId = `enhanced-table-checkbox-${index}`;
+                    console.log(services);
                     const service = services.find(
                       (service) => service._id === row.serviceId
                     );

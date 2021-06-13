@@ -6,6 +6,7 @@ import { getServices } from "../../actions/services";
 import { getRequests } from "../../actions/requests";
 import { getUsers } from "./../../actions/users";
 import RequestItem from "./RequestItem";
+import * as api from './../../api/index'
 
 const ServiceInfo = () => {
   const [loading, setLoading] = useState(true);
@@ -13,12 +14,15 @@ const ServiceInfo = () => {
   const location = useLocation();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [users,setUsers] =useState(null)
+  const [service,setService] =useState(null)
+  const [requests,setRequests] =useState(null)
 
-  const services = useSelector((state) => state.services);
+  /*const services = useSelector((state) => state.services);
   const service = services.find((s) => s._id === id);
   const users = useSelector((state) => state.users);
   const allRequests = useSelector((state) => state.requests);
-  const requests = allRequests.filter((r) => r.serviceId === service._id);
+  const requests = allRequests.filter((r) => r.serviceId === service._id);*/
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,20 +36,22 @@ const ServiceInfo = () => {
 
   useEffect(() => {
     Promise.all([
-      dispatch(getUsers()),
-      dispatch(getServices()),
-      dispatch(getRequests()),
-    ]).then(() => {
+      api.fetchUsers(),
+      api.fetchServices(),
+      api.fetchRequests(),
+    ]).then((res) => {
+      console.log(res)
+      setUsers(res[0].data)
+      setService(res[1].data.find(s=>s._id===id))
+      setRequests(res[2].data.filter(r=>r.serviceId===id))
       setLoading(false);
     });
   }, []);
   const classes = useStyles();
-  
-
-  console.log(services);
+  /*console.log(services);
   console.log(users);
   console.log(allRequests);
-  console.log(users);
+  console.log(users);*/
 
   if (loading) return <p>loading...</p>;
 

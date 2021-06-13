@@ -107,7 +107,7 @@ const ServiceModal = (props)=> {
         </table>
       </div>
         </DialogContent>
-        <DialogActions>
+        {user.result.role === "Client" ? (        <DialogActions>
         {!request ? (
                     <Button autoFocus onClick={handleRequestForm} color="primary">
                     Contact Service
@@ -118,7 +118,8 @@ const ServiceModal = (props)=> {
       </Button>)
 
         }
-        </DialogActions>
+        </DialogActions>):null}
+
       </Dialog>
     </div>
   );

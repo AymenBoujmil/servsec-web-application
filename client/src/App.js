@@ -28,6 +28,7 @@ import { getCategories} from './actions/categories';
 import TermsofService from './pages/TermsofService';
 import FrequentlyAskedQuestion from './pages/FrequentlyAskedQuestion';
 import OurAdvices from './pages/OurAdvices';
+import Category from './components/category/Category'
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -62,7 +63,8 @@ const App = () => {
                 <Route path='/service/RequestForm/:id' exact component={RequestForm} />
                 <Route path='/service/Form/:id' exact component={ServiceRequestForm} />
                 <Route path='/service/Info/:id' exact component={ServiceInfo} />
-                <Route path='/login' exact component={Login} />                              
+                <Route path='/login' exact component={Login} />         
+                <Route path="/Categories" exact component={Category}/>                     
             </Switch>
             <Footer />
         </Router>

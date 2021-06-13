@@ -70,7 +70,8 @@ const handleRefuse = (req,e) =>{
             id={`panel1a-header`}
           >
             <Typography className={classes.heading}>
-              {`Currenlty ${props.req.status}`} : {props.user.firstname} {props.user.lastname}
+              {props.req.status ==="Pending" || props.req.status ==="Pending" ?
+              `Currenlty ${props.req.status}`:`${props.req.status}`} : {props.user.firstname} {props.user.lastname}
             </Typography>
           </AccordionSummary>
           <AccordionDetails
