@@ -461,7 +461,7 @@ if (loading) return (<div></div>)
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             You currently have no requests made !
-            <Link to="/addService">
+            <Link to="/ServiceList">
               <button type="button" class="btn btn-outline-primary">
                 Lets Request a service!
               </button>

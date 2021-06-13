@@ -38,7 +38,7 @@ export const Footer = () => {
 									<div className='col'>
 										<ul>
 											<li>
-												<a href='#'>Home</a>
+												<a href='/'>Home</a>
 											</li>
 											<li>
 												<Link to="/AboutUs">AboutUs</Link>
@@ -57,7 +57,7 @@ export const Footer = () => {
 												<a href="/AboutUs/#Team">Team</a>
 											</li>
 											<li>
-												<Link to="TermsofService">Terms of Service</Link>
+												<Link to="/TermsofService">Terms of Service</Link>
 											</li>
 											<li>
 												<Link to="/contact">Contact</Link>

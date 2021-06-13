@@ -38,7 +38,6 @@ function ServiceList() {
   if (result == null) val = services;
   else val = result;
   if (loading) return <p>Loading ...</p>;
-  
   return (
     <div className="container card border-0 shadow my-5 card-body p-5">
       <ServiceSearch setResult={setResult} services={services}/>
