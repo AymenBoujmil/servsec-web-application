@@ -26,7 +26,7 @@ import Switch from "@material-ui/core/Switch";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // import { deleteService, getServices } from "../actions/services";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 import { Link, Route } from "react-router-dom";
 // import AddServiceForm from "../components/Services/Forms/AddServiceForm";
 import { getCategories } from "src/actions/categories";
@@ -48,6 +48,8 @@ function ListCat() {
   const categories = useSelector((state) => state.categories);
   const rows = useSelector((state) => state.services);
   const users = useSelector((state) => state.users);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  if (!user) return <Redirect to="/login" />;
   console.log(users);
   // console.log(categories);
   //   console.log(rows);
@@ -184,7 +186,7 @@ function ListCat() {
 
     const handleupdate = (e) => {
       e.preventDefault();
-         history.push(`updateService/${numSelected}`);
+      history.push(`updateService/${numSelected}`);
     };
 
     const handleRequestForm = (e) => {

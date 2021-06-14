@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
+import { CIcon } from "@coreui/icons-react";
+
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -25,12 +27,12 @@ import Switch from "@material-ui/core/Switch";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // import { deleteService, getServices } from "../actions/services";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 import { Link, Route } from "react-router-dom";
 // import AddServiceForm from "../components/Services/Forms/AddServiceForm";
 import { getCategories } from "src/actions/categories";
 import { getServices } from "src/actions/services";
-import { getUsers } from "src/actions/users";
+import { deleteUser, getUsers } from "src/actions/users";
 
 function ListCat() {
   const history = useHistory();
@@ -39,11 +41,12 @@ function ListCat() {
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
-
+  }, [location]);
+  const users = useSelector((state) => state.users);
   const rows = useSelector((state) =>
     state.users.filter((u) => u.role === "Entreprise")
   );
+  console.log(users);
   console.log(rows);
   // console.log(categories);
   //   console.log(rows);
@@ -121,6 +124,10 @@ function ListCat() {
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
+    const [user, setUser] = useState(
+      JSON.parse(localStorage.getItem("profile"))
+    );
+    if (!user) return <Redirect to="/login" />;
 
     return (
       <TableHead>
@@ -190,7 +197,7 @@ function ListCat() {
 
     const handleDelete = (e) => {
       e.preventDefault();
-      //   dispatch(deleteService(numSelected));
+      dispatch(deleteUser(numSelected));
     };
 
     const handleupdate = (e) => {
@@ -233,7 +240,7 @@ function ListCat() {
           <div style={{ display: "flex", flexDirection: "row" }}>
             <Tooltip title="Delete" onClick={handleDelete}>
               <IconButton aria-label="delete">
-                {/* <DeleteIcon /> */}
+                <CIcon name="cilTrash" />
               </IconButton>
             </Tooltip>
             <Tooltip title="update">

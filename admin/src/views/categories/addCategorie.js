@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import Button from "@material-ui/core/Button";
+import { Redirect } from "react-router-dom";
 
 import {
   CCol,
@@ -26,6 +27,8 @@ export default function AddCategorie() {
   const [cat, setCat] = useState(initialState);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  if (!user) return <Redirect to="/login" />;
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createCategory(cat, history));
