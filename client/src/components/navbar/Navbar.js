@@ -97,10 +97,9 @@ export default function Navbar() {
 						>
 							<div className='col-lg-12'>
 								<nav className='navbar navbar-expand-lg navbar-light'>
-									<NavLink className='navbar-brand' to='/' exact>
-										{' '}
-										{/*<img src='img/logo.png' alt='logo' />{' '}*/}
-									</NavLink>
+									<a class="navbar-brand" href="index.html"> 
+										<img src="img/logo2.png" alt="logo" width="100px" width="100px" /> 
+									</a>
 									<button
 										className='navbar-toggler'
 										type='button'
