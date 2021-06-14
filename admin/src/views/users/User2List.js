@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import { CIcon } from "@coreui/icons-react";
+
 import { lighten, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -25,12 +27,13 @@ import Switch from "@material-ui/core/Switch";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // import { deleteService, getServices } from "../actions/services";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 import { Link, Route } from "react-router-dom";
 // import AddServiceForm from "../components/Services/Forms/AddServiceForm";
 import { getCategories } from "src/actions/categories";
 import { getServices } from "src/actions/services";
 import { getUsers } from "src/actions/users";
+import { deleteUser } from "src/actions/users";
 
 function ListCat() {
   const history = useHistory();
@@ -39,11 +42,13 @@ function ListCat() {
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [location]);
 
   const rows = useSelector((state) =>
     state.users.filter((u) => u.role === "Client")
   );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  if (!user) return <Redirect to="/login" />;
   console.log(rows);
   // console.log(categories);
   //   console.log(rows);
@@ -184,7 +189,7 @@ function ListCat() {
 
     const handleDelete = (e) => {
       e.preventDefault();
-      //   dispatch(deleteService(numSelected));
+         dispatch(deleteUser(numSelected));
     };
 
     const handleupdate = (e) => {
@@ -227,7 +232,7 @@ function ListCat() {
           <div style={{ display: "flex", flexDirection: "row" }}>
             <Tooltip title="Delete" onClick={handleDelete}>
               <IconButton aria-label="delete">
-                {/* <DeleteIcon /> */}
+                 <CIcon name="cilTrash" /> 
               </IconButton>
             </Tooltip>
             <Tooltip title="update">

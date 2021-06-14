@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
@@ -27,7 +27,7 @@ import Switch from "@material-ui/core/Switch";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // import { deleteService, getServices } from "../actions/services";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 import { Link, Route } from "react-router-dom";
 // import AddServiceForm from "../components/Services/Forms/AddServiceForm";
 import { getCategories, deleteCategoory } from "src/actions/categories";
@@ -42,6 +42,8 @@ function ListCat() {
   }, []);
 
   const rows = useSelector((state) => state.categories);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  if (!user) return <Redirect to="/login" />;
   console.log(rows);
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -84,7 +86,10 @@ function ListCat() {
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
-
+    const [user, setUser] = useState(
+      JSON.parse(localStorage.getItem("profile"))
+    );
+    if (!user) return <Redirect to="/login" />;
     return (
       <TableHead>
         <TableRow>

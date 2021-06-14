@@ -10,6 +10,7 @@ import {
 
 export const getUsers = () => async (dispatch) => {
   try {
+    console.log("okay");
     const { data } = await api.fetchUsers();
     console.log(data);
     console.log("okay");
