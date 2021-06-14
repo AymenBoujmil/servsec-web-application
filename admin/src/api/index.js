@@ -52,3 +52,4 @@ export const updateCategory = (id, updatedService) =>
 // export const createRequest = (newRequest)=>API.post('/profile/request',newRequest);
 // export const updateRequest = (id,updatedRequest)=>API.patch(`/profile/request/${id}`,updatedRequest);
 // export const deleteRequest = (id) => API.delete(`/profile/request/${id}`);
+export const fetchContact = () => API.get("/contact");
