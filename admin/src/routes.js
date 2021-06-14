@@ -52,6 +52,7 @@ const users2List = React.lazy(() => import("./views/users/User2List.js"));
 const newCategorie = React.lazy(() =>
   import("./views/categories/CategorieAdd")
 );
+const contact = React.lazy(() => import("./views/contact/contact.js"));
 const sign = React.lazy(() => import("./views/login/login"));
 
 const routes = [
@@ -91,6 +92,11 @@ const routes = [
     path: "/client",
     name: "client",
     component: users2List,
+  },
+  {
+    path: "/contact",
+    name: "contact",
+    component: contact,
   },
   // {
   //   path: "/signin",
