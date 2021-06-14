@@ -1,8 +1,13 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import ControlledCarousel from '../../_utils/Carousel'
 import {Link} from "react-router-dom";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 function  Funclist () {
+  useEffect(()=>{
+    AOS.init()
+  })
   const user=JSON.parse(localStorage.getItem('profile'));
   var val = user ? "/ServiceList" : "/login";
 
@@ -10,7 +15,7 @@ function  Funclist () {
             <div>
                 {/* product list start*/}
   <section className="single_product_list" style={{paddingTop:"50px"}}>
-  <div className="container">
+  <div className="container" data-aos="fade-up">
     <div className="row">
       <div className="col-lg-12">
         <div className="single_product_iner">
@@ -30,7 +35,7 @@ function  Funclist () {
             </div>
           </div>
         </div>
-        <div className="single_product_iner">
+        <div className="single_product_iner" data-aos="fade-left">
           <div className="row align-items-center justify-content-between">
             <div className="col-lg-6 col-sm-6">
               <div className="single_product_img">

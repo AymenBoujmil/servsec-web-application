@@ -1,8 +1,13 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default function FrequentlyAskedQuestion() {
+  useEffect(() => {
+    AOS.init()
+})
     return (
-        <div className="container">
+        <div className="container" data-aos="fade-up">
           <div className="card border-0 shadow my-5">
             <div className="card-body p-5"> {/* this is were we write the body */}
               <div className="center btmspace-80">

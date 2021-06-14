@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import {
   CWidgetDropdown,
   CRow,
@@ -6,26 +6,45 @@ import {
   CDropdown,
   CDropdownMenu,
   CDropdownItem,
-  CDropdownToggle
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import ChartLineSimple from '../charts/ChartLineSimple'
-import ChartBarSimple from '../charts/ChartBarSimple'
+  CDropdownToggle,
+} from "@coreui/react";
+import { useSelector } from "react-redux";
 
+import { getCategories } from "src/actions/categories";
+import { getServices, deleteService } from "src/actions/services";
+import { getUsers } from "src/actions/users";
+import CIcon from "@coreui/icons-react";
+import ChartLineSimple from "../charts/ChartLineSimple";
+import ChartBarSimple from "../charts/ChartBarSimple";
+import { Redirect } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 const WidgetsDropdown = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const location = useLocation();
   // render
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getServices());
+    dispatch(getUsers());
+  }, []);
+
+  const categories = useSelector((state) => state.categories);
+  const services = useSelector((state) => state.services);
+  const users = useSelector((state) => state.users);
   return (
     <CRow>
-      <CCol sm="6" lg="3">
+      <CCol sm="6" lg="4">
         <CWidgetDropdown
           color="gradient-primary"
-          header="9.823"
-          text="Members online"
+          header={users.length}
+          text="Users"
           footerSlot={
             <ChartLineSimple
               pointed
               className="c-chart-wrapper mt-3 mx-3"
-              style={{height: '70px'}}
+              style={{ height: "70px" }}
               dataPoints={[65, 59, 84, 84, 51, 55, 40]}
               pointHoverBackgroundColor="primary"
               label="Members"
@@ -35,7 +54,7 @@ const WidgetsDropdown = () => {
         >
           <CDropdown>
             <CDropdownToggle color="transparent">
-              <CIcon name="cil-settings"/>
+              <CIcon name="cil-settings" />
             </CDropdownToggle>
             <CDropdownMenu className="pt-0" placement="bottom-end">
               <CDropdownItem>Action</CDropdownItem>
@@ -47,19 +66,19 @@ const WidgetsDropdown = () => {
         </CWidgetDropdown>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      <CCol sm="6" lg="4">
         <CWidgetDropdown
           color="gradient-info"
-          header="9.823"
-          text="Members online"
+          header={categories.length}
+          text="Categories"
           footerSlot={
             <ChartLineSimple
               pointed
               className="mt-3 mx-3"
-              style={{height: '70px'}}
+              style={{ height: "70px" }}
               dataPoints={[1, 18, 9, 17, 34, 22, 11]}
               pointHoverBackgroundColor="info"
-              options={{ elements: { line: { tension: 0.00001 }}}}
+              options={{ elements: { line: { tension: 0.00001 } } }}
               label="Members"
               labels="months"
             />
@@ -67,7 +86,7 @@ const WidgetsDropdown = () => {
         >
           <CDropdown>
             <CDropdownToggle caret={false} color="transparent">
-              <CIcon name="cil-location-pin"/>
+              <CIcon name="cil-location-pin" />
             </CDropdownToggle>
             <CDropdownMenu className="pt-0" placement="bottom-end">
               <CDropdownItem>Action</CDropdownItem>
@@ -79,18 +98,18 @@ const WidgetsDropdown = () => {
         </CWidgetDropdown>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      <CCol sm="6" lg="4">
         <CWidgetDropdown
           color="gradient-warning"
-          header="9.823"
-          text="Members online"
+          header={services.length}
+          text="Services"
           footerSlot={
             <ChartLineSimple
               className="mt-3"
-              style={{height: '70px'}}
+              style={{ height: "70px" }}
               backgroundColor="rgba(255,255,255,.2)"
               dataPoints={[78, 81, 80, 45, 34, 12, 40]}
-              options={{ elements: { line: { borderWidth: 2.5 }}}}
+              options={{ elements: { line: { borderWidth: 2.5 } } }}
               pointHoverBackgroundColor="warning"
               label="Members"
               labels="months"
@@ -99,7 +118,7 @@ const WidgetsDropdown = () => {
         >
           <CDropdown>
             <CDropdownToggle color="transparent">
-              <CIcon name="cil-settings"/>
+              <CIcon name="cil-settings" />
             </CDropdownToggle>
             <CDropdownMenu className="pt-0" placement="bottom-end">
               <CDropdownItem>Action</CDropdownItem>
@@ -111,7 +130,7 @@ const WidgetsDropdown = () => {
         </CWidgetDropdown>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      {/* <CCol sm="6" lg="3">
         <CWidgetDropdown
           color="gradient-danger"
           header="9.823"
@@ -119,7 +138,7 @@ const WidgetsDropdown = () => {
           footerSlot={
             <ChartBarSimple
               className="mt-3 mx-3"
-              style={{height: '70px'}}
+              style={{ height: "70px" }}
               backgroundColor="rgb(250, 152, 152)"
               label="Members"
               labels="months"
@@ -128,7 +147,7 @@ const WidgetsDropdown = () => {
         >
           <CDropdown>
             <CDropdownToggle caret className="text-white" color="transparent">
-              <CIcon name="cil-settings"/>
+              <CIcon name="cil-settings" />
             </CDropdownToggle>
             <CDropdownMenu className="pt-0" placement="bottom-end">
               <CDropdownItem>Action</CDropdownItem>
@@ -138,9 +157,9 @@ const WidgetsDropdown = () => {
             </CDropdownMenu>
           </CDropdown>
         </CWidgetDropdown>
-      </CCol>
+      </CCol> */}
     </CRow>
-  )
-}
+  );
+};
 
-export default WidgetsDropdown
+export default WidgetsDropdown;

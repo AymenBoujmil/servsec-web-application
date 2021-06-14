@@ -1,8 +1,12 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import './category.css';
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 function Category() {
-
+useEffect(()=>{
+	AOS.init()
+})
 
 	const categories = useSelector(state => state.categories);
 
@@ -11,7 +15,7 @@ function Category() {
 	}
 	return (
 		<section /*className="trending_items" */ style={{paddingTop:"50px"}} id="categoryList">
-		<div class='service'>
+		<div class='service' data-aos="fade-up">
 			<div class='container-fluid'>
 				<div class='section-header'>
 					<h2>Our Services categories</h2>
@@ -23,7 +27,7 @@ function Category() {
 					{ categories.map((option)=>
 											(
 												
-												<div className="col-lg-4 col-sm-6" key ={option._id} onClick={handleClick(option._id)}>
+												<div className="col-lg-4 col-sm-6" key ={option._id} onClick={handleClick(option._id)} data-aos="fade-up">
 													<div className="single_product_item">
 													<div className="single_product_item_thumb">
 														<img src={'img/categories/'+option.label.replace(/\s/g, '')+'.jpg'} alt={option.label} className="img-fluid" height="150px"/>

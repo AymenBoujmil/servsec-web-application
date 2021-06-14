@@ -285,10 +285,10 @@ export default function Navbar() {
 														</Badge>{' '}
 														Messages
 													</NavLink>
-													<Divider />
+													{/*<Divider />
 													<NavLink className='dropdown-item' to='/settings'>
 														<IoSettings /> Settings
-													</NavLink>
+														</NavLink>*/}
 													<Divider />
 													<NavLink className='dropdown-item red' to='/login' onClick={logout}>
 														<IoLogOut /> Log Out

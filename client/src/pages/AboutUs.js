@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component,useEffect } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 
-export default class AboutUs extends Component {
-    render() {
+const AboutUs = ()=> {
+    useEffect(()=>{
+        AOS.init()
+    })
         return (
             <div>
                 <br/><br/>
-                <div className="container card border-0 shadow my-5 card-body p-5"> 
+                <div className="container card border-0 shadow my-5 card-body p-5" data-aos="fade-up"> 
                 <div className="center btmspace-80">
                     <h3  style={{fontWeight: 600, color: 'burlywood',textAlign:'center'}}>
                     -Our Mission-</h3>
@@ -68,5 +72,6 @@ export default class AboutUs extends Component {
                 </div>
             </div>
         )
-    }
 }
+
+export default AboutUs;
