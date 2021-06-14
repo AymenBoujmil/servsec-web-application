@@ -18,7 +18,7 @@ function  Funclist () {
   <div className="container" data-aos="fade-up">
     <div className="row">
       <div className="col-lg-12">
-        <div className="single_product_iner">
+        <div className="single_product_iner" data-aos="fade-left">
           <div className="row align-items-center justify-content-between">
             <div className="col-lg-6 col-sm-6">
               <div className="single_product_img">
