@@ -40,6 +40,16 @@ const _nav = [
     to: "/client",
     icon: "cil-user",
   },
+  {
+    _tag: "CSidebarNavTitle",
+    _children: ["Contact"],
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Contacts",
+    to: "/contact",
+    icon: "cil-user",
+  },
 ];
 
 export default _nav;
