@@ -14,8 +14,8 @@ function Clientreview () {
               alt="Third slide"
               />
               <Carousel.Caption>
-                  <h3>User2</h3>
-                  <p>"Good Site"</p>
+                  <h3>Raul Garcia</h3>
+                  <p>"I would highly recommend using this site if you're looking to get things done quickly and efficiently"</p>
               </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
@@ -26,8 +26,8 @@ function Clientreview () {
               alt="Third slide"
                />
               <Carousel.Caption>
-                <h3>User1</h3>
-                <p>"Great Site"</p>
+                <h3>John Marston</h3>
+                <p>"Great Site. You can easily request any service at any time almost instantly."</p>
               </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
@@ -38,8 +38,8 @@ function Clientreview () {
                   alt="Third slide"
               />
               <Carousel.Caption>
-              <h3>User3</h3>
-              <p>"Amazing"</p>
+              <h3>Allison Smith</h3>
+              <p>"This website is simply amazing! It has helped me find services when I'm in a pinch. Also, it is easy to use and navigate."</p>
               </Carousel.Caption>
               </Carousel.Item>
           </Carousel>

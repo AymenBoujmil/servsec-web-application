@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {Link,Route} from "react-router-dom";
 import ServicesTable from "../../_utils/ServicesTable";
 import Update from './Update';
 import History from './History';
 import {Redirect} from 'react-router-dom';
+import { TextField } from "@material-ui/core";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 function Profile() {
+  useEffect(()=>{
+    AOS.init()
+  })
   const user=JSON.parse(localStorage.getItem('profile'));
   if (user === null)
   return(
     <Redirect to="/"></Redirect> 
   )
   const nom = user.result.role === "Client" ? user.result.lastname+'_'+user.result.firstname : user.result.name;
-  
+    let newText = user.result.bio.split('\n').map(i => {
+      return <p>{i}</p>
+  });
   return (
     <>
       
@@ -23,7 +31,7 @@ function Profile() {
       />
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <div className="container card border-0 shadow my-5 card-body p-5" >
+      <div className="container card border-0 shadow my-5 card-body p-5" data-aos="fade-up">
         <div class="container" style={{ marginTop: "15px" }}>
           <div class="main-body">
             <div class="row gutters-sm">
@@ -130,9 +138,8 @@ function Profile() {
                           id="bio"
                           aria-labelledby="bio-tab"
                         >
-                          <p>
-                            {user?.result?.bio}
-                          </p>
+                          {newText}
+
                         </div>
                         <div
                           className="tab-pane fade"

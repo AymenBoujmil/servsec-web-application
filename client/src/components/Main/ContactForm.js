@@ -1,12 +1,17 @@
-import {React,useState} from "react";
+import {React,useState,useEffect} from "react";
 import { useDispatch } from "react-redux";
 import {TextField} from '@material-ui/core'
 import Button from '@material-ui/core/Button';
 import { createContact } from "../../actions/contacts";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const ContactForm=()=> {
+useEffect(()=>{
+  AOS.init()
+})
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem("profile"))
   const role= user? user.result.role : null
@@ -72,7 +77,8 @@ const handleChangeMessage = (e) =>{
 
 
   return (
-      <div className="container card border-0 shadow my-5 card-body p-5" style={{width:'50%'}}>
+      <div className="container card border-0 shadow my-5 card-body p-5" style={{width:'50%'}} data-aos="fade-up"
+      data-aos-anchor-placement="bottom-bottom">
     <form onSubmit={formik.handleSubmit}>
       <div>
           {isSent ? (<div class="alert alert-success" role="alert">

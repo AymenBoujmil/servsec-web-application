@@ -15,6 +15,9 @@ import { getRqData } from "../../../actions/requestsData";
 import { useSelector } from "react-redux";
 import { createRqData, updateRqData } from "../../../actions/requestsData";
 import * as api from './../../../api/index'
+import LinearProgress from "@material-ui/core/linearProgress";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -69,6 +72,7 @@ function RequestForm() {
   console.log(isUpdated)
 
   useEffect(() => {
+    AOS.init()
     Promise.all([api.fetchRqData()]).then((res)=>{
 
       console.log(res[0].data.find(r=>r.serviceId===id)?true:false)
@@ -128,10 +132,13 @@ function RequestForm() {
       dispatch(createRqData(formItems, history));
     }
   };
-if (loading) return (<p>loading ...</p>)
+if (loading) return (<div><LinearProgress style={{width:"100"}}/></div>)
   return (
     <form onSubmit={handleSubmit}>
-      <div className="container card border-0 shadow my-5 card-body p-5">
+      <div className="container card border-0 shadow my-5 card-body p-5" data-aos="fade-left"
+     data-aos-anchor="#example-anchor"
+     data-aos-offset="500"
+     data-aos-duration="500">
         <h1>Request Form</h1>
         <div className="alert alert-light" role="alert">
         Please Configure your request form

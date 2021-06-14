@@ -1,8 +1,13 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default function TermsofService() {
+useEffect(() => {
+    AOS.init()
+})
     return (
-        <div class="container" id="heart">
+        <div class="container" id="heart" data-aos="fade-up">
             <div class="card border-0 shadow my-5">
                 <div class="card-body p-5">
                     <div class="center btmspace-80">

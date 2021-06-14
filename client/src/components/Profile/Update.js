@@ -9,6 +9,8 @@ import UpdateForm from "./Forms/UpdateForm";
 import { DELETEMESSAGE } from '../../_constants/actionTypes';
 import Signupform from "../authentification/formComponents/Signupform";
 import { storage } from "../../_services/Firebase";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 function Update() {
   const location=useLocation();
@@ -19,6 +21,7 @@ function Update() {
   const handleShowPassword = () => setShowPassword(!showPassword);
   
   useEffect(()=>{
+    AOS.init()
     setUser(JSON.parse(localStorage.getItem("profile")))
   },[location])
 
@@ -102,7 +105,8 @@ function Update() {
     setformData(initState);
   };
   return (
-    <div className="container card border-0 shadow my-5 card-body p-5" style={{paddingTop:"25px"}} >
+    <div className="container card border-0 shadow my-5 card-body p-5" style={{paddingTop:"25px"}} data-aos="fade-up"
+    data-aos-anchor-placement="top-center">
       {/* breadcrumb part start*/}
       {message ?(
         message.type === "SUCCESS" ?  (

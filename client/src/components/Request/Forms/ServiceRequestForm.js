@@ -10,6 +10,9 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import { getRqData } from "../../../actions/requestsData";
 import { createRequest,getRequests,updateRequest } from "../../../actions/requests";
 import * as api from './../../../api/index'
+import LinearProgress from "@material-ui/core/LinearProgress";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -66,6 +69,7 @@ function ServiceRequestForm() {
     },
   };
   useEffect(() => {
+    AOS.init()
     Promise.all([api.fetchRqData(),api.fetchRequests()]).then((res)=> {
       console.log(res)
       setRqDatas(res[0].data.find(r=>r.serviceId===id)?
@@ -145,11 +149,12 @@ console.log(initialForm)
     });
 
   };
-  if (loading) return (<p>loading...</p>)
+  if (loading) return (<div><LinearProgress style={{width:"100%"}}/></div>)
   return (
     <div
       className="container card border-0 shadow my-5 card-body p-5"
       style={{ width: "50%" }}
+      data-aos="fade-up"
     >
       <form style={{ margin: "auto" }} onSubmit={handleSubmit}>
         <div style={{ float: "center" }}>

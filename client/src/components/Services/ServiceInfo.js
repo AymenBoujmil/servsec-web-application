@@ -7,6 +7,8 @@ import { getRequests } from "../../actions/requests";
 import { getUsers } from "./../../actions/users";
 import RequestItem from "./RequestItem";
 import * as api from './../../api/index'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const ServiceInfo = () => {
   const [loading, setLoading] = useState(true);
@@ -35,6 +37,7 @@ const ServiceInfo = () => {
   }));
 
   useEffect(() => {
+    AOS.init()
     Promise.all([
       api.fetchUsers(),
       api.fetchServices(),
@@ -56,7 +59,8 @@ const ServiceInfo = () => {
   if (loading) return <p>loading...</p>;
 
   return (
-    <div className="container card border-0 shadow my-5 card-body p-5">
+    <div className="container card border-0 shadow my-5 card-body p-5" data-aos="fade-left"
+    data-aos-duration="1000">
       <h1>Service : {service.sector}</h1>
       <div className={classes.root}>
         {!requests.length ? (<div>No requests for this service.</div>):null}
