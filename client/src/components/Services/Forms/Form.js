@@ -34,7 +34,7 @@ return (
             required
             id="sector"
             name="sector"
-            label="Sector"
+            label="Name"
             value={formData.sector}
             fullWidth
             autoComplete="sector"

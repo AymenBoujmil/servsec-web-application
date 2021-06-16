@@ -12,7 +12,7 @@ function Banner (){
             <br></br>
             <div class='section-header'>
               <div style={{paddingLeft:"20px",alignItems:"center"}}>
-               <h1 style={{fontWeight:"800"}}>ServSec</h1> 
+               <h1 style={{fontWeight:"1000",fontSize:'400%'}}>ServSec</h1> 
                 <p>
                   An easy solution for an easy life.
                 </p>
