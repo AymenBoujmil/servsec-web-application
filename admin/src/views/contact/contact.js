@@ -211,7 +211,7 @@ function ListCat() {
             id="tableTitle"
             component="div"
           >
-            Categories
+            Contact
           </Typography>
         )}
 
