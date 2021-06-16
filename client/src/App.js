@@ -34,6 +34,7 @@ import OurAdvices from './pages/OurAdvices';
 import Category from './components/category/Category';
 import ForgotPassword from './components/authentification/ForgotPassword';
 import ResetPassword from './components/authentification/ResetPassword';
+import MessagesMenu from './components/Messages/MessagesMenu';
 
 const App = () => {
 	const [currentId, setCurrentId] = useState(null);
@@ -76,6 +77,7 @@ const App = () => {
 				<Route path='/Categories' exact component={Category} />
 				<Route path='/forgotPassword' exact component={ForgotPassword} />
 				<Route path='/resetPassword/:token' exact component={ResetPassword} />
+				<Route path='/messages' exact component={MessagesMenu} />
 			</Switch>
 			<Footer />
 		</Router>

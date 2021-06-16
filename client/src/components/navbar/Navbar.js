@@ -31,6 +31,7 @@ import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import { IoPersonCircle, IoMail, IoSettings, IoLogOut , IoLogInOutline } from 'react-icons/io5';
 import Divider from '@material-ui/core/Divider';
 import { useDispatch } from 'react-redux';
+import { countMessagesById } from '../../api/index';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +58,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
 	const classes = useStyles();
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+	const [messagesCount,setMessagesCount] = useState(0)
 	const [invisible, setInvisible] = React.useState(false);
+	const [loading,setLoading] = useState(true)
 	const dispatch = useDispatch();
 	const history=useHistory();
 	const location= useLocation();
@@ -68,6 +71,10 @@ export default function Navbar() {
 		if (token)
 		{
 			const decodedToken = decode(token); 
+			countMessagesById(JSON.parse(localStorage.getItem("profile")).result._id).then((res)=>{
+				setMessagesCount(res.data)
+				setLoading(false)
+			})
 			if(decodedToken.exp * 1000  < new Date().getTime())
 			{
 				logout();
@@ -83,7 +90,7 @@ export default function Navbar() {
 		history.push("/"); 
 		setUser(null);
 	};
-
+if(!loading) console.log(messagesCount)
 	return (
 		<div>
 			<header className='main_menu home_menu'>
@@ -245,7 +252,7 @@ export default function Navbar() {
 													<Badge
 														color='secondary'
 														variant='dot'
-														invisible={invisible}
+														invisible={messagesCount === 0}
 													>
 												
 															<img
@@ -272,14 +279,14 @@ export default function Navbar() {
 														<IoPersonCircle /> Profile
 													</NavLink>
 													<Divider />
-													<NavLink className='dropdown-item' to='/message'>
+													<NavLink className='dropdown-item' to='/messages'>
 														<Badge
 															color='secondary'
 															anchorOrigin={{
 																vertical: 'top',
 																horizontal: 'left',
 															}}
-															badgeContent={7}
+															badgeContent={messagesCount}
 															max={99}
 														>
 															<IoMail />

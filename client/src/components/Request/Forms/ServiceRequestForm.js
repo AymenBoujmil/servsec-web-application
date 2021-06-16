@@ -154,7 +154,6 @@ console.log(initialForm)
     <div
       className="container card border-0 shadow my-5 card-body p-5"
       style={{ width: "50%" }}
-      data-aos="fade-up"
     >
       <form style={{ margin: "auto" }} onSubmit={handleSubmit}>
         <div style={{ float: "center" }}>

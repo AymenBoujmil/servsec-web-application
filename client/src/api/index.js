@@ -42,5 +42,14 @@ export const createRequest = (newRequest)=>API.post('/profile/request',newReques
 export const updateRequest = (id,updatedRequest)=>API.patch(`/profile/request/${id}`,updatedRequest);
 export const deleteRequest = (id) => API.delete(`/profile/request/${id}`);
 
+//messages
+export const fetchMessages = ()=> API.get('/messages');
+export const fetchMessagesBySender = (id)=> API.get(`/message/from/${id}`,{id:id});
+export const fetchMessagesByReceiver = (id)=> API.get(`/message/to/${id}`,{id:id});
+export const countMessagesById = (id)=> API.get(`/message/${id}/count`,{id:id});
+export const createMessage = (newMessage)=>API.post('/message/',newMessage);
+export const updateMessage = (id)=>API.patch(`/message/${id}`);
+export const deleteMessage = (id) => API.delete(`/message/${id}`);
+
 //contacts
 export const createContact = (newContact)=>API.post('/contact',newContact);
