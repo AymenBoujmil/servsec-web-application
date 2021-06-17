@@ -10,7 +10,7 @@ import Loginform from './formComponents/Loginform';
 import Signupform from './formComponents/Signupform';
 import {createUser} from '../../actions/users';
 import {signin} from '../../actions/auth';
-
+import {Redirect} from 'react-router-dom';
 const initState={
   name:'',
   firstname:'',
@@ -42,6 +42,8 @@ function Login() {
   const dispatch = useDispatch();
 
   const serverMessage = useSelector(state => state.message? state.message : null);
+
+  const user= JSON.parse(localStorage.getItem("profile")).result;
 
   useEffect(() => {
     clear();
@@ -146,7 +148,7 @@ function Login() {
   const googleFailure=()=>{
     console.log("Google sign in was unsuccessful. Try later !")
   }
-
+  if(user) return (<Redirect to='/'></Redirect>)
   return (
     <div>
   {/*================login_part Area =================*/}

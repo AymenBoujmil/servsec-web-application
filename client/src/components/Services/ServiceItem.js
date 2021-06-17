@@ -8,7 +8,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import {fetchUsers} from './../../api/index'
 import ServiceModal from "./ServiceModal";
 import ProviderModal from './../Users/ProviderModal'
-
+import CommentModal from '../Comments/CommentModal'
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom:"10px",
@@ -40,7 +40,6 @@ const ServiceItem = (props) => {
   const [loading,setLoading] = useState(true)
   useEffect(()=>{
     fetchUsers().then((res)=>{     
-      console.log(props.service)
       setUser(res.data.find(u=>u._id===props.service.owner));
       setLoading(false);      
     }
@@ -76,8 +75,12 @@ const ServiceItem = (props) => {
                 <Typography variant="body2">
                   <ServiceModal service={props.service} user={user} />
                 </Typography>
-
               </Grid>
+              <Grid item>
+              <Typography variant="body2">
+                <CommentModal  service={props.service} user={user} />
+              </Typography>
+            </Grid>
             </Grid>
           </Grid>
         </Grid>

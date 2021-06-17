@@ -36,6 +36,7 @@ export const deleteRqData = (id) => API.delete(`/service/RequestForm/${id}`);
 
 //Categories
 export const fetchCategories = ()=> API.get('/CategorieList');
+
 //requests
 export const fetchRequests = ()=> API.get('/profile/request');
 export const createRequest = (newRequest)=>API.post('/profile/request',newRequest);
@@ -53,3 +54,12 @@ export const deleteMessage = (id) => API.delete(`/message/${id}`);
 
 //contacts
 export const createContact = (newContact)=>API.post('/contact',newContact);
+
+//reviews
+export const createReview = (newReview)=> API.post('/review',newReview);
+export const fetchReviews = ()=> API.get('/review');
+
+//messages
+export const fetchServiceReviews = (id)=> API.get(`/serviceReview?id=${id}`);
+export const createServiceReview = (newServiceReview)=>API.post('/serviceReview',newServiceReview);
+export const deleteServiceReview = (id) => API.delete(`/serviceReview`,id);
