@@ -36,7 +36,7 @@ const Sent = () => {
       {messages.map((message)=>(
         <>
               <ListItem alignItems="flex-start">
-                <SingleMessage user={message.to} message={message}/>
+                <SingleMessage user={message.to} message={message} comingFrom="Sent"/>
             </ListItem>
             <Divider variant="inset" component="li" />
             </>

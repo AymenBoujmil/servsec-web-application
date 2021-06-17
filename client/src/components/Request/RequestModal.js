@@ -13,6 +13,7 @@ import { useHistory} from "react-router";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Tooltip from "@material-ui/core/Tooltip";
 import { updateRequest } from "../../api/index";
+import MessageModal from "../Messages/Forms/MessageModal";
 
 const styles = (theme) => ({
   root: {
@@ -65,7 +66,7 @@ const RequestModal = (props) => {
   const [isPending, setPending] = React.useState(
     props.request.status === "Pending"
   );
-  const ownerName = `${props.owner.firstname} ${props.owner.lastname}`;
+  const ownerName = props.owner.role === "Client" ?`${props.owner.firstname} ${props.owner.lastname}` : `${props.owner.name}`;
   console.log(props.request);
 
   const handleClickOpen = () => {
@@ -180,15 +181,17 @@ const RequestModal = (props) => {
               Cancel Request
             </Button>
             </>
-          ) : (
-            <Button
+          ) :
+            props.request.status === "In Progress" ? (
+              <MessageModal receiver={props.owner} handleClose={handleClose} text="Send Message"/>
+            ):(            <Button
               autoFocus
               /*onClick={handleRequestForm}*/ color="primary"
               disabled
             >
               Request {props.request.status}
-            </Button>
-          )}
+            </Button>)
+          }
         </DialogActions>
       </Dialog>
     </div>

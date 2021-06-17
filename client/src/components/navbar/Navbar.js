@@ -72,7 +72,9 @@ export default function Navbar() {
 		{
 			const decodedToken = decode(token); 
 			countMessagesById(JSON.parse(localStorage.getItem("profile")).result._id).then((res)=>{
+				if(messagesCount !== res.data){
 				setMessagesCount(res.data)
+				}
 				setLoading(false)
 			})
 			if(decodedToken.exp * 1000  < new Date().getTime())
@@ -81,7 +83,7 @@ export default function Navbar() {
 			}
 		}
 		setUser(JSON.parse(localStorage.getItem('profile')));
-	},[location]);
+	},[location,messagesCount]);
 
 	
 	const logout=()=>

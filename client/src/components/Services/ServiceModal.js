@@ -77,7 +77,7 @@ const ServiceModal = (props)=> {
   return (
     <div>
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Learn More
+        Request
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth="md" fullWidth>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
