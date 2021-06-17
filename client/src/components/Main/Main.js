@@ -1,14 +1,14 @@
 import  React, { Component,useState } from 'react'
 import  Banner from './Banner';
 import  Funclist from './FuncList';
-import  Clientreview from '../Users/Clientreview';
+import  Clientreview from '../Comments/Clientreview';
 import  Featurepart from '../Featurepart';
 import  Subscribe from '../Subscribe';
 import  Trendingitem from '../Trendingitem';
 import  Category from '../category/Category';
 import  FileUpload from '../Profile/Forms/FileUpload';
 import ControlledCarousel from '../../_utils/Carousel';
-
+import SiteReview from '../Comments/SiteReview';
 
 const Main = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -17,16 +17,15 @@ const Main = () => {
         <div>
                 <Banner/> 
                 <Funclist/>
+                <Clientreview/>
                 {user? (
-                    <div >
-                     <Clientreview/>
-                    <div className="container" style={{paddingTop:"50px"}}>                      
+                    <div className="container" style={{paddingTop:"50px"}}>                                      
                         <Category/>
-                    </div>
                     </div>
                 ) : (
                   null
                 )}
+                <SiteReview/>
                 <br/>
                 {/*<Productlist/>*/}
                 {/*<Trendingitem/> */}

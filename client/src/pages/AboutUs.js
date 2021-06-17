@@ -39,31 +39,31 @@ const AboutUs = ()=> {
                 -Our Staff-</h3>
                 <br/><br/>
                 <div  style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-                    <div>
+                    <div className="col-md-4">
                         <img src={window.location.origin + '/img/Man.png'} />
                         <figure>
                             <blockquote >
-                                <p style={{paddingRight:'20px',fontSize:'1.2vw'}}>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</p>
+                                <p style={{fontSize:'1.2vw'}}>"One of the biggest problems that software developers face is that technology changes rapidly. It is very hard to stay current."</p>
                             </blockquote>
-                            <figcaption style={{fontSize:'1.2vw'}}>—Aldous Huxley, <cite>Brave New World</cite></figcaption>
+                            <figcaption style={{fontSize:'1.2vw'}}>—Jerbi Youssef, <cite>ServSec</cite></figcaption>
                         </figure>
                     </div>
-                    <div>
+                    <div className="col-md-4">
                         <img src={window.location.origin + '/img/Man.png'} />
                          <figure>
                             <blockquote >
-                                <p style={{paddingRight:'20px',fontSize:'1.2vw'}}>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</p>
+                                <p style={{paddingRight:'20px',fontSize:'1.2vw'}}>"Focus on the solution, not on the problem"</p>
                             </blockquote>
-                            <figcaption style={{fontSize:'1.2vw'}}>—Aldous Huxley, <cite>Brave New World</cite></figcaption>
+                            <figcaption style={{fontSize:'1.2vw'}}>—Boujmil Aymen, <cite>ServSec</cite></figcaption>
                       </figure>
                     </div>
                     <div>
                     <img src={window.location.origin + '/img/Man.png'} />
                     <figure>
                     <blockquote>
-                        <p style={{fontSize:'1.2vw'}}>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</p>
+                        <p style={{fontSize:'1.2vw'}}>"The greatest performance improvement of all is when a system goes from not-working to working."</p>
                     </blockquote>
-                    <figcaption style={{fontSize:'1.2vw'}}>—Aldous Huxley, <cite>Brave New World</cite></figcaption>
+                    <figcaption style={{fontSize:'1.2vw'}}>—Mahjoub Hamza, <cite>ServSec</cite></figcaption>
               </figure>
                     </div>
                 </div>

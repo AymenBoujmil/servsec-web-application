@@ -1,5 +1,6 @@
 import React,{useEffect} from 'react';
 import {useSelector} from 'react-redux';
+import {Redirect} from 'react-router-dom'
 import './category.css';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -13,6 +14,11 @@ useEffect(()=>{
 	const handleClick=(id) =>{
 		
 	}
+	const user=JSON.parse(localStorage.getItem('profile'));
+	if (user === null)
+	return(
+	  <Redirect to="/"></Redirect> 
+	)
 	return (
 		<section /*className="trending_items" */ style={{paddingTop:"50px"}} id="categoryList">
 		<div class='service' data-aos="fade-up">

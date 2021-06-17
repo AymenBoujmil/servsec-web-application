@@ -34,6 +34,14 @@ export const FETCH_ALL_REQUESTS='FETCH_ALL_REQUESTS';
 // Contact actions
 export const CREATE_CONTACT='CREATE_CONTACT';
 
+// Reviews actions
+export const CREATE_REVIEW='CREATE_REVIEW';
+export const FETCH_ALL_REVIEWS="FETCH_ALL_REVIEWS";
+
+// Service Reviews actions
+export const CREATE_SERVICEREVIEW='CREATE_SERVICEREVIEW';
+export const FETCH_ALL_SERVICEREVIEWS="FETCH_ALL_SERVICEREVIEWS";
+export const DELETE_SERVICEREVIEW="DELETE_SERVICEREVIEW";
 // messages actions
 export const CREATE_MESSAGE='CREATE_MESSAGE';
 export const UPDATE_MESSAGE='UPDATE_MESSAGE';

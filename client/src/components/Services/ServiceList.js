@@ -30,9 +30,7 @@ function ServiceList() {
 
   useEffect(() => {
     AOS.init()
-    console.log("sending");
     Promise.all([api.fetchServices()]).then((res) => {
-      console.log("response", res);
       setServices(res[0].data);
       setLoading(false);
     });
@@ -56,11 +54,11 @@ function ServiceList() {
         {/*<MostRequested />*/}
         <Grid
           container
-          spacing={Number(12)}
-          style={{ margin: "0 auto", width: "95%" }}
+          spacing={Number(3)}
+          alignItems="stretch"
         >
           {val.map((value) => (
-            <Grid key={value._id} item xs={3}>
+            <Grid key={value._id} item xs={3}  >
               <ServiceItem service={value} />
             </Grid>
           ))}
