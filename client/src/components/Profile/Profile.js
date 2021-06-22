@@ -56,7 +56,7 @@ function Profile() {
                         <Route path="/Update"
                         component={Update}
                         ></Route>
-                        <button class="btn btn-outline-primary">Message</button>
+                        {/*<button class="btn btn-outline-primary">Message</button>*/}
                       </div>
                     </div>
                   </div>

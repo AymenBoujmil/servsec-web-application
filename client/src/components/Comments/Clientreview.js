@@ -3,9 +3,10 @@ import './Clientreview.css';
 import React , {useState,useEffect} from 'react';
 import {fetchReviews } from '../../api';
 import { date } from 'yup/lib/locale';
-
+import {useLocation} from 'react-router-dom';
 
 function Clientreview () {
+        const location = useLocation();
         const [reviews, setReviews] = useState(null)
         const [loading,setLoading] = useState(true)
         useEffect(()=>{
@@ -15,7 +16,7 @@ function Clientreview () {
                 setLoading(false);
                 }
                 )
-        },[])
+        },[location])
         if(loading)  return <div> loading ... </div>
         const getDate=(timestamp)=>
         {

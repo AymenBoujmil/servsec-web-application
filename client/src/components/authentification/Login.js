@@ -43,7 +43,7 @@ function Login() {
 
   const serverMessage = useSelector(state => state.message? state.message : null);
 
-  const user= JSON.parse(localStorage.getItem("profile")).result;
+  const user= JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
     clear();
